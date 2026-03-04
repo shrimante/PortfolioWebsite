@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #ffffff; /* Clean white background */
+  --color-secondary: #f8fafc; /* Very light slate for alternating sections */
+  --color-accent: #2563eb; /* Professional deep blue */
+  --color-accent-muted: #1d4ed8; /* Darker blue for hover states */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  
+  --shadow-premium: 0 4px 6px -1px rgba(37, 99, 235, 0.1), 0 2px 4px -1px rgba(37, 99, 235, 0.06);
+  --shadow-premium-hover: 0 10px 15px -3px rgba(37, 99, 235, 0.15), 0 4px 6px -2px rgba(37, 99, 235, 0.05);
+}
+
+@layer base {
+  body {
+    @apply bg-primary text-slate-600 font-sans selection:bg-accent selection:text-white;
+  }
+
+  [dir="rtl"] {
+    --font-sans: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-slate-900 tracking-tight;
+  }
+}
+
+/* Custom Utilities */
+.glass {
+  @apply bg-white/80 backdrop-blur-md border border-slate-200 shadow-sm rounded-2xl;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-accent to-blue-400 bg-clip-text text-transparent;
+}
+
+.btn-primary {
+  @apply px-8 py-4 bg-accent text-white font-bold rounded-lg transition-all 
+         hover:bg-accent-muted hover:shadow-premium-hover active:scale-95;
+}
+
+.btn-secondary {
+  @apply px-8 py-4 bg-white text-slate-700 border border-slate-200 font-semibold rounded-lg 
+         transition-all hover:bg-slate-50 hover:border-slate-300 shadow-sm;
+}

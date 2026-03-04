@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  primaryCTA: {
+    text: string;
+    link: string;
+  };
+  secondaryCTA?: {
+    text: string;
+    link: string;
+  };
+}
+
+const { title, subtitle, primaryCTA, secondaryCTA } = Astro.props;
+---
+
+<section class="py-20 bg-slate-900 overflow-hidden relative">
+  <!-- Decorative background -->
+  <div class="absolute top-0 left-0 w-full h-full opacity-10">
+    <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-accent rounded-full blur-[120px] -translate-y-1/2"></div>
+    <div class="absolute top-1/2 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-[120px] -translate-y-1/2"></div>
+  </div>
+
+  <div class="container mx-auto px-6 relative z-10 text-center">
+    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tighter italic">
+      {title}
+    </h2>
+    {subtitle && (
+      <p class="text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-outfit">
+        {subtitle}
+      </p>
+    )}
+    
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <a 
+        href={primaryCTA.link} 
+        class="w-full sm:w-auto px-8 py-4 bg-accent text-white font-bold rounded-xl hover:bg-accent-muted transition-all shadow-xl shadow-accent/20 text-xs uppercase tracking-widest text-center"
+      >
+        {primaryCTA.text}
+      </a>
+      
+      {secondaryCTA && (
+        <a 
+          href={secondaryCTA.link} 
+          class="w-full sm:w-auto px-8 py-4 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 transition-all border border-white/10 text-xs uppercase tracking-widest text-center"
+        >
+          {secondaryCTA.text}
+        </a>
+      )}
+    </div>
+  </div>
+</section>

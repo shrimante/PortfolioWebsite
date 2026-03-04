@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan for Arabic localization (i18n) of the portfolio website. This includes configuring Astro for multi-language support, implementing RTL (Right-to-Left) styling, translating core site content, and adding a language switcher.",
+  "updatedAt":  "2026-03-03T05:20:37.762177300Z"
+}

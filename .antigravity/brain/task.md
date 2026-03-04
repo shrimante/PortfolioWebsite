@@ -1,0 +1,40 @@
+# Website Localization to Arabic
+
+## Completed
+- [x] Configure Astro i18n for Arabic locale
+- [x] Implement RTL (Right-to-Left) support in layouts and components
+- [x] Integrate language switcher (EN/AR) in navigation
+- [x] Localize core site configuration (`site-ar.ts`)
+- [x] Localize content collections:
+    - [x] Projects (Arabic translations with English keywords preserved)
+    - [x] Readings (Arabic translations of architectural books)
+- [x] Localize static pages:
+    - [x] Homepage (`/ar/index.astro`)
+    - [x] About (`/ar/about.astro`)
+    - [x] Leadership (`/ar/leadership.astro`)
+    - [x] Resume (`/ar/resume.astro`)
+    - [x] Contact (`/ar/contact.astro`)
+    - [x] Readings (`/ar/readings.astro`)
+    - [x] Accelerators (`/ar/accelerators.astro`)
+- [x] Localize dynamic routes:
+    - [x] Work/Projects index and detail pages
+- [x] Localize specific case studies:
+    - [x] Enterprise API Strategy & Governance
+    - [x] ESB to MuleSoft Migration
+    - [x] Hybrid MuleSoft Platform: RTF on OpenShift
+- [x] Localize technical diagrams:
+    - [x] Hybrid RTF Architecture
+    - [x] MuleSoft Security Model
+    - [x] Solace Event Topology
+    - [x] API Lifecycle Blueprint
+- [x] Make UI components locale-aware:
+    - [x] `Hero.astro`
+    - [x] `CaseStudyCard.astro`
+    - [x] `ArchitectureGallery.astro`
+    - [x] `MetricsStrip.astro`
+    - [x] `BaseLayout.astro` (Navbar & Footer)
+- [x] Conduct final verification and testing
+- [x] Fix build failures (path resolution, rendering bugs, and route collisions)
+- [x] Pre-render Content components for Readings items
+- [x] Filter localized content in English dynamic routes
+- [x] Push all changes to GitHub

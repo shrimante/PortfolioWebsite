@@ -1,0 +1,75 @@
+---
+import { siteConfig } from '../config/site';
+import { siteConfigAr } from '../config/site-ar';
+
+const currentLocale = Astro.currentLocale || 'en';
+const config = currentLocale === 'ar' ? siteConfigAr : siteConfig;
+const isRtl = currentLocale === 'ar';
+---
+
+<section class="relative overflow-hidden pt-32 pb-24 md:pt-48 md:pb-32">
+  <!-- Decorative background element -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full -z-10 opacity-20 pointer-events-none">
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-accent/20 via-transparent to-transparent blur-[120px]"></div>
+  </div>
+
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:text-left text-center">
+      <div class="flex-1">
+        <div class="inline-flex items-center gap-2 px-4 py-2 mb-10 text-[10px] font-bold tracking-[0.2em] text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+          </span>
+          {isRtl ? 'متاح لأدوار وفرص جديدة' : 'Open to New Roles & Opportunities'}
+        </div>
+
+        <h1 class="text-4xl md:text-7xl font-bold tracking-tight text-slate-900 mb-8 leading-[1.1]">
+          {config.title.split(' | ')[0]} <br />
+          <span class="text-gradient font-serif italic font-normal tracking-normal">{config.title.split(' | ')[1]}</span>
+        </h1>
+
+        <p class="max-w-3xl mx-auto lg:mx-0 text-lg md:text-xl text-slate-600 leading-relaxed mb-12">
+          {config.tagline}
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start items-center">
+          <a href={config.resumePath} class="btn-primary flex items-center gap-3 w-full sm:w-auto" download>
+            <span>{isRtl ? 'تحميل السيرة الذاتية (PDF)' : 'Download Resume (PDF)'}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </a>
+          <a href="#case-studies" class="btn-secondary w-full sm:w-auto">
+            {isRtl ? 'عرض 3 دراسات حالة' : 'View 3 Case Studies'}
+          </a>
+        </div>
+      </div>
+
+      {siteConfig.headshot?.enabled && (
+        <div class="relative order-first lg:order-last shrink-0">
+          <div class="w-24 h-24 md:w-32 md:h-32 rounded-full p-1.5 bg-gradient-to-br from-accent/20 to-transparent shadow-premium ring-1 ring-slate-200 overflow-hidden">
+            <img 
+              src={siteConfig.headshot.src} 
+              alt={siteConfig.headshot.alt} 
+              class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-700"
+              loading="eager"
+            />
+          </div>
+          <!-- Subtle glow effect behind photo -->
+          <div class="absolute inset-0 bg-accent/20 blur-2xl -z-10 rounded-full"></div>
+        </div>
+      )}
+    </div>
+
+    <div class="mt-20 flex justify-center lg:justify-start items-center gap-6 text-[11px] font-bold uppercase tracking-widest text-slate-500">
+      <div class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        {config.location}
+      </div>
+      <div class="w-1 h-1 bg-slate-300 rounded-full"></div>
+      <div class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        {config.timezone} {isRtl ? 'المنطقة الزمنية' : 'Timezone'}
+      </div>
+    </div>
+  </div>
+</section>

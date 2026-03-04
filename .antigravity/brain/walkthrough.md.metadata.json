@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Updated walkthrough documenting the successful Arabic localization and the subsequent resolution of build errors. Detailed fixes for path resolution in case studies, rendering logic in readings pages, and dynamic route collisions are included. All sites now build and function correctly.",
+  "updatedAt":  "2026-03-03T07:32:10.162080500Z",
+  "version":  "5"
+}

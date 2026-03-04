@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfigAr } from '../../config/site-ar';
+
+const config = siteConfigAr;
+
+const skillGroups = [
+  {
+    category: "القيادة الاستراتيجية",
+    items: ["هندسة المنصات (RTF/CloudHub)", "حوكمة الـ API والأمن", "نموذج تشغيل التسليم", "الميزانية (مبادرات بقيمة +10 مليون دولار)", "تخطيط الموارد وسجلات القرارات المعمارية (ADR)"]
+  },
+  {
+    category: "النظام البيئي التقني",
+    items: ["MuleSoft Anypoint Platform", "Runtime Fabric (RTF) on OpenShift", "Solace Event-Driven Architecture", "مراقبة Splunk / ELK / Anypoint", "أتمتة GitLab CI/CD"]
+  },
+  {
+    category: "الأمن والامتثال",
+    items: ["OAuth2 / OIDC", "mTLS / TLS 1.3", "RBAC & Scopes", "دليل إجراءات التعافي من الكوارث (DR Playbooks)", "أنماط الامتثال لـ SOC2 / HIPAA"]
+  }
+];
+---
+
+<BaseLayout title={`السيرة الذاتية | ${config.name}`}>
+	<section class="container mx-auto px-6 py-24 max-w-5xl print:py-0 print:px-0 print:mx-0 print:max-w-none">
+		<!-- Header Actions (Hidden in Print) -->
+		<div class="flex justify-end gap-4 mb-8 print:hidden">
+			<button onclick="window.print()" class="px-6 py-3 bg-white border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-slate-50 shadow-sm transition-all flex items-center gap-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+				حفظ كملف PDF
+			</button>
+		</div>
+
+		<!-- Resume Content -->
+		<div class="bg-white p-12 md:p-16 rounded-[40px] border border-slate-200 shadow-sm print:bg-transparent print:p-0 print:border-none text-right">
+			
+			<!-- Executive Header -->
+			<div class="flex flex-col md:flex-row-reverse justify-between items-start md:items-center gap-8 border-b border-slate-200 pb-12 mb-12 print:border-slate-200 print:pb-8 print:mb-8">
+				<div>
+					<h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-3 print:text-black tracking-tighter">سريمان تيروباثي إيشوارابا</h1>
+					<p class="text-xl text-accent font-bold print:text-blue-700 uppercase tracking-wide">مدير مشارك - التكامل وأنظمة المنصات البيئية</p>
+				</div>
+				<div class="text-right text-slate-400 text-sm space-y-1 print:text-slate-600 font-medium">
+					<p class="flex items-center justify-end gap-2">
+						{config.location}
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+					</p>
+					<p class="flex items-center justify-end gap-2">
+						shrimante@gmail.com
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+					</p>
+					<p class="flex items-center justify-end gap-2">
+						linkedin.com/in/srimaneshwar
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+					</p>
+				</div>
+			</div>
+
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+				<!-- Main Body: 8 columns -->
+				<div class="lg:col-span-8 space-y-16">
+					
+					<!-- Summary -->
+					<section>
+						<h2 class="text-[10px] uppercase font-bold tracking-[0.25em] text-slate-500 mb-6 pb-2 border-b border-slate-200">الملخص التنفيذي</h2>
+						<p class="text-slate-700 text-lg leading-relaxed print:text-slate-800">
+							قائد هندسي بخبرة تزيد عن **18 عامًا** متخصص في منصات التكامل واسعة النطاق وحوكمة الـ **API**. سجل حافل في بناء وتشغيل أنظمة **MuleSoft** الهجينة (**Runtime Fabric on OpenShift**) التي تخدم **أكثر من 5 ملايين عضو**. يركز على دفع تحسينات بنسبة 40% في سرعة النشر وتحقيق وفورات سنوية بملايين الدولارات من خلال تحديث الأنظمة القديمة وهندسة المنصات الاستراتيجية.
+						</p>
+					</section>
+
+					<!-- Experience -->
+					<section>
+						<h2 class="text-[10px] uppercase font-bold tracking-[0.25em] text-slate-500 mb-10 pb-2 border-b border-slate-200">الخبرة المهنية</h2>
+						
+						<div class="space-y-12">
+							<!-- RedSeaGlobal -->
+							<div class="relative pr-8 border-r border-accent/20">
+								<div class="absolute -right-[5px] top-2 w-[9px] h-[9px] bg-accent rounded-full"></div>
+								<div class="flex flex-col md:flex-row-reverse justify-between items-start mb-2 gap-2">
+									<h3 class="text-xl font-bold text-slate-900 print:text-black">رئيس مهندسين معمارين | قائد منصة</h3>
+									<span class="text-xs font-bold text-slate-500 uppercase tracking-widest">2024 – الحاضر</span>
+								</div>
+								<p class="text-accent font-bold mb-4 print:text-blue-700 text-right">Red Sea Global (عبر J2W)</p>
+								<ul class="space-y-3 text-slate-600 text-sm print:text-slate-700">
+									<li class="flex flex-row-reverse gap-3">
+										<span class="text-accent">•</span>
+										<span>تصميم وتسليم منصة **MuleSoft** الهجينة (**RTF on OpenShift + F5**) مع أتمتة **GitLab CI/CD**، لتخدم أكثر من 120 واجهة برمجة تطبيقات (**API**) في الإنتاج.</span>
+									</li>
+									<li class="flex flex-row-reverse gap-3">
+										<span class="text-accent">•</span>
+										<span>تنفيذ بنية **Solace** القائمة على الأحداث (**Event-Driven Architecture**) للمزامنة الفورية عبر مجالات الخدمات اللوجستية الدولية والضيافة.</span>
+									</li>
+									<li class="flex flex-row-reverse gap-3">
+										<span class="text-accent">•</span>
+										<span>تحقيق نسبة تشغيل للمنصة بلغت **99.9%** مع دعم البنية التحتية رفيعة المستوى لخدمات الأعضاء المميزين التي تخدم أكثر من 5 ملايين مستخدم.</span>
+									</li>
+								</ul>
+							</div>
+
+							<!-- HealthFirst -->
+							<div class="relative pr-8 border-r border-slate-200">
+								<div class="absolute -right-[5px] top-2 w-[9px] h-[9px] bg-slate-300 rounded-full"></div>
+								<div class="flex flex-col md:flex-row-reverse justify-between items-start mb-2 gap-2">
+									<h3 class="text-xl font-bold text-slate-900 print:text-black">مدير هندسي | تسليم التكامل</h3>
+									<span class="text-xs font-bold text-slate-500 uppercase tracking-widest">2017 – 2024</span>
+								</div>
+								<p class="text-accent font-bold mb-4 print:text-blue-700 text-right">Virtusa | العميل: HealthFirst</p>
+								<ul class="space-y-3 text-slate-600 text-sm print:text-slate-700">
+									<li class="flex flex-row-reverse gap-3">
+										<span class="text-accent">•</span>
+										<span>قيادة عملية الانتقال من **ESB** إلى **MuleSoft** (من Informatica إلى Anypoint)، مما أدى إلى تحقيق وفورات سنوية تزيد عن **250 ألف دولار** وتقليل دورات الإصدار بنسبة 25%.</span>
+									</li>
+									<li class="flex flex-row-reverse gap-3">
+										<span class="text-accent">•</span>
+										<span>إدارة وتوجيه فريق يضم أكثر من **15 مهندسًا**، مما دفع إلى تحسين سرعة الإنجاز (**sprint velocity**) بنسبة 18% من خلال التميز التشغيلي.</span>
+									</li>
+									<li class="flex flex-row-reverse gap-3">
+										<span class="text-accent">•</span>
+										<span>مواءمة خرائط طريق تسليم التكامل مع مبادرات الأعمال الاستراتيجية التي تتجاوز ميزانيتها السنوية **10 ملايين دولار**.</span>
+									</li>
+								</ul>
+							</div>
+
+							<!-- UIDAI -->
+							<div class="relative pr-8 border-r border-slate-200">
+								<div class="absolute -right-[5px] top-2 w-[9px] h-[9px] bg-slate-300 rounded-full"></div>
+								<div class="flex flex-col md:flex-row-reverse justify-between items-start mb-2 gap-2">
+									<h3 class="text-xl font-bold text-slate-900 print:text-black">استشاري تقني</h3>
+									<span class="text-xs font-bold text-slate-500 uppercase tracking-widest">2011 – 2013</span>
+								</div>
+								<p class="text-accent font-bold mb-4 print:text-blue-700 text-right">Daon India | العميل: UIDAI (Aadhaar)</p>
+								<ul class="space-y-3 text-slate-600 text-sm print:text-slate-700">
+									<li class="flex flex-row-reverse gap-3">
+										<span class="text-accent">•</span>
+										<span>تصميم طبقات إدارة الوصول والهوية لأكبر مشروع بيومتري في العالم، مع وضع هندسة معمارية تتحمل الأحجام الهائلة وزمن الاستجابة.</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+					<!-- Impact Bullets (Metrics Strip Version) -->
+					<section class="grid grid-cols-2 md:grid-cols-3 gap-6 pt-8 print:hidden">
+						{config.metrics.map(m => (
+							<div class="glass p-6 rounded-2xl text-center shadow-sm">
+								<div class="text-2xl font-bold text-slate-900 mb-1">{m.value}</div>
+								<div class="text-[9px] uppercase tracking-widest text-slate-500 font-bold">{m.label}</div>
+							</div>
+						))}
+					</section>
+				</div>
+
+				<!-- Sidebar: 4 columns -->
+				<div class="lg:col-span-4 space-y-16">
+					
+					<!-- Strategic Expertise -->
+					<section>
+						<h2 class="text-[10px] uppercase font-bold tracking-[0.25em] text-slate-500 mb-8 pb-2 border-b border-slate-200">الخبرة الاستراتيجية</h2>
+						<div class="space-y-6">
+							{skillGroups.map(group => (
+								<div>
+									<h3 class="text-slate-900 text-xs font-bold uppercase tracking-widest mb-4 flex items-center justify-end gap-2 text-right">
+										{group.category}
+										<span class="w-1.5 h-1.5 bg-accent rounded-full"></span>
+									</h3>
+									<ul class="space-y-2">
+										{group.items.map(item => (
+											<li class="text-slate-600 text-xs px-3 py-2 bg-slate-50 rounded-lg border border-slate-200 text-right">{item}</li>
+										))}
+									</ul>
+								</div>
+							))}
+						</div>
+					</section>
+
+					<!-- Leadership Scope -->
+					<section>
+						<h2 class="text-[10px] uppercase font-bold tracking-[0.25em] text-slate-500 mb-8 pb-2 border-b border-slate-200">نطاق القيادة</h2>
+						<div class="space-y-4">
+							<div class="glass p-6 rounded-3xl shadow-sm">
+								<div class="text-3xl font-bold text-slate-900 mb-1 text-center">15+</div>
+								<div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold text-center">مهندس تحت الإدارة</div>
+							</div>
+							<div class="glass p-6 rounded-3xl shadow-sm">
+								<div class="text-3xl font-bold text-slate-900 mb-1 text-center">120+</div>
+								<div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold text-center">API في الإنتاج</div>
+							</div>
+							<div class="glass p-6 rounded-3xl shadow-sm">
+								<div class="text-3xl font-bold text-slate-900 mb-1 text-center">$10M+</div>
+								<div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold text-center">مبادرات المشاريع</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Education & Certs -->
+					<section>
+						<h2 class="text-[10px] uppercase font-bold tracking-[0.25em] text-slate-500 mb-8 pb-2 border-b border-slate-200">التعليم</h2>
+						<div class="text-right">
+							<h3 class="text-slate-900 font-bold text-sm">بكالوريوس هندسة</h3>
+							<p class="text-slate-500 text-[11px] mb-1">إلكترونيات واتصالات</p>
+							<p class="text-accent text-[10px] font-bold uppercase tracking-widest">VTU، الهند (2006)</p>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer Contact (Print Only) -->
+		<div class="hidden print:block mt-12 pt-8 border-t border-slate-200 text-center text-slate-400 text-xs italic">
+			المراجع متاحة عند الطلب. تم التحسين لتسليم تكامل عالي الدقة وموثوقية المنصة.
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	@media print {
+		:global(body) {
+			background-color: white !important;
+			color: #0f172a !important; /* slate-900 */
+		}
+		@page {
+			margin: 1.5cm;
+		}
+	}
+</style>

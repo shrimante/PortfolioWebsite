@@ -1,0 +1,248 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import MetricsStrip from '../components/MetricsStrip.astro';
+import ImpactCard from '../components/ImpactCard.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import ArchitectureGallery from '../components/ArchitectureGallery.astro';
+import { siteConfig } from '../config/site';
+
+const leadershipImpact = [
+  { title: "Team Leadership", description: "Managed and mentored 30+ engineers across multiple engagements, driving an 18% improvement in sprint velocity through operational excellence.", icon: "users" },
+  { title: "Velocity & Delivery", description: "Aligned integration roadmaps to $10M+ strategic initiatives, reducing release cycles by 25%.", icon: "trendingUp" },
+  { title: "Financial Impact", description: "Modernized legacy systems (ESB to MuleSoft), realizing $250K in annual savings and saving 3 weeks per cycle.", icon: "dollarSign" }
+];
+---
+
+<BaseLayout>
+  <Hero />
+  <MetricsStrip />
+
+  <!-- What I Own Section -->
+  <section class="py-24 bg-primary relative" id="ownership">
+    <div class="container mx-auto px-6">
+      <div class="mb-16">
+        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tighter">Operating at Associate Director Scope</h2>
+        <p class="text-slate-600 max-w-2xl text-lg">Platform strategy, governance at scale, and business-focused reliability engineering.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {siteConfig.ownership.map(item => (
+          <ImpactCard 
+            title={item.title} 
+            description={item.description} 
+            icon={item.icon} 
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Regional Focus -->
+  <section class="py-12 bg-slate-900 overflow-hidden relative">
+    <div class="container mx-auto px-6">
+      <div class="glass p-8 md:p-12 border border-white/10 bg-white/5 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 group">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 text-[9px] font-bold tracking-widest text-accent uppercase bg-accent/10 rounded-full border border-accent/20">
+            Regional Focus: UAE
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter italic">
+            Integration Leadership in Dubai & Abu Dhabi
+          </h2>
+          <p class="text-slate-400 text-lg font-outfit">
+            Specialized in hybrid cloud governance (CloudHub 2.0 + RTF on OpenShift) for regulated UAE enterprises.
+          </p>
+        </div>
+        <a href="/uae-integration-hub-mulesoft" class="px-8 py-4 bg-accent text-white font-bold rounded-xl hover:bg-accent-muted transition-all shadow-xl shadow-accent/20 text-xs uppercase tracking-widest text-center whitespace-nowrap">
+          Explore UAE Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies Section -->
+  <section class="py-24 bg-secondary/20" id="case-studies">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tighter">Impact in Production</h2>
+          <p class="text-slate-600 max-w-xl text-lg">Case studies detailing the architecture, governance, and results of high-stakes integration programs.</p>
+        </div>
+        <div class="flex items-center gap-2 text-accent text-[10px] uppercase font-bold tracking-widest px-4 py-2 border border-accent/20 rounded-full">
+           <span class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
+           3 Validated Narratives
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {siteConfig.caseStudies.map(study => (
+          <CaseStudyCard 
+            id={study.id}
+            title={study.title}
+            teaser={study.teaser}
+            image={study.image}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ArchitectureGallery />
+
+  <!-- Leadership Section -->
+  <section class="py-24 bg-primary" id="leadership">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div>
+          <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-6">People & Delivery</div>
+          <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-8 tracking-tighter">Leading Teams. <br/> Accelerating Value.</h2>
+          <p class="text-slate-600 text-lg leading-relaxed mb-12">
+            I build high-performing engineering cultures by focusing on mentorship, quality gates, and automated delivery models. My leadership ensures that technical excellence translates directly into business velocity.
+          </p>
+          <div class="flex flex-col gap-6 mb-8">
+             {leadershipImpact.map(item => (
+                <div class="flex gap-4">
+                   <div class="text-accent mt-1 flex-shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                   </div>
+                   <div>
+                      <h4 class="text-slate-900 font-bold mb-1 uppercase text-[11px] tracking-wider">{item.title}</h4>
+                      <p class="text-slate-600 text-sm">{item.description}</p>
+                   </div>
+                </div>
+             ))}
+          </div>
+
+          <a href="/leadership" class="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-slate-50 border border-slate-200 text-slate-900 text-[10px] uppercase font-bold tracking-widest rounded-lg transition-all shadow-sm group">
+            Dive into my team structure
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+        
+        <div class="glass p-1 rounded-[40px] overflow-hidden">
+           <div class="bg-white p-12 rounded-[38px] relative">
+              <!-- Leadership Metric Card -->
+              <div class="grid grid-cols-2 gap-x-6 gap-y-10 items-stretch">
+                 {siteConfig.leadership.map(item => (
+                    <div class="flex flex-col h-full">
+                       <div class="text-3xl font-extrabold text-slate-900 mb-3 leading-tight tracking-tighter pr-2">{item.value}</div>
+                       <div class="text-[10px] uppercase font-bold tracking-[0.15em] text-slate-400 mt-auto">{item.label}</div>
+                    </div>
+                 ))}
+                 <div class="col-span-2 space-y-12">
+                   {siteConfig.recommendations.map((rec, index) => (
+                     <div class={`pt-8 ${index !== 0 ? 'border-t border-slate-100' : ''}`}>
+                       <p class="text-slate-600 italic text-sm mb-4">"{rec.text}"</p>
+                       <div class="flex items-center gap-3">
+                         <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500 border border-slate-200">
+                           {rec.name.split(' ').map(n => n[0]).join('')}
+                         </div>
+                         <div>
+                            <div class="text-[10px] uppercase font-bold tracking-widest text-slate-900">{rec.name}</div>
+                            <div class="text-[9px] text-slate-500 uppercase tracking-tighter">{rec.title}</div>
+                         </div>
+                       </div>
+                     </div>
+                   ))}
+                   <div class="pt-6 border-t border-slate-100">
+                      <div class="inline-flex items-center gap-2 text-accent text-[9px] uppercase font-bold tracking-[0.2em]">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                         Verified via LinkedIn
+                      </div>
+                   </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Engineering Accelerators Section -->
+  <section class="py-24 bg-secondary/10 border-t border-slate-200" id="accelerators">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-6">Open Source & Automation</div>
+          <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-8 tracking-tighter">Accelerating Delivery <br/> Through Automation.</h2>
+          <p class="text-slate-600 text-lg leading-relaxed mb-8">
+            I maintain a suite of 18+ engineering accelerators designed to eliminate redundant work and enforce architectural standards across integration programs. From CI/CD templates to security baselines, these assets ensure high-quality delivery at speed.
+          </p>
+          <a href="/accelerators" class="btn-primary inline-flex">
+            Explore 18+ Accelerators
+          </a>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          {siteConfig.accelerators.slice(0, 4).map(acc => (
+            <div class="glass p-6 rounded-xl border border-slate-200 bg-white/50 space-y-3">
+              <div class="text-accent">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path></svg>
+              </div>
+              <div class="text-xs font-bold text-slate-900 uppercase tracking-wider">{acc.title}</div>
+              <div class="text-[10px] text-slate-500 line-clamp-2">{acc.description}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certs & Contact -->
+  <section class="py-24 bg-white border-t border-slate-200">
+     <div class="container mx-auto px-6 text-center">
+        <h2 class="text-2xl font-bold mb-12 uppercase tracking-[0.2em] text-slate-500">Certifications & Expertise</h2>
+        <div class="flex flex-wrap justify-center gap-12 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+          {
+             [
+               { 
+                 name: 'MuleSoft Certified Integration Architect', 
+                 year: '2019',
+                 color: 'text-sky-600',
+                 svg: '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path><circle cx="12" cy="12" r="3"></circle>'
+               },
+               { 
+                 name: 'MuleSoft Certified Platform Architect', 
+                 year: '2019',
+                 color: 'text-sky-600',
+                 svg: '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>'
+               },
+               { 
+                 name: 'MuleSoft Certified Developer', 
+                 year: '2019',
+                 color: 'text-sky-600',
+                 svg: '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>'
+               },
+               { 
+                 name: 'AWS Machine Learning Specialty', 
+                 year: 'In Progress',
+                 color: 'text-orange-500',
+                 svg: '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>'
+               }
+             ].map(cert => (
+              <div class="flex flex-col items-center gap-4 group">
+                 <div class="w-20 h-20 bg-white border-2 border-slate-200 rounded-2xl flex items-center justify-center text-slate-400 group-hover:border-accent group-hover:shadow-lg transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" class={`group-hover:${cert.color} transition-colors duration-300`} stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={cert.svg}></svg>
+                 </div>
+                 <div class="text-center max-w-[180px]">
+                    <div class="text-[11px] uppercase font-extrabold tracking-widest text-slate-900 group-hover:text-accent transition-colors mb-1 leading-tight">{cert.name}</div>
+                    <div class="text-[9px] uppercase tracking-[0.2em] text-slate-500 font-bold">{cert.year}</div>
+                 </div>
+              </div>
+           ))}
+        </div>
+     </div>
+  </section>
+
+  <section class="py-32 relative overflow-hidden bg-slate-50" id="contact">
+     <div class="absolute inset-0 bg-accent/5 blur-[150px] pointer-events-none"></div>
+     <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl md:text-6xl font-bold text-slate-900 mb-10 tracking-tighter">Ready to scale your <br/> API ecosystem?</h2>
+        <p class="text-slate-600 max-w-2xl mx-auto text-xl mb-12">I'm currently open to Associate Director and Platform Leadership roles. Let's discuss how I can drive reliability and delivery speed for your organization.</p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+           <a href={siteConfig.bookingLink} class="btn-primary">Book 15-Min Strategy Intro</a>
+           <a href={`mailto:${siteConfig.email}`} class="btn-secondary">Send Direct Inquiry</a>
+        </div>
+     </div>
+  </section>
+</BaseLayout>

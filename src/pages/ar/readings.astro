@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Fetch readings that start with ar/
+const readings = await Promise.all(
+	(await getCollection('readings', ({ id }) => id.startsWith('ar/'))).map(async (reading) => {
+		const { Content } = await reading.render();
+		return { ...reading, Content };
+	})
+);
+
+const statusMap: Record<string, string> = {
+	'Read': 'تمت القراءة',
+	'In Progress': 'قيد القراءة',
+	'To Read': 'للقراءة لاحقًا'
+};
+---
+
+<BaseLayout title="قراءات | سريمان تيروباثي إيشوارابا">
+	<section class="container mx-auto px-6 py-24 max-w-4xl text-right">
+		<h1 class="text-4xl font-bold text-slate-900 mb-12">قراءات <span class="text-gradient">معمارية</span></h1>
+		
+		<div class="space-y-8">
+			{readings.map(reading => (
+				<div class="glass p-10 rounded-3xl border border-slate-200 group hover:border-accent/40 shadow-sm transition-all">
+					<div class="flex flex-col md:flex-row-reverse justify-between items-start mb-6 gap-4">
+						<div class="flex-1">
+							<div class="flex items-center justify-start flex-row-reverse gap-3 mb-2">
+								<span class="text-[10px] font-black text-slate-500 uppercase tracking-widest bg-slate-100 px-3 py-1 rounded border border-slate-200">
+									{reading.data.category}
+								</span>
+								<span class="text-[10px] font-bold text-accent uppercase tracking-widest bg-accent/5 px-3 py-1 rounded border border-accent/10">
+									{statusMap[reading.data.status] || reading.data.status}
+								</span>
+							</div>
+							<h3 class="text-2xl font-bold text-slate-900 group-hover:text-accent transition-colors italic leading-snug tracking-tight">
+								"{reading.data.title}"
+							</h3>
+							<p class="text-slate-500 font-bold text-xs mt-2 uppercase tracking-widest">{reading.data.author}</p>
+						</div>
+						
+						{reading.data.rating && (
+							<div class="flex gap-1">
+								{[...Array(5)].map((_, i) => (
+									<svg 
+										xmlns="http://www.w3.org/2000/svg" 
+										width="14" 
+										height="14" 
+										viewBox="0 0 24 24" 
+										fill={i < reading.data.rating ? "currentColor" : "none"} 
+										stroke="currentColor" 
+										stroke-width="2" 
+										class={i < reading.data.rating ? "text-accent" : "text-slate-200"}
+									>
+										<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+									</svg>
+								))}
+							</div>
+						)}
+					</div>
+					<div class="prose prose-slate max-w-none text-slate-600 leading-relaxed text-right">
+						<reading.Content />
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+</BaseLayout>

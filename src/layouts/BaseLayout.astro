@@ -1,0 +1,132 @@
+---
+import '../styles/global.css';
+import { siteConfig } from '../config/site';
+import { siteConfigAr } from '../config/site-ar';
+
+const currentLocale = Astro.currentLocale || 'en';
+const isRtl = currentLocale === 'ar';
+const config = isRtl ? siteConfigAr : siteConfig;
+
+const { 
+  title = config.title,
+  description = isRtl 
+    ? "مدير مشارك – تكامل (MuleSoft) متخصص في المنصات الهجينة، وحوكمة الـ API، والتسليم القابل للتوسع."
+    : "Associate Director – Integrations (MuleSoft) specializing in hybrid platforms, API governance, and scalable delivery.",
+  image = "/og-image.jpg" // Placeholder
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://sriman.arch");
+const localePath = isRtl ? '/ar' : '';
+---
+
+<html lang={currentLocale} dir={isRtl ? 'rtl' : 'ltr'}>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- SEO -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- OpenGraph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url)} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+
+	</head>
+	<body class="min-h-screen flex flex-col bg-primary">
+		<!-- Sticky Header -->
+		<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200 py-4 shadow-sm">
+			<div class="container mx-auto px-6 flex justify-between items-center">
+				<a href={localePath || "/"} class="flex flex-col">
+					<span class="text-lg font-bold text-slate-900 tracking-tighter leading-none">SRIMAN.</span>
+					<span class="text-[10px] text-accent font-bold tracking-widest uppercase">{isRtl ? 'التكامل' : 'Integrations'}</span>
+				</a>
+				
+				<div class={`hidden lg:flex gap-8 items-center text-[11px] uppercase font-bold tracking-widest text-slate-500 ${isRtl ? 'ml-8' : 'mr-8'}`}>
+					<a href={`${localePath}/#ownership`} class="hover:text-accent transition-colors">{isRtl ? 'نطاق العمل' : 'Ownership'}</a>
+					<a href={`${localePath}/#case-studies`} class="hover:text-accent transition-colors">{isRtl ? 'الأثر' : 'Impact'}</a>
+					<a href={`${localePath}/#leadership`} class="hover:text-accent transition-colors">{isRtl ? 'القيادة' : 'Leadership'}</a>
+					<a href={`${localePath}/accelerators`} class="hover:text-accent transition-colors">{isRtl ? 'المسرعات' : 'Accelerators'}</a>
+				</div>
+
+				<div class="flex gap-3 items-center">
+					<!-- Language Switcher -->
+					<div class="flex bg-slate-100 p-1 rounded-lg border border-slate-200 mx-2">
+						<a 
+							href={isRtl ? Astro.url.pathname.replace(/^\/ar/, '') || '/' : '/ar' + (Astro.url.pathname === '/' ? '' : Astro.url.pathname)} 
+							class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-md bg-white shadow-sm text-accent hover:text-accent-muted transition-all"
+						>
+							{isRtl ? 'English' : 'العربية'}
+						</a>
+					</div>
+
+					<a href={config.resumePath} class="hidden sm:inline-flex px-4 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-[10px] uppercase font-bold tracking-wider rounded-md transition-all shadow-sm" download>
+						{isRtl ? 'تحميل السيرة الذاتية' : 'Download Resume'}
+					</a>
+					<a href={config.bookingLink} class="px-4 py-2 bg-accent hover:bg-accent-muted text-white text-[10px] uppercase font-bold tracking-wider rounded-md transition-all shadow-sm">
+						{isRtl ? 'احجز لقاءً' : 'Book Intro'}
+					</a>
+				</div>
+			</div>
+		</nav>
+
+		<main class="flex-grow">
+			<slot />
+		</main>
+
+		<!-- Floating Mobile CTA -->
+		<div class={`fixed bottom-6 ${isRtl ? 'left-6' : 'right-6'} z-50 sm:hidden`}>
+			<a href={config.resumePath} class="flex items-center justify-center w-14 h-14 bg-accent text-white rounded-full shadow-lg active:scale-95 transition-transform hover:bg-accent-muted" download aria-label={isRtl ? 'تحميل السيرة الذاتية' : 'Download Resume'}>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+			</a>
+		</div>
+
+		<footer class="bg-secondary border-t border-slate-200 pt-20 pb-10">
+			<div class="container mx-auto px-6">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+					<div class={isRtl ? 'text-right' : ''}>
+						<h3 class="text-xl font-bold mb-6 text-slate-900">{isRtl ? 'لننتواصل.' : "Let's connect."}</h3>
+						<p class="text-slate-600 mb-8 max-w-sm">
+							{isRtl 
+								? 'تحسين تسليم التكامل وموثوقية المنصة للأنظمة البيئية على نطاق المؤسسات.' 
+								: 'Optimizing integration delivery and platform reliability for enterprise-scale ecosystems.'}
+						</p>
+						<div class={`flex gap-4 ${isRtl ? 'flex-row-reverse justify-start' : ''}`}>
+							<a href={`mailto:${config.email}`} class="text-slate-500 hover:text-accent transition-colors font-medium">{isRtl ? 'البريد الإلكتروني' : 'Email'}</a>
+							<a href={config.linkedIn} class="text-slate-500 hover:text-accent transition-colors font-medium">{isRtl ? 'لينكد إن' : 'LinkedIn'}</a>
+						</div>
+					</div>
+					<div class={isRtl ? 'text-right' : ''}>
+						<h4 class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400 mb-6">{isRtl ? 'تصنيف الخبرات' : 'Expertise Taxonomy'}</h4>
+						<div class={`flex flex-wrap gap-x-6 gap-y-3 ${isRtl ? 'flex-row-reverse justify-start' : ''}`}>
+							{config.keywords.map(kw => (
+								<span class="text-sm font-semibold text-slate-700 hover:text-accent transition-colors cursor-default">{kw}</span>
+							))}
+						</div>
+					</div>
+				</div>
+				<div class={`pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-widest text-slate-400 font-bold ${isRtl ? 'md:flex-row-reverse' : ''}`}>
+					<p>© {new Date().getFullYear()} {config.name}</p>
+					<p>{isRtl ? 'بُني بمساعدة الذكاء الاصطناعي' : 'Built with AI Assistance'}</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

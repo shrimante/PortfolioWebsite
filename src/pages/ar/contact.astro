@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfigAr } from '../../config/site-ar';
+
+const config = siteConfigAr;
+---
+
+<BaseLayout title={`اتصل بي | ${config.name}`}>
+	<section class="container mx-auto px-6 py-24 max-w-2xl text-center">
+		<h1 class="text-4xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-10">ابق على <span class="text-gradient">تواصل</span></h1>
+		<p class="text-lg text-slate-600 mb-12 leading-relaxed">
+			متاح حاليًا لمناقشة قيادة الحوكمة المعمارية، أو استراتيجية تكامل المؤسسات، أو تحديثات الذكاء الاصطناعي.
+		</p>
+		
+		<div class="space-y-6">
+			<a href={`mailto:${config.email}`} class="block w-full btn-secondary !py-6 text-xl">
+				{config.email}
+			</a>
+			
+			<div class="pt-6">
+				<a href={config.linkedIn} target="_blank" rel="noopener noreferrer" class="group flex flex-col items-center gap-2">
+					<span class="text-slate-500 uppercase text-[10px] tracking-widest font-bold group-hover:text-slate-700 transition-colors">الشبكة المهنية</span>
+					<span class="text-accent italic font-semibold border-b border-accent/0 group-hover:border-accent/100 transition-all">عرض الملف الشخصي على LinkedIn ←</span>
+				</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

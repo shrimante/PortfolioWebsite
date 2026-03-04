@@ -1,0 +1,427 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../config/site';
+
+const title = "Technical Deep-Dive: Hybrid Integration Hub";
+const description = "A production-grade MuleSoft Integration Hub that standardizes connectivity, enables API reuse, and supports secure workloads across CloudHub 2.0 and Runtime Fabric on OpenShift.";
+
+const diagram = `graph TB
+    subgraph ControlPlane[Anypoint Platform Control Plane]
+        API_Manager[API Manager]
+        Exchange[Exchange]
+        Runtime_Manager[Runtime Manager]
+        Monitoring[Monitoring]
+    end
+
+    subgraph Cloud[CloudHub 2.0 - Private Space]
+        Exp_API[Experience APIs]
+        Proc_API_Cloud[Process APIs]
+        Sched[Schedulers / Events]
+        Ingress_Cloud[Managed LB + TLS]
+        Ingress_Cloud --> Exp_API
+        Exp_API --> Proc_API_Cloud
+    end
+
+    subgraph OnPrem[Runtime Fabric on OpenShift]
+        Sys_API[System APIs]
+        Internal[Internal-only Services]
+        Proxy[API Proxy / Ingress]
+        Batch[High-throughput Jobs]
+        Ingress_RTF[OpenShift Routes / Ingress]
+        Ingress_RTF --> Sys_API
+    end
+
+    ControlPlane -.->|Manage| Cloud
+    ControlPlane -.->|Manage| OnPrem
+
+    Proc_API_Cloud -->|IPsec VPN / Private Link| Sys_API
+    Sys_API -->|Direct Connect| Backends[(On-Prem Systems)]
+`;
+---
+
+<BaseLayout title={`${title} | Sriman Tirupathy Eshwarappa`}>
+  <article class="pt-32 pb-24 bg-slate-50 min-h-screen">
+    <div class="container mx-auto px-6">
+      
+      <!-- Breadcrumbs -->
+      <nav class="mb-12">
+        <a href="/case-studies/hybrid-mulesoft-platform-rtf-openshift" class="inline-flex items-center gap-2 text-accent text-[10px] uppercase font-bold tracking-widest hover:translate-x-[-4px] transition-transform">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Back to Case Study
+        </a>
+      </nav>
+
+      <header class="max-w-4xl mb-24">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-[10px] font-bold tracking-[0.2em] text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+          Technical Media Kit
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold text-slate-900 tracking-tighter mb-8 leading-tight italic">
+          Integration Hub <br/>
+          <span class="text-accent underline decoration-slate-200">Implementation</span> Deep-Dive
+        </h1>
+        <p class="text-xl text-slate-600 leading-relaxed font-outfit max-w-2xl">
+          {description}
+        </p>
+      </header>
+
+      <div class="space-y-32">
+
+        <!-- Executive Summary Section -->
+        <section id="executive-summary" class="scroll-mt-32">
+          <div class="flex flex-col md:flex-row gap-12 items-start">
+            <div class="md:w-1/3 sticky top-32">
+              <h2 class="text-3xl font-bold text-slate-900 tracking-tighter italic mb-4">Executive Summary</h2>
+              <p class="text-slate-500 font-outfit">The core mission: Move from point-to-point complexity to an API-led integration model with unified governance.</p>
+            </div>
+            <div class="md:w-2/3 grid grid-cols-1 gap-6">
+              <div class="glass p-8 border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                  <span class="p-2 bg-blue-50 rounded-lg"><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></span>
+                  Faster Delivery
+                </h3>
+                <ul class="space-y-2 text-slate-600 font-outfit">
+                  <li>• Reusable APIs & templates reducing 0-to-1 time</li>
+                  <li>• Standardized CI/CD patterns for both cloud and on-prem</li>
+                  <li>• Clear deployment decision matrix to align teams</li>
+                </ul>
+              </div>
+              <div class="glass p-8 border-l-4 border-orange-500">
+                <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                   <span class="p-2 bg-orange-50 rounded-lg"><svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></span>
+                  Stronger Security
+                </h3>
+                <ul class="space-y-2 text-slate-600 font-outfit">
+                  <li>• Zero-trust network extension via Private Spaces</li>
+                  <li>• Automated policy-based enforcement (OAuth2, JWT)</li>
+                  <li>• Centralized secrets and auditable logging</li>
+                </ul>
+              </div>
+              <div class="glass p-8 border-l-4 border-green-500">
+                <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                   <span class="p-2 bg-green-50 rounded-lg"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></span>
+                  Operational Resilience
+                </h3>
+                <ul class="space-y-2 text-slate-600 font-outfit">
+                  <li>• Active 24/7 monitoring and SLI-based alerts</li>
+                  <li>• Horizontal auto-scaling for traffic spikes</li>
+                  <li>• Governed change management with 1-click rollback</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section id="solution" class="scroll-mt-32">
+          <h2 class="text-3xl font-bold text-slate-900 tracking-tighter italic mb-12">The Solution At A Glance</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+            <div class="p-6 bg-blue-500 text-white rounded-2xl shadow-lg border border-blue-400">
+              <div class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-2">Tier 3</div>
+              <h4 class="font-bold text-xl">Experience APIs</h4>
+            </div>
+             <div class="p-6 bg-blue-400 text-white rounded-2xl shadow-lg border border-blue-300">
+              <div class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-2">Tier 2</div>
+              <h4 class="font-bold text-xl">Process APIs</h4>
+            </div>
+             <div class="p-6 bg-blue-300 text-white rounded-2xl shadow-lg border border-blue-200">
+              <div class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-2">Tier 1</div>
+              <h4 class="font-bold text-xl">System APIs</h4>
+            </div>
+             <div class="p-6 bg-slate-900 text-white rounded-2xl shadow-lg border border-slate-700">
+              <div class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-2">Legacy</div>
+              <h4 class="font-bold text-xl">Core Systems</h4>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="glass p-8">
+              <h3 class="text-lg font-bold mb-6 text-accent">API Design & Reuse</h3>
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 mt-2 rounded-full bg-accent flex-shrink-0"></div>
+                  <p class="text-slate-600"><strong class="text-slate-900">3-Layer Architecture:</strong> Experience, Process, and System layering to decouple consumer needs from backend technicalities.</p>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 mt-2 rounded-full bg-accent flex-shrink-0"></div>
+                  <p class="text-slate-600"><strong class="text-slate-900">Contract-First Design:</strong> RAML/OAS specs validated before implementation to ensure provider-consumer alignment.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="glass p-8">
+              <h3 class="text-lg font-bold mb-6 text-accent">Connectivity & Integration</h3>
+              <ul class="space-y-4">
+                 <li class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 mt-2 rounded-full bg-accent flex-shrink-0"></div>
+                  <p class="text-slate-600"><strong class="text-slate-900">Enterprise Connectors:</strong> Native SAP, Salesforce, and DB connectors with standardized connection pooling and retry logic.</p>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 mt-2 rounded-full bg-accent flex-shrink-0"></div>
+                  <p class="text-slate-600"><strong class="text-slate-900">Hybrid Orchestration:</strong> Complex transformations and multi-source event-driven patterns.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Architecture Visualization Section -->
+        <section id="architecture" class="scroll-mt-32">
+          <div class="bg-white rounded-[40px] p-8 md:p-16 text-slate-900 relative overflow-hidden shadow-xl border border-slate-200">
+            <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.05),transparent_70%)] pointer-events-none"></div>
+            
+            <div class="max-w-3xl mb-12 relative z-10">
+              <h2 class="text-3xl md:text-5xl font-bold tracking-tighter italic mb-6">Target Hybrid Architecture</h2>
+              <p class="text-slate-600 text-lg font-outfit">A unified control plane managing distributed runtimes across elastic cloud and governed on-premise infrastructure. This dual-plane strategy ensures high availability while meeting strict data residency requirements.</p>
+            </div>
+            
+            <div class="bg-slate-50 rounded-[2rem] p-4 md:p-12 mb-16 shadow-inner relative z-10 group border border-slate-100 overflow-x-auto">
+              <div class="absolute top-4 right-6 text-[10px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-accent transition-colors">Interactive Blueprint</div>
+              <div class="mermaid flex justify-center py-8 min-w-[800px]">
+                {diagram}
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+              <div class="p-8 rounded-3xl border border-slate-200 bg-white shadow-sm group hover:border-blue-500/30 transition-all">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                  <div class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.3)]"></div>
+                  CloudHub 2.0 (iPaaS)
+                </h3>
+                <p class="text-slate-500 text-sm mb-6">Designed for elastic workloads, SaaS integrations, and rapid scale-out without hardware management.</p>
+                <div class="space-y-2">
+                  <div class="px-4 py-2 bg-slate-50 rounded-lg border border-slate-100 text-xs font-bold text-slate-600">Public/SaaS APIs</div>
+                  <div class="px-4 py-2 bg-slate-50 rounded-lg border border-slate-100 text-xs font-bold text-slate-600">Elastic Load Balancing</div>
+                  <div class="px-4 py-2 bg-slate-50 rounded-lg border border-slate-100 text-xs font-bold text-slate-600">Managed Patching</div>
+                </div>
+              </div>
+              <div class="p-8 rounded-3xl border border-slate-200 bg-white shadow-sm group hover:border-red-500/30 transition-all">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                  <div class="w-3 h-3 rounded-full bg-red-400 shadow-[0_0_12px_rgba(248,113,113,0.3)]"></div>
+                  RTF on OpenShift
+                </h3>
+                <p class="text-slate-500 text-sm mb-6">Designed for data sovereignty, low-latency DC connectivity, and high-throughput legacy workloads.</p>
+                <div class="space-y-2">
+                   <div class="px-4 py-2 bg-slate-50 rounded-lg border border-slate-100 text-xs font-bold text-slate-600">Data Residency Workloads</div>
+                  <div class="px-4 py-2 bg-slate-50 rounded-lg border border-slate-100 text-xs font-bold text-slate-600">Custom Ingress Policy</div>
+                  <div class="px-4 py-2 bg-slate-50 rounded-lg border border-slate-100 text-xs font-bold text-slate-600">Legacy DB Locality</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Deployment Decision Matrix -->
+        <section id="matrix" class="scroll-mt-32">
+          <h2 class="text-3xl font-bold text-slate-900 tracking-tighter italic mb-12">Deployment Decision Matrix</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden rounded-3xl border border-slate-200 shadow-xl">
+            <div class="p-12 bg-white flex flex-col h-full">
+              <div class="text-blue-600 font-bold mb-8 uppercase tracking-widest text-xs">Option A</div>
+              <h3 class="text-2xl font-bold mb-8">CloudHub 2.0</h3>
+              <div class="space-y-8 flex-grow">
+                <div>
+                  <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Best Fit</h4>
+                  <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Externally-facing APIs</li>
+                    <li class="flex items-center gap-3 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Elastic scale requirements</li>
+                    <li class="flex items-center gap-3 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Speed-to-delivery priority</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Watch-outs</h4>
+                  <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-500 italic"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>Strict residency constraints</li>
+                    <li class="flex items-center gap-3 text-slate-500 italic"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>Extreme low-latency to legacy</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="p-12 bg-slate-50 border-l border-slate-100 flex flex-col h-full">
+               <div class="text-red-600 font-bold mb-8 uppercase tracking-widest text-xs">Option B</div>
+              <h3 class="text-2xl font-bold mb-8">RTF on OpenShift</h3>
+               <div class="space-y-8 flex-grow">
+                <div>
+                  <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Best Fit</h4>
+                  <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Data sovereignty requirements</li>
+                    <li class="flex items-center gap-3 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Bespoke DC networking</li>
+                    <li class="flex items-center gap-3 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>High-throughput batch jobs</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Watch-outs</h4>
+                  <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-500 italic"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>Requires cluster operations</li>
+                    <li class="flex items-center gap-3 text-slate-500 italic"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>Complex certificate rotation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Security and Connectivity -->
+        <section id="security" class="scroll-mt-32">
+          <div class="glass p-12 md:p-16 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full translate-x-32 -translate-y-32"></div>
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tighter italic mb-12">Security & Zero-trust Connectivity</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+              <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-8 border-b border-slate-100 pb-4">Network Hardening</h3>
+                <div class="space-y-8">
+                  <div>
+                    <h4 class="font-bold text-accent text-sm mb-2">Private Network Extension</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Dedicated VPCs and Private Spaces for CloudHub, linked via IPsec VPN or Direct Connect to private DCs.</p>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-accent text-sm mb-2">Transport Security</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Mandatory TLS 1.2+ encryption for all data in transit. Mutual TLS (mTLS) enforced for high-stakes system-to-system calls.</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-8 border-b border-slate-100 pb-4">API Controls</h3>
+                <div class="space-y-8">
+                  <div>
+                    <h4 class="font-bold text-accent text-sm mb-2">Policy-Based Defense</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Centralized policy enforcement via API Manager: OAuth2, Rate Limiting, Spike Arrest, and IP Allowlisting.</p>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-accent text-sm mb-2">Identity & Secrets</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Integration with external Vault/Secret Manager with automated rotation and zero-hardcoded-credentials policy.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Phased Migration Model -->
+        <section id="migration" class="scroll-mt-32">
+          <h2 class="text-3xl font-bold text-slate-900 tracking-tighter italic mb-16">The Phased Migration Model</h2>
+          <div class="relative">
+            <div class="hidden md:block absolute top-[28px] left-0 w-full h-0.5 bg-slate-200"></div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative z-10">
+              {['Discover', 'Design', 'Build', 'Migrate', 'Decommission'].map((step, i) => (
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                  <div class="w-14 h-14 rounded-full bg-white border-4 border-slate-50 flex items-center justify-center font-bold text-xl text-accent shadow-lg mb-6 group-hover:scale-110 transition-transform">
+                    {i + 1}
+                  </div>
+                  <h3 class="font-bold text-slate-900 mb-4">{step}</h3>
+                  <p class="text-[11px] text-slate-500 uppercase tracking-widest font-bold leading-relaxed mb-4">
+                    {i === 0 && 'Inventory & Criticality'}
+                    {i === 1 && 'Contracts & Topology'}
+                    {i === 2 && 'Reusable Assets'}
+                    {i === 3 && 'Parallel Run & Cutover'}
+                    {i === 4 && 'Harden & Retire'}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="mt-16 glass p-8 bg-accent/5 border border-accent/10">
+            <h4 class="font-bold text-accent text-sm mb-4 uppercase tracking-widest">Risk Controls Baseline</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="flex items-center gap-3 text-slate-700 text-sm"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Contract tests protecting all consumers</div>
+              <div class="flex items-center gap-3 text-slate-700 text-sm"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Blue/Green deployment strategy</div>
+              <div class="flex items-center gap-3 text-slate-700 text-sm"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Reconciliation reports for parallel runs</div>
+              <div class="flex items-center gap-3 text-slate-700 text-sm"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> 15-minute rollback window SLA</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Platform Deliverables -->
+        <section id="deliverables" class="scroll-mt-32">
+          <div class="bg-white rounded-[40px] p-12 border border-slate-200">
+             <h2 class="text-3xl font-bold text-slate-900 tracking-tighter italic mb-12">Platform Deliverables (Accelerators)</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+               {[
+                 { title: 'Standard API Templates', items: ['Maven archetypes', 'JSON Logging spec', 'Error handling tray'] },
+                 { title: 'Security Baseline', items: ['OAuth2 policy bundles', 'mTLS rotation procedures', 'WAF rule sets'] },
+                 { title: 'Ops Enablement', items: ['On-call playbooks', 'Backup/DR restore drills', 'Auto-scaling SLIs'] },
+                 { title: 'Observability Kit', items: ['Unified dashboards', 'Log correlation patterns', 'Anomaly detection'] },
+                 { title: 'Shared Connector Pack', items: ['Salesforce/SAP config', 'Canonical data models', 'Legacy connectors'] },
+                 { title: 'Platform Guardrails', items: ['Naming standards', 'CI quality gates', 'Code linting rules'] }
+               ].map(group => (
+                 <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100">
+                    <h3 class="font-bold text-slate-900 mb-4">{group.title}</h3>
+                    <ul class="space-y-2">
+                      {group.items.map(item => (
+                        <li class="flex items-center gap-2 text-xs text-slate-500 font-outfit">
+                          <div class="w-1 h-1 rounded-full bg-slate-300"></div> {item}
+                        </li>
+                      ))}
+                    </ul>
+                 </div>
+               ))}
+             </div>
+          </div>
+        </section>
+
+         <!-- Strategic Outcomes -->
+        <section id="outcomes" class="scroll-mt-32 pb-32">
+          <div class="text-center max-w-3xl mx-auto mb-20">
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter italic mb-6">Quantifiable Strategic Outcomes</h2>
+            <p class="text-slate-500 text-lg">Transforming integration from a bottleneck into a competitive advantage.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="group text-center">
+              <div class="mb-4 text-accent opacity-20 text-7xl font-bold group-hover:opacity-40 transition-opacity italic">40%</div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Faster Delivery</h3>
+              <p class="text-slate-500 text-sm">Lead time reduction from requirement to production via API-led asset reuse.</p>
+            </div>
+             <div class="group text-center">
+              <div class="mb-4 text-accent opacity-20 text-7xl font-bold group-hover:opacity-40 transition-opacity italic">100%</div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Predictable Releases</h3>
+              <p class="text-slate-500 text-sm">Deployment stability achieved via single pipeline for all runtime targets.</p>
+            </div>
+             <div class="group text-center">
+              <div class="mb-4 text-accent opacity-20 text-7xl font-bold group-hover:opacity-40 transition-opacity italic">65%</div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">Improved MTTR</h3>
+              <p class="text-slate-500 text-sm">MTTR reduction through governed observability and structured logging patterns.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+    
+    <!-- Contact Footer -->
+    <section class="bg-slate-900 py-24 text-white">
+      <div class="container mx-auto px-6 text-center max-w-4xl">
+        <h2 class="text-3xl md:text-5xl font-bold mb-8 italic tracking-tighter">Scale Your Program Correctly</h2>
+        <p class="text-slate-400 text-xl mb-12 font-outfit">Ready to move beyond documentation and implement this architecture at your enterprise?</p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <a href={siteConfig.bookingLink} class="px-8 py-4 bg-accent text-white font-bold rounded-xl hover:bg-accent-muted transition-all shadow-xl shadow-accent/20 text-xs uppercase tracking-widest">
+            Book Implementation Brief
+          </a>
+          <a href="/contact" class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/10 text-xs uppercase tracking-widest backdrop-blur-sm">
+            Inquire via Email
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </article>
+
+  <script is:inline type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ 
+      startOnLoad: true, 
+      theme: 'base',
+      themeVariables: {
+        fontFamily: 'Inter, system-ui, sans-serif',
+        fontSize: '14px',
+        primaryColor: '#ffffff',
+        primaryTextColor: '#1e293b',
+        primaryBorderColor: '#e2e8f0',
+        lineColor: '#64748b',
+        secondaryColor: '#f8fafc',
+        tertiaryColor: '#ffffff',
+        edgeLabelBackground: '#ffffff',
+        mainBkg: '#ffffff',
+        nodeBorder: '#cbd5e1',
+        clusterBkg: '#f8fafc',
+        clusterBorder: '#94a3b8'
+      }
+    });
+  </script>
+</BaseLayout>

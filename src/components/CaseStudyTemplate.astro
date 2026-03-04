@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+
+interface Props {
+  title: string;
+  teaser: string;
+  context: string;
+  mandate: string;
+  results: string[];
+  differently: string;
+  diagram?: string;
+}
+
+const { title, teaser, context, mandate, results, differently, diagram } = Astro.props;
+---
+
+<BaseLayout title={`${title} | Sriman Tirupathy Eshwarappa`}>
+  <article class="pt-32 pb-24">
+    <div class="container mx-auto px-6 max-w-4xl">
+      <a href="/#case-studies" class="inline-flex items-center gap-2 text-accent text-[10px] uppercase font-bold tracking-widest mb-12 hover:translate-x-[-4px] transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Case Studies
+      </a>
+
+      <header class="mb-20">
+        <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-6">Case Study Narrative</div>
+        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tighter">{title}</h1>
+        <p class="text-xl text-slate-600 leading-relaxed font-outfit">{teaser}</p>
+      </header>
+
+      <div class="space-y-24">
+        <section>
+          <h2 class="text-[10px] uppercase font-bold tracking-[0.25em] text-slate-500 mb-8 pb-4 border-b border-slate-200">Context & Stakes</h2>
+          <div class="text-slate-700 text-lg leading-relaxed whitespace-pre-line prose-slate">
+            {context}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-[10px] uppercase font-bold tracking-[0.25em] text-slate-500 mb-8 pb-4 border-b border-slate-200">Architecture & Mandate</h2>
+          {diagram ? (
+            <div class="bg-white border border-slate-200 rounded-2xl p-8 mb-12 overflow-x-auto diagram-container shadow-sm">
+              <div class="mermaid min-w-[800px] flex justify-center">
+                {diagram}
+              </div>
+            </div>
+          ) : (
+            <div class="glass p-12 rounded-3xl mb-12 flex flex-col items-center justify-center min-h-[400px]">
+               <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-slate-300 mb-8"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+               <p class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Technical Architecture Diagram Placeholder</p>
+            </div>
+          )}
+          <div class="text-slate-700 text-lg leading-relaxed whitespace-pre-line">
+            {mandate}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-[10px] uppercase font-bold tracking-[0.25em] text-slate-500 mb-8 pb-4 border-b border-slate-200">Measurable Results</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {results.map(res => (
+              <div class="bg-white p-6 rounded-2xl border border-slate-200 flex items-start gap-4 shadow-sm">
+                <div class="w-6 h-6 bg-accent/20 rounded-full flex items-center justify-center text-accent flex-shrink-0 mt-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <span class="text-slate-900 font-bold">{res}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-[10px] uppercase font-bold tracking-[0.25em] text-slate-500 mb-8 pb-4 border-b border-slate-200">Post-Mortem: What I'd Do Differently</h2>
+          <div class="bg-slate-50 border border-slate-200 p-10 rounded-3xl">
+            <p class="text-slate-600 italic leading-relaxed">
+              "{differently}"
+            </p>
+          </div>
+        </section>
+
+        <section class="pt-12 border-t border-slate-200">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-12 glass p-12 rounded-[40px]">
+            <div>
+              <h3 class="text-2xl font-bold text-slate-900 mb-2">Want the deeper details?</h3>
+              <p class="text-slate-600">Download the full architecture artifacts and technical specs.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+               <a href="#" class="px-6 py-3 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-[10px] uppercase font-bold tracking-widest rounded-lg shadow-sm transition-all">
+                 Platform Spec (PDF)
+               </a>
+               <a href={siteConfig.bookingLink} class="px-6 py-3 bg-accent text-white text-[10px] uppercase font-bold tracking-widest rounded-lg transition-all shadow-sm">
+                 Request Technical Deep-Dive
+               </a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </article>
+
+  {diagram && (
+    <script is:inline type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ 
+        startOnLoad: true, 
+        theme: 'base',
+        themeVariables: {
+          primaryColor: '#ffffff',
+          primaryTextColor: '#1e293b',
+          primaryBorderColor: '#cbd5e1',
+          lineColor: '#94a3b8',
+          secondaryColor: '#f8fafc',
+          tertiaryColor: '#f1f5f9',
+          fontFamily: 'system-ui, sans-serif'
+        }
+      });
+    </script>
+  )}
+</BaseLayout>
