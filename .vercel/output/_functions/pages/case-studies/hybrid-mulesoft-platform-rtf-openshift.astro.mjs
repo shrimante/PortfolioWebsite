@@ -1,7 +1,7 @@
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_fVXKcOoa.mjs';
 import 'piccolore';
 import { $ as $$BaseLayout } from '../../chunks/BaseLayout_DoHGDnlP.mjs';
-import { $ as $$MermaidDiagram } from '../../chunks/MermaidDiagram_D4IrNU87.mjs';
+import { $ as $$MermaidDiagram } from '../../chunks/MermaidDiagram_TNJITCYR.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$HybridMulesoftPlatformRtfOpenshift = createComponent(($$result, $$props, $$slots) => {

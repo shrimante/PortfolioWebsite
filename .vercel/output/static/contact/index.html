@@ -39,12 +39,18 @@ Send another message
             successState.classList.remove('hidden');
             form.reset();
           } else {
-            const data = await response.json();
-            alert(data.message || 'Something went wrong. Please try again or email directly.');
+            let errorMessage = 'Something went wrong.';
+            try {
+              const data = await response.json();
+              errorMessage = data.message || data.error || errorMessage;
+            } catch (jsonError) {
+              errorMessage = `Server error (${response.status})`;
+            }
+            alert(errorMessage + ' Please try again or email directly.');
           }
         } catch (error) {
           console.error('Submission error:', error);
-          alert('Network error. Please check your connection or email directly.');
+          alert('Submission failed. Please check your connection or email directly.');
         } finally {
           submitBtn.disabled = false;
           btnText.innerText = 'Send Message';

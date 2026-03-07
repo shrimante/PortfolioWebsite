@@ -1,0 +1,10 @@
+import l from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const n=async()=>{l.initialize({startOnLoad:!1,theme:"base",themeVariables:{primaryColor:"#ffffff",primaryTextColor:"#1e293b",primaryBorderColor:"#cbd5e1",lineColor:"#94a3b8",secondaryColor:"#f8fafc",tertiaryColor:"#f1f5f9",fontFamily:"system-ui, sans-serif"}}),await l.run(),document.querySelectorAll(".mermaid").forEach(e=>{e.classList.remove("opacity-0")}),document.querySelectorAll(".mermaid-loader").forEach(e=>{e.classList.add("hidden")})};n();document.addEventListener("astro:after-swap",n);window.copyMermaidSource=e=>{const o=document.getElementById(`${e}-source`);if(!o)return;const t=o.textContent||"";navigator.clipboard.writeText(t).then(()=>{alert("Mermaid source copied to clipboard!")})};window.downloadMermaidSVG=e=>{const o=document.querySelector(`#${e} svg`);if(!o)return;const t=new XMLSerializer().serializeToString(o),i=new Blob([t],{type:"image/svg+xml;charset=utf-8"}),a=URL.createObjectURL(i),r=document.createElement("a");r.href=a,r.download=`${e}.svg`,document.body.appendChild(r),r.click(),document.body.removeChild(r)};window.openMermaidFullsize=e=>{const o=document.querySelector(`#${e} svg`);if(!o)return;const t=document.createElement("div");t.className="fixed inset-0 z-[100] bg-slate-900/90 flex items-center justify-center p-4 md:p-12 backdrop-blur-sm",t.innerHTML=`
+      <div class="relative w-full h-full flex flex-col items-center justify-center">
+        <button class="absolute top-0 right-0 p-4 text-white hover:text-accent transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="bg-white p-8 rounded-3xl overflow-auto max-w-full max-h-full">
+           ${o.outerHTML}
+        </div>
+      </div>
+    `,t.onclick=i=>{(i.target.closest("button")||i.target===t)&&document.body.removeChild(t)},document.body.appendChild(t)};
