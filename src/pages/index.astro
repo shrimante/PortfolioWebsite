@@ -19,21 +19,42 @@ const leadershipImpact = [
   <MetricsStrip />
   <ArchitectureGallery />
 
-  <!-- What I Own Section -->
+  <!-- End-to-End Ownership Section -->
   <section class="py-24 bg-primary relative" id="ownership">
     <div class="container mx-auto px-6">
       <div class="mb-16">
-        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tighter">Operating at Associate Director Scope</h2>
-        <p class="text-slate-600 max-w-2xl text-lg">Platform strategy, governance at scale, and business-focused reliability engineering.</p>
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-[10px] font-bold tracking-widest text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+          Concrete Deliverables
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tighter italic">End-to-End Ownership: Build, Run, Govern</h2>
+        <p class="text-slate-600 max-w-2xl text-lg font-outfit">I don't just architect; I deliver the runtime topology and operational safety nets that sustain enterprise-scale integration.</p>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {siteConfig.ownership.map(item => (
-          <ImpactCard 
-            title={item.title} 
-            description={item.description} 
-            icon={item.icon} 
-          />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {siteConfig.ownershipChecklist.map((category, idx) => (
+          <div class={`glass p-8 rounded-[2rem] border-t-4 transition-all hover:translate-y-[-4px] ${
+            idx === 0 ? 'border-blue-500 bg-blue-50/5' : 
+            idx === 1 ? 'border-orange-500 bg-orange-50/5' : 
+            'border-green-500 bg-green-50/5'
+          }`}>
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">{category.category}</h3>
+            <p class="text-xs text-slate-500 mb-8 font-medium leading-relaxed uppercase tracking-wider">{category.description}</p>
+            
+            <ul class="space-y-4">
+              {category.items.map(item => (
+                <li class="flex items-start gap-3">
+                  <div class={`mt-1 p-0.5 rounded-full ${
+                    idx === 0 ? 'bg-blue-500/10 text-blue-500' : 
+                    idx === 1 ? 'bg-orange-500/10 text-orange-500' : 
+                    'bg-green-500/10 text-green-500'
+                  }`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                  <span class="text-slate-700 text-sm font-semibold">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
     </div>

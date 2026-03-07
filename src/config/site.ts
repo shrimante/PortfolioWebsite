@@ -45,6 +45,42 @@ export const siteConfig = {
       icon: "layers"
     }
   ],
+  
+  ownershipChecklist: [
+    {
+      category: "Build",
+      description: "Architecting high-availability integration topology and automated delivery pipelines.",
+      items: [
+        "Runtime Topology (CloudHub / RTF)",
+        "Automated CI/CD Workflows",
+        "Standards & Core Frameworks",
+        "API Program Skeletons",
+        "Observability Dashboard Baseline"
+      ]
+    },
+    {
+      category: "Run",
+      description: "Ensuring 99.9% uptime through proactive reliability engineering and operations.",
+      items: [
+        "SLOs & Error Budgets",
+        "Proactive Alerting (Splunk/ELK)",
+        "Disaster Recovery Playbooks",
+        "Incident Management",
+        "Release Governance"
+      ]
+    },
+    {
+      category: "Govern",
+      description: "Scaling API adoption with enforced security and enterprise guardrails.",
+      items: [
+        "Full API Lifecycle Model",
+        "Mandatory Security Policies",
+        "RBAC & IAU Strategy",
+        "Architectural Reviews",
+        "Platform Quality Guardrails"
+      ]
+    }
+  ],
 
   caseStudies: [
     {
