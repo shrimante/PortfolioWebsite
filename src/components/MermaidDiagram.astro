@@ -3,9 +3,10 @@ interface Props {
   diagram: string;
   id?: string;
   class?: string;
+  compact?: boolean;
 }
 
-const { diagram, id = "mermaid-" + Math.random().toString(36).substring(7), class: className = "" } = Astro.props;
+const { diagram, id = "mermaid-" + Math.random().toString(36).substring(7), class: className = "", compact = false } = Astro.props;
 ---
 
 <div class={`mermaid-wrapper relative group bg-white border border-slate-200 shadow-sm rounded-2xl overflow-hidden ${className}`} id={`${id}-container`}>
@@ -92,7 +93,9 @@ const { diagram, id = "mermaid-" + Math.random().toString(36).substring(7), clas
 
   // Global helpers for buttons
   window.copyMermaidSource = (id) => {
-    const source = document.getElementById(`${id}-source`).textContent;
+    const sourceEl = document.getElementById(`${id}-source`);
+    if (!sourceEl) return;
+    const source = sourceEl.textContent || "";
     navigator.clipboard.writeText(source).then(() => {
       alert('Mermaid source copied to clipboard!');
     });
