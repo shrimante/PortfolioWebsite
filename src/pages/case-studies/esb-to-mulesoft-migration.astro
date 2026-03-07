@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import MermaidDiagram from '../../components/MermaidDiagram.astro';
 import { siteConfig } from '../../config/site';
 
 const title = "Legacy ESB to MuleSoft Migration";
@@ -8,197 +9,197 @@ const teaser = "Modernized a critical legacy integration layer from Informatica 
 
 <BaseLayout title={`${title} | Sriman Tirupathy Eshwarappa`}>
   <article class="pt-32 pb-24">
-    <div class="container mx-auto px-6 max-w-4xl">
+    <div class="container mx-auto px-6 max-w-5xl">
       <a href="/#case-studies" class="inline-flex items-center gap-2 text-accent text-[10px] uppercase font-bold tracking-widest mb-12 hover:translate-x-[-4px] transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Back to Case Studies
       </a>
 
-      <header class="mb-20">
-        <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-6">Case Study</div>
-        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tighter">{title}</h1>
-        <p class="text-xl text-slate-600 leading-relaxed font-outfit">{teaser}</p>
+      <header class="mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-[10px] font-bold tracking-widest text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+          Legacy Modernization
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tighter italic">{title}</h1>
+        <p class="text-xl text-slate-600 leading-relaxed font-outfit max-w-3xl">{teaser}</p>
       </header>
 
-      <div class="space-y-20">
-        <!-- Styled Content Sections -->
-        <div class="max-w-[900px] mx-auto pb-32">
-          <div class="flex flex-col gap-16">
-            
-            <!-- Section 1 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">1</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Context & The Business Problem</h2>
-              </div>
-              <div class="glass p-8 md:p-10">
-                <p class="text-slate-600 leading-relaxed text-lg mb-6">
-                  The enterprise's legacy Informatica ESB had become a critical bottleneck to innovation. Built over a decade, it had devolved into a monolithic, rigid architecture with exorbitant licensing and infrastructure costs. Simple payload transformations required weeks of development and complex regression testing.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg mb-6">
-                  Furthermore, the ESB was reaching end-of-life status. The risk of sudden outages was high, and the specialized talent required to maintain it was increasingly difficult to find. Every new digital product release was delayed because the core integration layer couldn't keep pace.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg font-semibold text-slate-900">
-                  The objective: Decommission the legacy ESB completely and migrate 150+ mission-critical integrations to a modern MuleSoft API-Led architecture, absolutely requiring zero downtime impact to the live production business systems.
-                </p>
-              </div>
-            </section>
+      <!-- Quick Summary / Metrics -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+        <div class="glass p-6 rounded-2xl border-b-4 border-blue-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Annual Savings</div>
+          <div class="text-2xl font-bold text-slate-900">$250K+</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-b-4 border-orange-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Dev Cycle</div>
+          <div class="text-2xl font-bold text-slate-900">-3 Weeks</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-b-4 border-green-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Integrations</div>
+          <div class="text-2xl font-bold text-slate-900">150+</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-b-4 border-purple-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Downtime</div>
+          <div class="text-2xl font-bold text-slate-900">Zero</div>
+        </div>
+      </div>
 
-            <!-- Section 2 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">2</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Strategic Execution & Architecture</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <!-- Main Content -->
+        <div class="lg:col-span-8 space-y-16">
+          
+          <!-- Context & Problem -->
+          <section>
+            <h2 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-8 flex items-center gap-2">
+              <span class="w-8 h-[1px] bg-slate-200"></span> Context & Problem
+            </h2>
+            <div class="space-y-6">
+              <p class="text-lg text-slate-600 leading-relaxed font-outfit">
+                The enterprise's legacy Informatica ESB had devolved into a rigid, monolithic bottleneck. With <span class="text-slate-900 font-semibold underline decoration-accent/30">exorbitant licensing costs</span> and an aging bare-metal footprint, simple changes required weeks of risky, manual testing.
+              </p>
+              <div class="bg-red-50/50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                <h4 class="text-red-800 font-bold mb-2">The Risk</h4>
+                <p class="text-red-700/80 text-sm italic">Product releases were delayed by months because the core integration layer reached end-of-life status, creating a massive single point of failure for the entire business.</p>
               </div>
+            </div>
+          </section>
 
-              <div class="border-l-2 border-accent/20 pl-6 mb-10 space-y-10">
-                <div>
-                  <h3 class="text-xl font-bold text-slate-900 mb-4">Deconstructing the Monolith</h3>
-                  <p class="text-slate-600 text-lg leading-relaxed mb-4">
-                    The first phase required reverse-engineering undocumented Informatica workflows. We implemented a Domain-Driven Design approach to map monolithic batch processes into real-time, event-driven microservices using MuleSoft’s API-Led Connectivity (System, Process, Experience APIs).
-                  </p>
-                </div>
-                
-                <div>
-                  <h3 class="text-xl font-bold text-slate-900 mb-4">The "Migration Factory" Model</h3>
-                  <ul class="space-y-5">
-                    <li class="flex gap-3">
-                      <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                      <div class="text-slate-600 text-lg"><strong class="text-slate-900">Automated Translation Tooling:</strong> Built custom Python scripts to parse Informatica XML definitions and output baseline DataWeave 2.0 transformations, accelerating development by 40%.</div>
-                    </li>
-                    <li class="flex gap-3">
-                      <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                      <div class="text-slate-600 text-lg"><strong class="text-slate-900">Event-Driven Modernization:</strong> Replaced sluggish overnight batch synchronizations with high-throughput real-time messaging using Solace PubSub+ integrated directly with MuleSoft.</div>
-                    </li>
-                    <li class="flex gap-3">
-                      <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                      <div class="text-slate-600 text-lg"><strong class="text-slate-900">Zero-Downtime Dual-Run:</strong> Implemented a "strangler fig" pattern using intelligent routing proxies. Live traffic was flawlessly mirrored to both the old ESB and the new MuleSoft APIs simultaneously to validate data integrity before final cutover.</div>
-                    </li>
-                    <li class="flex gap-3">
-                      <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                      <div class="text-slate-600 text-lg"><strong class="text-slate-900">Automated Regression Testing:</strong> Developed an extensive MUnit suite running in the CI/CD pipeline, guaranteeing that legacy edge cases were handled correctly in the new platform.</div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 3 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">3</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">The Catalyst: Real Business Impact</h2>
-              </div>
-              <div class="glass p-8 md:p-10 bg-gradient-to-br from-white to-slate-50 border-l-4 border-l-accent">
-                <p class="text-slate-600 leading-relaxed text-lg mb-8">
-                  The decommissioning of the legacy ESB fundamentally changed the enterprise's cost structure and delivery speed. It shifted the IT department from a slow, "keep-the-lights-on" cost center into a resilient, high-velocity digital enabler.
-                </p>
-                <div class="space-y-8">
-                  <div class="flex gap-4">
-                    <div class="mt-1 flex text-white bg-accent w-10 h-10 rounded-full items-center justify-center shrink-0 shadow-md">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-slate-900 text-xl tracking-tight mb-2">Massive Cost Deflection</h4>
-                      <p class="text-slate-600 text-lg">Achieved an immediate, verifiable $250,000 in annual recurring savings by eliminating exorbitant Informatica license renewals and retiring three racks of aging on-premises bare-metal servers.</p>
-                    </div>
-                  </div>
-                  <div class="flex gap-4">
-                    <div class="mt-1 flex text-white bg-accent w-10 h-10 rounded-full items-center justify-center shrink-0 shadow-md">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-slate-900 text-xl tracking-tight mb-2">Unblocking Business Agility</h4>
-                      <p class="text-slate-600 text-lg">Delivery cycles for complex integrations plummeted from months to days. The product teams successfully launched 3 new customer-facing digital portals using the reusable MuleSoft System APIs we created during the migration.</p>
-                    </div>
-                  </div>
-                  <div class="flex gap-4">
-                    <div class="mt-1 flex text-white bg-accent w-10 h-10 rounded-full items-center justify-center shrink-0 shadow-md">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 22s-8-4-8-10V5l8-3 8 3v7"></path><path d="M9 12l2 2 4-4"></path></svg>
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-slate-900 text-xl tracking-tight mb-2">Zero-Risk Cutover Strategy</h4>
-                      <p class="text-slate-600 text-lg">Eradicated the massive business risk associated with "big bang" deployments. By deploying an intelligent dual-run parallel testing phase, the ultimate cutover was uneventful and completely invisible to end-users.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 4 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">4</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Measured Results</h2>
-              </div>
-              
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass p-6 border-l-4 border-l-accent flex items-start gap-4 hover:shadow-lg transition-shadow">
-                  <div class="mt-1 text-accent flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          <!-- The Approach: Result -> Method -->
+          <section>
+            <h2 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-8 flex items-center gap-2">
+              <span class="w-8 h-[1px] bg-slate-200"></span> Strategic Approach
+            </h2>
+            <div class="grid gap-6">
+              {[
+                { res: "40% Faster Development", meth: "Built custom Python automation to parse Informatica XML and generate DataWeave 2.0 transformations." },
+                { res: "Real-Time Agility", meth: "Replaced sluggish overnight batches with Solace PubSub+ event-driven architecture." },
+                { res: "Zero Business Interruption", meth: "Implemented a 'Strangler Fig' pattern with intelligent routing proxies for seamless migration." },
+                { res: "Guaranteed Data Integrity", meth: "Deployed an automated MUnit regression suite in CI/CD to handle 100% of legacy edge cases." },
+                { res: "Infrastructure Deflection", meth: "Decommissioned 3 racks of bare-metal servers by migrating to target-state cloud runtimes." }
+              ].map(item => (
+                <div class="flex gap-6 p-6 glass rounded-2xl hover:bg-slate-50/50 transition-colors group">
+                  <div class="text-accent mt-1 group-hover:scale-110 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                   </div>
                   <div>
-                    <div class="text-slate-900 font-bold mb-2 text-2xl tracking-tight">$250,000</div>
-                    <div class="text-slate-600 text-md leading-relaxed">Direct, immediate annual run-rate savings via licensing deflection and consolidation of infrastructure footprints.</div>
+                    <div class="text-slate-900 font-bold text-lg mb-1">{item.res}</div>
+                    <div class="text-slate-500 text-sm leading-relaxed">{item.meth}</div>
                   </div>
                 </div>
-                
-                <div class="glass p-6 border-l-4 border-l-accent flex items-start gap-4 hover:shadow-lg transition-shadow">
-                  <div class="mt-1 text-accent flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  </div>
-                  <div>
-                    <div class="text-slate-900 font-bold mb-2 text-2xl tracking-tight">3 Weeks</div>
-                    <div class="text-slate-600 text-md leading-relaxed">Saved per integration release cycle, enabling the business to rapidly deploy composable features to market.</div>
-                  </div>
-                </div>
-                
-                <div class="glass p-6 border-l-4 border-l-accent flex items-start gap-4 hover:shadow-lg transition-shadow">
-                  <div class="mt-1 text-accent flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                  </div>
-                  <div>
-                    <div class="text-slate-900 font-bold mb-2 text-2xl tracking-tight">60% Reduction</div>
-                    <div class="text-slate-600 text-md leading-relaxed">In suffocating technical debt after deprecating sprawling undocumented custom monolithic code in favor of reusable APIs.</div>
-                  </div>
-                </div>
-                
-                <div class="glass p-6 border-l-4 border-l-accent flex items-start gap-4 hover:shadow-lg transition-shadow">
-                  <div class="mt-1 text-accent flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  </div>
-                  <div>
-                    <div class="text-slate-900 font-bold mb-2 text-2xl tracking-tight">Zero Downtime</div>
-                    <div class="text-slate-600 text-md leading-relaxed">During the entirety of the migration, demonstrating a robust dual-run architecture that protected crucial enterprise data flows.</div>
-                  </div>
-                </div>
-              </div>
-            </section>
+              ))}
+            </div>
+          </section>
 
-            <!-- Section 5 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8 mt-4">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">5</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Retrospective</h2>
-              </div>
-              
-              <div class="glass p-8 md:p-10 bg-slate-900 text-white shadow-xl isolate relative overflow-hidden">
-                <div class="absolute inset-0 bg-accent/10 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.2),transparent_50%)]"></div>
-                <div class="relative z-10">
-                  <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
-                    If I could do it differently
-                  </h3>
-                  <p class="text-slate-300 leading-relaxed text-lg italic tracking-wide">
-                    "If I could do it again, I would have pushed for a 'big bang' migration on the low-complexity data-sync services rather than a purely phased approach for everything. We spent an excessive amount of engineering hours managing the complex 'dual-run' sync between Informatica and MuleSoft for simple integrations that could have easily been ported and switched in a single weekend with minimal rollback risk."
-                  </p>
-                </div>
-              </div>
-            </section>
+          <!-- Architecture -->
+          <section>
+            <h2 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-8 flex items-center gap-2">
+              <span class="w-8 h-[1px] bg-slate-200"></span> Modernized Architecture
+            </h2>
+            <div class="mb-4">
+               <MermaidDiagram 
+                id="migration-map"
+                diagram={`graph LR
+                  subgraph Legacy[Legacy ESB Zone]
+                    Infor[Informatica ESB]
+                    DB_Batch[(Monolithic DB)]
+                    Batch[Nightly Batch Job]
+                  end
 
-          </div>
+                  subgraph Target[MuleSoft Agile Zone]
+                    Solace{Solace PubSub+}
+                    Mule[Anypoint Platform]
+                    SAPI[System APIs]
+                    PAPI[Process APIs]
+                  end
+
+                  Legacy -- Strangler Fig Proxy --> Target
+                  Batch -- Event-Driven Migration --> Solace
+                  Solace --> Mule
+                  Mule --> SAPI
+                  Mule --> PAPI
+
+                  classDef legacy fill:#f1f5f9,stroke:#94a3b8,stroke-width:1px,color:#64748b;
+                  classDef target fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1d4ed8;
+                  class Infor,DB_Batch,Batch legacy;
+                  class Solace,Mule,SAPI,PAPI target;`}
+              >
+                <div slot="callouts">
+                  <div class="absolute top-[45%] left-[30%] animate-pulse">
+                    <div class="bg-accent text-white text-[8px] px-2 py-1 rounded shadow-lg font-bold">Strangler Proxy</div>
+                  </div>
+                  <div class="absolute bottom-[20%] right-[30%] animate-pulse" style="animation-delay: 1s">
+                    <div class="bg-green-600 text-white text-[8px] px-2 py-1 rounded shadow-lg font-bold">API-Led Reuse</div>
+                  </div>
+                </div>
+              </MermaidDiagram>
+            </div>
+            <p class="text-slate-500 text-xs italic text-center">Reference: Migration path from batch-oriented monolith (Legacy) to event-driven API architecture (MuleSoft).</p>
+          </section>
+
+          <!-- Retrospective -->
+          <section>
+             <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                   <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                   </div>
+                   Executive Retrospective
+                </h3>
+                <p class="text-slate-300 text-lg leading-relaxed italic font-outfit">
+                  "If I could redo this, I'd push for a 'big bang' cutover on the simplest 20% of sync services. We over-engineered the 'dual-run' for basic data-syncs that had zero rollback risk, which could have saved us an additional 200+ engineering hours."
+                </p>
+             </div>
+          </section>
+
         </div>
 
+        <!-- Sidebar / Meta -->
+        <div class="lg:col-span-4 space-y-12">
+          
+          <!-- Personally Owned -->
+          <div class="glass p-8 rounded-3xl border-l-4 border-accent">
+            <h3 class="text-slate-900 font-bold mb-6">What I Personally Owned</h3>
+            <ul class="space-y-4">
+              {[
+                "End-to-End Migration Strategy",
+                "Dual-Run Architecture Design",
+                "Automated Tooling Development",
+                "Executive Stakeholder Alignment",
+                "Infrastructure Decommissioning Plan"
+              ].map(item => (
+                <li class="flex items-start gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-accent mt-0.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span class="text-slate-600 text-sm font-semibold">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Tooling -->
+          <div>
+            <h3 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-6">Technologies</h3>
+            <div class="flex flex-wrap gap-2">
+              {["MuleSoft Anypoint", "Informatica (Legacy)", "Solace PubSub+", "Python", "GitLab CI/CD", "Mainframe", "SAP"].map(tech => (
+                <span class="px-3 py-1.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-slate-200">{tech}</span>
+              ))}
+            </div>
+          </div>
+
+          <!-- CTA Placeholder -->
+          <div class="bg-accent/5 border border-accent/10 p-8 rounded-3xl text-center">
+            <div class="w-12 h-12 bg-accent/20 rounded-2xl flex items-center justify-center text-accent mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+            <h4 class="text-slate-900 font-bold mb-2 text-sm">Case Study One-Pager</h4>
+            <p class="text-slate-500 text-xs mb-6">Download the executive summary (NDA Safe PDF).</p>
+            <button class="w-full py-4 bg-accent text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-accent-muted transition-colors shadow-lg shadow-accent/20 cursor-not-allowed opacity-50">
+              Download Coming Soon
+            </button>
+          </div>
+
+        </div>
       </div>
     </div>
   </article>

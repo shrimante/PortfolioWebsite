@@ -5,6 +5,7 @@ import MetricsStrip from '../components/MetricsStrip.astro';
 import ImpactCard from '../components/ImpactCard.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
 import ArchitectureGallery from '../components/ArchitectureGallery.astro';
+import MermaidDiagram from '../components/MermaidDiagram.astro';
 import { siteConfig } from '../config/site';
 
 const leadershipImpact = [
@@ -17,7 +18,39 @@ const leadershipImpact = [
 <BaseLayout>
   <Hero />
   <MetricsStrip />
-  <ArchitectureGallery />
+
+  <!-- Featured Blueprint Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div class="lg:col-span-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-[10px] font-bold tracking-widest text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+            Featured Blueprint
+          </div>
+          <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tighter italic">Hybrid Multi-Plane Architecture</h2>
+          <p class="text-slate-600 text-lg font-outfit mb-8 italic">A production-hardened topology balancing CloudHub 2.0 elasticity with RTF on OpenShift for local data compliance.</p>
+          <a href="/case-studies/hybrid-mulesoft-platform-rtf-openshift" class="inline-flex items-center gap-2 text-accent text-[10px] uppercase font-bold tracking-widest hover:translate-x-1 transition-transform">
+            View Deep Dive <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+        <div class="lg:col-span-8">
+          <div class="glass p-4 rounded-[2.5rem] bg-slate-50/50">
+            <MermaidDiagram 
+              id="featured-blueprint-home"
+              diagram={`graph TD
+                Client[Traffic] --> F5[F5 Steering]
+                F5 -->|Cloud| CH[CloudHub 2.0]
+                F5 -->|DC| RTF[RTF on OpenShift]
+                RTF --> Core[(Core Systems)]
+                classDef accent stroke:#2563eb,stroke-width:2px;
+                class F5 accent;`}
+              compact={true}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- End-to-End Ownership Section -->
   <section class="py-24 bg-primary relative" id="ownership">
@@ -59,6 +92,8 @@ const leadershipImpact = [
       </div>
     </div>
   </section>
+
+  <ArchitectureGallery />
 
   <!-- Regional Focus -->
   <section class="py-12 bg-slate-900 overflow-hidden relative">

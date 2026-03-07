@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import MermaidDiagram from '../../components/MermaidDiagram.astro';
 import { siteConfig } from '../../config/site';
 
 const title = "Enterprise API Strategy & Governance";
@@ -8,197 +9,226 @@ const teaser = "Standardized the API lifecycle for a global enterprise, implemen
 
 <BaseLayout title={`${title} | Sriman Tirupathy Eshwarappa`}>
   <article class="pt-32 pb-24">
-    <div class="container mx-auto px-6 max-w-4xl">
+    <div class="container mx-auto px-6 max-w-5xl">
       <a href="/#case-studies" class="inline-flex items-center gap-2 text-accent text-[10px] uppercase font-bold tracking-widest mb-12 hover:translate-x-[-4px] transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Back to Case Studies
       </a>
 
-      <header class="mb-20">
-        <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-6">Case Study</div>
-        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tighter">{title}</h1>
-        <p class="text-xl text-slate-600 leading-relaxed font-outfit">{teaser}</p>
+      <header class="mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-[10px] font-bold tracking-widest text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+          Governance & Strategy
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tighter italic">{title}</h1>
+        <p class="text-xl text-slate-600 leading-relaxed font-outfit max-w-3xl">{teaser}</p>
       </header>
 
-      <div class="space-y-20">
-        <!-- Styled Content Sections -->
-        <div class="max-w-[900px] mx-auto pb-32">
-          <div class="flex flex-col gap-16">
-            
-            <!-- Section 1 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">1</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Context & The Business Problem</h2>
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+        <div class="glass p-6 rounded-2xl border-b-4 border-blue-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Scale</div>
+          <div class="text-2xl font-bold text-slate-900">120+ APIs</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-b-4 border-green-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Security</div>
+          <div class="text-2xl font-bold text-slate-900">Zero Breaches</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-b-4 border-orange-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Velocity</div>
+          <div class="text-2xl font-bold text-slate-900">+40%</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-b-4 border-purple-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Observability</div>
+          <div class="text-2xl font-bold text-slate-900">100% Coverage</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <!-- Main Content -->
+        <div class="lg:col-span-8 space-y-16">
+          
+          <!-- Context & Problem -->
+          <section>
+            <h2 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-8 flex items-center gap-2">
+              <span class="w-8 h-[1px] bg-slate-200"></span> Context & Problem
+            </h2>
+            <div class="space-y-6 text-lg text-slate-600 leading-relaxed font-outfit">
+              <p>
+                API development was highly fragmented across global business units. This "Shadow IT" culture led to <span class="text-slate-900 font-semibold underline decoration-accent/30">duplicated efforts</span>, inconsistent security protocols, and a total lack of discoverability.
+              </p>
+              <div class="bg-red-50/50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                <h4 class="text-red-800 font-bold mb-2">The Impact</h4>
+                <p class="text-red-700/80 text-sm italic">New product launches were delayed for months as teams waited for custom integrations that already existed elsewhere but were impossible to find or reuse.</p>
               </div>
-              <div class="glass p-8 md:p-10">
-                <p class="text-slate-600 leading-relaxed text-lg mb-6">
-                  Prior to this initiative, API development across the global enterprise was highly fragmented. Multiple business units operated in isolation ("shadow IT"), leading to inconsistent security standards, massive duplication of effort, and a complete lack of discoverability for existing integration services.
+            </div>
+          </section>
+
+          <!-- The C4E Model Architecture -->
+          <section>
+            <h2 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-8 flex items-center gap-2">
+              <span class="w-8 h-[1px] bg-slate-200"></span> Federated Operating Model
+            </h2>
+            <div class="mb-4">
+               <MermaidDiagram 
+                id="c4e-model"
+                diagram={`graph TD
+                  subgraph Center[Center for Enablement - C4E]
+                    Standards[Policy & Standards]
+                    Assets[Reusable Templates]
+                    Platform[Anypoint Platform]
+                  end
+
+                  subgraph Teams[Product Delivery Teams]
+                    BU1[Digital Banking]
+                    BU2[Wealth Mgmt]
+                    BU3[Insurance]
+                  end
+
+                  Center -- Best Practices --> Teams
+                  Teams -- "Publishes to Exchange" --> Center
+                  Teams -- "Self-Service Consumption" --> Center
+
+                  classDef center fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1d4ed8;
+                  classDef teams fill:#f8fafc,stroke:#94a3b8,stroke-width:1px,color:#64748b;
+                  class Standards,Assets,Platform center;
+                  class BU1,BU2,BU3 teams;`}
+              >
+                <div slot="callouts">
+                  <div class="absolute top-[20%] right-[15%] animate-pulse">
+                    <div class="bg-accent text-white text-[8px] px-2 py-1 rounded shadow-lg font-bold">Standardized Gates</div>
+                  </div>
+                  <div class="absolute bottom-[10%] left-[45%] animate-pulse" style="animation-delay: 1.5s">
+                    <div class="bg-green-600 text-white text-[8px] px-2 py-1 rounded shadow-lg font-bold">Self-Service Reuse</div>
+                  </div>
+                </div>
+              </MermaidDiagram>
+            </div>
+          </section>
+
+          <!-- Before vs After Table -->
+          <section>
+            <h2 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-8 flex items-center gap-2">
+              <span class="w-8 h-[1px] bg-slate-200"></span> Strategic Transformation
+            </h2>
+            <div class="overflow-hidden border border-slate-200 rounded-2xl shadow-sm">
+              <table class="w-full text-left border-collapse bg-white">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200">
+                    <th class="p-4 text-[10px] font-bold uppercase tracking-widest text-slate-500 w-1/4">Metric</th>
+                    <th class="p-4 text-[10px] font-bold uppercase tracking-widest text-red-500 w-3/8 italic">Before (Shadow IT)</th>
+                    <th class="p-4 text-[10px] font-bold uppercase tracking-widest text-green-600 w-3/8 italic">After (Unified)</th>
+                  </tr>
+                </thead>
+                <tbody class="text-sm">
+                  <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                    <td class="p-4 text-slate-900 font-bold">Governance</td>
+                    <td class="p-4 text-slate-500 italic">Fragmented & Siloed</td>
+                    <td class="p-4 text-slate-700 font-semibold">Federated C4E Model</td>
+                  </tr>
+                  <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                    <td class="p-4 text-slate-900 font-bold">Discoverability</td>
+                    <td class="p-4 text-slate-500 italic">Slack / Word-of-Mouth</td>
+                    <td class="p-4 text-slate-700 font-semibold">Central Exchange Registry</td>
+                  </tr>
+                  <tr class="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                    <td class="p-4 text-slate-900 font-bold">Security</td>
+                    <td class="p-4 text-slate-500 italic">Inconsistent / Manual</td>
+                    <td class="p-4 text-slate-700 font-semibold">Automated OAuth2 & mTLS</td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="p-4 text-slate-900 font-bold">Time-to-Market</td>
+                    <td class="p-4 text-slate-500 italic">3–6 Months</td>
+                    <td class="p-4 text-slate-700 font-bold text-accent">4–8 Weeks (-40%)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Approach Details -->
+          <section>
+            <h2 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-8 flex items-center gap-2">
+              <span class="w-8 h-[1px] bg-slate-200"></span> Core Pillars
+            </h2>
+            <div class="grid gap-6">
+              {[
+                { title: "Center for Enablement (C4E)", desc: "Transitioned from a central bottleneck to a federated integration practice by empowering distributed product teams." },
+                { title: "Automated Quality Gates", desc: "Integrated security scanning (Checkmarx/Veracode) and policy enforcement directly into Jenkins/GitLab pipelines." },
+                { title: "Unified Observability", desc: "Aggregated Splunk, ELK, and Anypoint Monitoring into a single dashboard for global traffic analysis." }
+              ].map(pillar => (
+                <div class="p-6 glass rounded-2xl border-l-4 border-accent">
+                  <h4 class="text-slate-900 font-bold mb-2">{pillar.title}</h4>
+                  <p class="text-slate-500 text-sm leading-relaxed">{pillar.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Retrospective -->
+          <section>
+             <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                   <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                   </div>
+                   Executive Retrospective
+                </h3>
+                <p class="text-slate-300 text-lg leading-relaxed italic font-outfit">
+                  "I would have prioritized developer advocacy more heavily in the first phase. We focused strictly on the governance 'gates', which initially met some internal resistance. A more collaborative 'enablement' approach would have accelerated adoption and reduced the initial friction between the COE and the feature teams."
                 </p>
-                <p class="text-slate-600 leading-relaxed text-lg mb-6">
-                  This siloed approach resulted in bloated operational costs, extended time-to-market for new digital products, and significant security vulnerabilities due to non-standardized authentication and authorization protocols across hundreds of critical endpoints.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg font-semibold text-slate-900">
-                  The mission was clear: establish a unified API Operating Model that could support a rapidly growing portfolio of 120+ production APIs, while enforcing strict security compliance, centralized governance, and catalyzing a culture of asset reuse.
-                </p>
-              </div>
-            </section>
+             </div>
+          </section>
 
-            <!-- Section 2 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">2</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Strategic Mandate & Execution</h2>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10 space-y-10">
-                <div>
-                  <h3 class="text-xl font-bold text-slate-900 mb-4">Establishing the Center for Enablement (C4E)</h3>
-                  <p class="text-slate-600 text-lg leading-relaxed mb-4">
-                    Transitioned from a centralized bottleneck into a federated integration practice by establishing a Center for Enablement (C4E). This empowered distributed product teams to build their own integrations using standardized templates and automated quality gates.
-                  </p>
-                </div>
-                
-                <div>
-                  <h3 class="text-xl font-bold text-slate-900 mb-4">API-Led Architecture & Governance</h3>
-                  <ul class="space-y-5">
-                    <li class="flex gap-3">
-                      <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                      <div class="text-slate-600 text-lg"><strong class="text-slate-900">Global Security Standards:</strong> Enforced enterprise-wide OAuth2, Mutual TLS (mTLS), and granular Role-Based Access Control (RBAC) across all service tiers.</div>
-                    </li>
-                    <li class="flex gap-3">
-                      <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                      <div class="text-slate-600 text-lg"><strong class="text-slate-900">Centralized Discoverability:</strong> Deployed Anypoint Exchange as the definitive enterprise registry, forcing comprehensive documentation, RAML/OAS specs, and self-service access.</div>
-                    </li>
-                    <li class="flex gap-3">
-                      <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                      <div class="text-slate-600 text-lg"><strong class="text-slate-900">Automated CI/CD Quality Gates:</strong> Integrated automated security scanning, code quality checks, and programmatic policy enforcement directly into deployment pipelines.</div>
-                    </li>
-                    <li class="flex gap-3">
-                      <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                      <div class="text-slate-600 text-lg"><strong class="text-slate-900">High-Fidelity Observability:</strong> Built a unified analytics stack bridging Splunk, ELK, and Anypoint Monitoring for real-time traffic analysis and proactive anomaly detection.</div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 3 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">3</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">The Catalyst: Real Business Impact</h2>
-              </div>
-              <div class="glass p-8 md:p-10 bg-gradient-to-br from-white to-slate-50 border-l-4 border-l-accent">
-                <p class="text-slate-600 leading-relaxed text-lg mb-8">
-                  The true success of the API governance initiative was not just technical compliance, but its profound strategic value to the broader enterprise. By moving away from point-to-point spaghetti integrations towards a reusable composable enterprise model, the impact was immediately measurable on the bottom line.
-                </p>
-                <div class="space-y-8">
-                  <div class="flex gap-4">
-                    <div class="mt-1 flex text-white bg-accent w-10 h-10 rounded-full items-center justify-center shrink-0 shadow-md">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-slate-900 text-xl tracking-tight mb-2">Accelerated Time-to-Market</h4>
-                      <p class="text-slate-600 text-lg">Reduced delivery cycles for new digital initiatives from months to weeks. Pre-built "System APIs" enabled product teams to instantly consume core banking and ERP data without rebuilding integrations from scratch.</p>
-                    </div>
-                  </div>
-                  <div class="flex gap-4">
-                    <div class="mt-1 flex text-white bg-accent w-10 h-10 rounded-full items-center justify-center shrink-0 shadow-md">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-slate-900 text-xl tracking-tight mb-2">Significant Operational Cost Savings</h4>
-                      <p class="text-slate-600 text-lg">Saved hundreds of thousands of dollars annually by deprecating redundant legacy middleware and decreasing the infrastructure footprint required to run duplicated integration logic.</p>
-                    </div>
-                  </div>
-                  <div class="flex gap-4">
-                    <div class="mt-1 flex text-white bg-accent w-10 h-10 rounded-full items-center justify-center shrink-0 shadow-md">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 22s-8-4-8-10V5l8-3 8 3v7"></path><path d="M9 12l2 2 4-4"></path></svg>
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-slate-900 text-xl tracking-tight mb-2">Audit-Ready Security Posture</h4>
-                      <p class="text-slate-600 text-lg">The centralized API gateway automatically enforced security policies (rate limiting, IP allowlisting) across all 120+ APIs, making the platform continuously compliant and effortlessly passing grueling external security audits.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 4 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">4</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Measured Results</h2>
-              </div>
-              
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass p-6 border-l-4 border-l-accent flex items-start gap-4 hover:shadow-lg transition-shadow">
-                  <div class="mt-1 text-accent flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                  </div>
-                  <div>
-                    <div class="text-slate-900 font-bold mb-2 text-2xl tracking-tight">120+ APIs</div>
-                    <div class="text-slate-600 text-md leading-relaxed">Successfully standardized and migrated to the global enterprise API manager under strict C4E governance patterns.</div>
-                  </div>
-                </div>
-                
-                <div class="glass p-6 border-l-4 border-l-accent flex items-start gap-4 hover:shadow-lg transition-shadow">
-                  <div class="mt-1 text-accent flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                  </div>
-                  <div>
-                    <div class="text-slate-900 font-bold mb-2 text-2xl tracking-tight">Zero Breaches</div>
-                    <div class="text-slate-600 text-md leading-relaxed">Maintained an unblemished security record due to zero-trust automated validations and mandatory OAuth2 enforcement at the edge.</div>
-                  </div>
-                </div>
-                
-                <div class="glass p-6 border-l-4 border-l-accent flex items-start gap-4 hover:shadow-lg transition-shadow">
-                  <div class="mt-1 text-accent flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg>
-                  </div>
-                  <div>
-                    <div class="text-slate-900 font-bold mb-2 text-2xl tracking-tight">40% Faster Delivery</div>
-                    <div class="text-slate-600 text-md leading-relaxed">Dramatic improvement in PI (Program Increment) velocity as feature teams effectively reused existing Process and System APIs.</div>
-                  </div>
-                </div>
-                
-                <div class="glass p-6 border-l-4 border-l-accent flex items-start gap-4 hover:shadow-lg transition-shadow">
-                  <div class="mt-1 text-accent flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                  </div>
-                  <div>
-                    <div class="text-slate-900 font-bold mb-2 text-2xl tracking-tight">Single Pane of Glass</div>
-                    <div class="text-slate-600 text-md leading-relaxed">Eliminated blind spots by aggregating logging and metrics into a unified Splunk observability dashboard for the global infrastructure.</div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 5 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8 mt-4">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">5</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Retrospective</h2>
-              </div>
-              
-              <div class="glass p-8 md:p-10 border border-slate-200 bg-white/50 shadow-sm rounded-2xl isolate relative overflow-hidden">
-                <div class="absolute inset-0 bg-accent/5 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.1),transparent_50%)]"></div>
-                <div class="relative z-10">
-                  <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
-                    If I could do it differently
-                  </h3>
-                  <p class="text-slate-600 leading-relaxed text-lg italic">
-                    "I would have prioritized developer advocacy more heavily in the first phase. We focused strictly on the governance 'gates', which initially met some internal resistance. A more collaborative 'enablement' approach would have accelerated adoption and reduced the initial friction between the COE and the feature teams."
-                  </p>
-                </div>
-              </div>
-            </section>
-
-          </div>
         </div>
 
+        <!-- Sidebar -->
+        <div class="lg:col-span-4 space-y-12">
+          
+          <!-- Personally Owned -->
+          <div class="glass p-8 rounded-3xl border-l-4 border-accent">
+            <h3 class="text-slate-900 font-bold mb-6">What I Personally Owned</h3>
+            <ul class="space-y-4">
+              {[
+                "API Operating Model Design",
+                "C4E Organizational Setup",
+                "Global Security Policy Definition",
+                "Self-Service Template Catalog",
+                "Automated Governance Gates"
+              ].map(item => (
+                <li class="flex items-start gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-accent mt-0.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span class="text-slate-600 text-sm font-semibold">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Tooling -->
+          <div>
+            <h3 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-6">Technologies</h3>
+            <div class="flex flex-wrap gap-2">
+              {["Anypoint Exchange", "Splunk", "ELK", "OAuth 2.0", "Checkmarx", "Jenkins", "GitLab"].map(tech => (
+                <span class="px-3 py-1.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-slate-200">{tech}</span>
+              ))}
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="bg-accent/5 border border-accent/10 p-8 rounded-3xl text-center">
+            <div class="w-12 h-12 bg-accent/20 rounded-2xl flex items-center justify-center text-accent mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+            <h4 class="text-slate-900 font-bold mb-2 text-sm">Download One-Pager</h4>
+            <p class="text-slate-500 text-xs mb-6">Standardized Governance Artifact (NDA Safe PDF).</p>
+            <button class="w-full py-4 bg-accent text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-accent-muted transition-colors shadow-lg shadow-accent/20 cursor-not-allowed opacity-50">
+              Download Coming Soon
+            </button>
+          </div>
+
+        </div>
       </div>
     </div>
   </article>

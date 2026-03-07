@@ -1,580 +1,230 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import MermaidDiagram from '../../components/MermaidDiagram.astro';
 import { siteConfig } from '../../config/site';
 
 const title = "Hybrid MuleSoft Platform: RTF on OpenShift";
-const teaser = "This reference architecture describes a true hybrid MuleSoft runtime deployed across CloudHub 2.0 and Runtime Fabric (RTF) on OpenShift hosted in the client datacenter, with F5 providing centralized routing, ingress control, and traffic steering between runtime planes. The platform is designed with environment parity across non-production (DEV/TST/STG) and production resilience (PRD/DR).";
-
-const diagram = `graph TD
-    Client[External Clients / Mobile / Web] --> F5[F5 Big-IP Load Balancer]
-    
-    subgraph ControlPlane[MuleSoft Anypoint Platform]
-        API_Manager[API Manager]
-        Runtime_Manager[Runtime Manager]
-    end
-
-    subgraph AWS[AWS Region - CloudHub 2.0]
-        CH2_Ingress[CloudHub 2.0 Ingress]
-        Exp_API[Experience APIs]
-        Sys_API_CH[External System APIs]
-        CH2_Ingress --> Exp_API
-        Exp_API --> Sys_API_CH
-    end
-
-    subgraph OnPrem[On-Premise Data Center]
-        OpenShift[Red Hat OpenShift Cluster]
-        subgraph RTF[Runtime Fabric]
-            RTF_Ingress[RTF Ingress Controller]
-            Process_API[Process / Orchestration APIs]
-            Sys_API_OP[Internal System APIs]
-            RTF_Ingress --> Process_API
-            Process_API --> Sys_API_OP
-        end
-        Backends[(Legacy DB / ERP / Mainframe)]
-        Sys_API_OP --> Backends
-    end
-
-    F5 -->|External Traffic| CH2_Ingress
-    F5 -->|Internal/Secure Traffic| RTF_Ingress
-    
-    Sys_API_CH -.->|VPN/Direct Connect| RTF_Ingress
-    
-    ControlPlane -.->|Management| Exp_API
-    ControlPlane -.->|Management| Process_API
-    ControlPlane -.->|Management| Sys_API_CH
-    ControlPlane -.->|Management| Sys_API_OP
-
-    classDef aws fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#c2410c;
-    classDef onprem fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#b91c1c;
-    classDef control fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1d4ed8;
-    classDef lb fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#15803d;
-    
-    class AWS aws;
-    class OnPrem onprem;
-    class ControlPlane control;
-    class F5 lb;`;
+const teaser = "Architected a 'best-of-both-worlds' hybrid platform balancing CloudHub 2.0 for elastic scale and Runtime Fabric (RTF) on OpenShift for internal datacenter locality and compliance.";
 ---
 
 <BaseLayout title={`${title} | Sriman Tirupathy Eshwarappa`}>
   <article class="pt-32 pb-24">
-    <div class="container mx-auto px-6 max-w-4xl">
+    <div class="container mx-auto px-6 max-w-5xl">
       <a href="/#case-studies" class="inline-flex items-center gap-2 text-accent text-[10px] uppercase font-bold tracking-widest mb-12 hover:translate-x-[-4px] transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Back to Case Studies
       </a>
 
-      <header class="mb-20">
-        <div class="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-6">Reference Architecture</div>
-        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tighter">{title}</h1>
-        <p class="text-xl text-slate-600 leading-relaxed font-outfit">{teaser}</p>
+      <header class="mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 text-[10px] font-bold tracking-widest text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+          Reference Architecture
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tighter italic">{title}</h1>
+        <p class="text-xl text-slate-600 leading-relaxed font-outfit max-w-3xl">{teaser}</p>
       </header>
 
-      <div class="space-y-20">
-        <!-- Diagram Section -->
-        <section>
-          <div class="bg-white border border-slate-200 rounded-2xl p-8 overflow-x-auto diagram-container shadow-sm mb-12">
-            <div class="mermaid min-w-[800px] flex justify-center">
-              {diagram}
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+        <div class="glass p-6 rounded-2xl border-b-4 border-blue-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Availability</div>
+          <div class="text-2xl font-bold text-slate-900">99.9%</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-b-4 border-orange-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Runtimes</div>
+          <div class="text-2xl font-bold text-slate-900">Multi-Plane</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-b-4 border-green-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Latency</div>
+          <div class="text-2xl font-bold text-slate-900">&lt;50ms</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-b-4 border-purple-500">
+          <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Parity</div>
+          <div class="text-2xl font-bold text-slate-900">100%</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <!-- Main Content -->
+        <div class="lg:col-span-8 space-y-20">
+          
+          <!-- Context & Problem -->
+          <section>
+            <h2 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-8 flex items-center gap-2">
+              <span class="w-8 h-[1px] bg-slate-200"></span> Context & Problem
+            </h2>
+            <div class="space-y-6 text-lg text-slate-600 leading-relaxed font-outfit">
+              <p>
+                The enterprise faced a dual challenge: the need for <span class="text-slate-900 font-semibold underline decoration-accent/30">public cloud agility</span> for consumer-facing apps, versus strict <span class="text-slate-900 font-semibold underline decoration-accent/30">data residency</span> and low-latency requirements for core mainframe systems.
+              </p>
+              <div class="bg-blue-50/50 border-l-4 border-blue-500 p-6 rounded-r-xl">
+                <h4 class="text-blue-800 font-bold mb-2">The Solution</h4>
+                <p class="text-blue-700/80 text-sm italic">A unified hybrid platform that steers traffic across planes seamlessly, ensuring every workload sits exactly where it belongs—cloud or datacenter—without siloed management.</p>
+              </div>
             </div>
+          </section>
+
+          <!-- The Hybrid Architecture -->
+          <section>
+            <h2 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-8 flex items-center gap-2">
+              <span class="w-8 h-[1px] bg-slate-200"></span> Platform Topology
+            </h2>
+            <div class="mb-4">
+               <MermaidDiagram 
+                id="hybrid-rtf-diag"
+                diagram={`graph TD
+                  Client[External Clients] --> F5[F5 Big-IP LB]
+                  
+                  subgraph AWS[Public Cloud - CH 2.0]
+                    CH_Ingress[Ingress]
+                    Exp_API[Experience APIs]
+                    CH_Ingress --> Exp_API
+                  end
+
+                  subgraph OnPrem[Datacenter - OpenShift]
+                    subgraph RTF[Runtime Fabric]
+                      RTF_Ingress[Ingress]
+                      Process_API[Process APIs]
+                      Sys_API[System APIs]
+                      RTF_Ingress --> Process_API
+                      Process_API --> Sys_API
+                    end
+                    DB[(Core Systems)]
+                    Sys_API --> DB
+                  end
+
+                  F5 -->|Public App Traffic| CH_Ingress
+                  F5 -->|Internal/Secure Traffic| RTF_Ingress
+                  Exp_API -.->|mTLS| RTF_Ingress
+
+                  classDef cloud fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#c2410c;
+                  classDef dc fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#b91c1c;
+                  classDef lb fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#15803d;
+                  class AWS cloud;
+                  class OnPrem dc;
+                  class F5 lb;`}
+              >
+                <div slot="callouts">
+                  <div class="absolute top-[25%] left-[45%] animate-pulse">
+                    <div class="bg-accent text-white text-[8px] px-2 py-1 rounded shadow-lg font-bold">F5 Traffic Steering</div>
+                  </div>
+                  <div class="absolute bottom-[20%] left-[30%] animate-pulse" style="animation-delay: 1s">
+                    <div class="bg-blue-600 text-white text-[8px] px-2 py-1 rounded shadow-lg font-bold">mTLS Cross-Plane</div>
+                  </div>
+                  <div class="absolute bottom-[10%] right-[15%] animate-pulse" style="animation-delay: 2s">
+                    <div class="bg-green-600 text-white text-[8px] px-2 py-1 rounded shadow-lg font-bold">Datacenter Locality</div>
+                  </div>
+                </div>
+              </MermaidDiagram>
+            </div>
+          </section>
+
+          <!-- Technical Deep Dive Sections -->
+          <div class="space-y-16 pt-8">
+            <section>
+              <h3 class="text-2xl font-bold text-slate-900 mb-6 tracking-tight">Networking & Ingress</h3>
+              <p class="text-slate-600 mb-6 leading-relaxed">
+                A centralized F5 Big-IP layer handles environment-wide ingress. By using L7 SNI-based routing, we ensure that external consumer traffic is steered to CloudHub 2.0 Experience APIs, while sensitive internal orchestration requests are sent directly to the RTF cluster on OpenShift.
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-5 glass rounded-xl">
+                  <div class="font-bold text-slate-900 mb-2 text-sm">TLS Posture</div>
+                  <p class="text-slate-500 text-xs">F5 terminates public TLS, re-encrypting to mTLS for all cross-plane communication between CH 2.0 and RTF.</p>
+                </div>
+                <div class="p-5 glass rounded-xl">
+                  <div class="font-bold text-slate-900 mb-2 text-sm">DNS Strategy</div>
+                  <p class="text-slate-500 text-xs">Unified <code>api.domain.com</code> namespace with path-based steering to runtime planes.</p>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h3 class="text-2xl font-bold text-slate-900 mb-6 tracking-tight">OpenShift & RTF Ops</h3>
+              <p class="text-slate-600 mb-6 leading-relaxed">
+                RTF on OpenShift provides a containerized runtime within the datacenter. This architecture defers infrastructure management to the OpenShift operator while giving MuleSoft precise control over CPU/Memory isolation for mission-critical core banking services.
+              </p>
+              <ul class="space-y-4">
+                {[
+                  { t: "Environment Parity", d: "Identical RTF clusters in DEV/TST/STG/PRD to ensure testing validity." },
+                  { t: "RPO/RTO Targets", d: "Architected for 1-hour RTO using automated F5 DNS cutovers." }
+                ].map(item => (
+                  <li class="flex gap-3">
+                    <div class="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
+                    <div>
+                      <span class="font-bold text-slate-900 text-sm block">{item.t}</span>
+                      <span class="text-slate-500 text-sm">{item.d}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
-        </section>
 
-        <!-- Styled Content Sections -->
-        <div class="max-w-[900px] mx-auto px-4 md:px-8 pb-32">
-          <div class="flex flex-col gap-16">
-            
-            <!-- Section 1 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">1</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Architectural Principles</h2>
-              </div>
-              <div class="glass p-8 md:p-10">
-                <ul class="space-y-6">
-                  <li class="flex gap-4">
-                    <div class="mt-1 text-accent flex-shrink-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                    <div>
-                      <strong class="text-slate-900 block mb-1">Hybrid by design (runtime placement):</strong>
-                      <span class="text-slate-600 leading-relaxed text-lg block">Workloads are placed on CloudHub 2.0 or on-prem RTF based on connectivity, compliance, latency, and operational constraints—without compromising consistency in governance, security, and observability.</span>
-                    </div>
-                  </li>
-                  <li class="flex gap-4">
-                    <div class="mt-1 text-accent flex-shrink-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                    <div>
-                      <strong class="text-slate-900 block mb-1">Centralized traffic control:</strong>
-                      <span class="text-slate-600 leading-relaxed text-lg block">All inbound routing is governed through an enterprise ingress layer (F5) to enforce consistent patterns for exposure, TLS posture, and traffic steering across runtime planes.</span>
-                    </div>
-                  </li>
-                  <li class="flex gap-4">
-                    <div class="mt-1 text-accent flex-shrink-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                    <div>
-                      <strong class="text-slate-900 block mb-1">Environment parity:</strong>
-                      <span class="text-slate-600 leading-relaxed text-lg block">Non-production mirrors production topology, including routing paths and runtime splits, to prevent production-only failures arising from untested hybrid behavior.</span>
-                    </div>
-                  </li>
-                  <li class="flex gap-4">
-                    <div class="mt-1 text-accent flex-shrink-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                    <div>
-                      <strong class="text-slate-900 block mb-1">Operational readiness:</strong>
-                      <span class="text-slate-600 leading-relaxed text-lg block">Observability, incident response, and DR runbooks are treated as first-class deliverables and implemented alongside platform build-out.</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <!-- Section 2 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">2</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Networking Model</h2>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">2.1 Network Segmentation & Zones</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">The architecture aligns with a zone-based model commonly adopted in enterprise environments:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg"><strong class="text-slate-900">Ingress Zone:</strong> External and internal entry points controlled through F5 (VIPs, L7 routing, policy enforcement).</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">
-                      <strong class="text-slate-900 block mb-2">Runtime Zones:</strong>
-                      <ul class="space-y-2 pl-4">
-                        <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-slate-400"></div>CloudHub 2.0 runtime plane for suitable API and integration workloads.</li>
-                        <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-slate-400"></div>On-prem RTF runtime plane running in the client datacenter on OpenShift for workloads requiring datacenter locality or stricter controls.</li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg"><strong class="text-slate-900">Backend/System Zone:</strong> Enterprise applications, databases, and services accessed via controlled routes and allowlists.</div>
-                  </li>
-                </ul>
-                <p class="text-slate-600 leading-relaxed mt-6 text-lg">This structure enables controlled east-west and north-south connectivity while preserving isolation between environments (DEV/TST/STG vs PRD/DR).</p>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">2.2 Traffic Steering (CloudHub 2.0 vs On-Prem RTF)</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">Traffic is routed to the appropriate runtime plane based on application ownership and exposure model:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">F5 routes API traffic to CloudHub 2.0 or on-prem RTF based on hostname/path rules (or equivalent routing policies).</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Runtime plane selection is explicit and governed; services are not moved between planes without change control.</div>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">2.3 Connectivity to Enterprise Backends</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">Integrations that require on-prem connectivity follow controlled patterns:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">On-prem RTF accesses datacenter systems directly within allowed security boundaries.</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">CloudHub 2.0 accesses enterprise systems through approved connectivity patterns and enterprise network controls, ensuring all access paths remain auditable and governed.</div>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">2.4 Resilience and Failure Domains</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">The platform is designed to isolate failures:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">CloudHub 2.0 runtime incidents do not directly impair on-prem RTF services and vice-versa.</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">F5 provides controlled routing behavior and enables planned maintenance and failover patterns aligned with enterprise practices.</div>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <!-- Section 3 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">3</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">DNS and Endpoint Strategy</h2>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">3.1 Endpoint Naming Convention</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">A consistent DNS strategy is used to clearly distinguish environments and reduce routing ambiguity. Dedicated hostnames are utilized per environment, e.g.,</p>
-                <div class="glass p-6 bg-slate-50/50">
-                  <ul class="space-y-3 font-mono text-sm text-slate-700">
-                    <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-slate-400"></div><code>api-dev.&lt;domain&gt;</code> / <code>api-tst.&lt;domain&gt;</code> / <code>api-stg.&lt;domain&gt;</code></li>
-                    <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-slate-400"></div><code>api.&lt;domain&gt;</code> <span class="text-slate-500 font-sans text-xs uppercase tracking-widest">(PRD)</span></li>
-                    <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-slate-400"></div><code>api-dr.&lt;domain&gt;</code> <span class="text-slate-500 font-sans text-xs uppercase tracking-widest">(DR)</span></li>
-                  </ul>
+          <!-- Retrospective -->
+          <section>
+             <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
                 </div>
-                <p class="text-slate-600 leading-relaxed mt-6 text-lg">This pattern supports clear separation of concerns, environment isolation, and easier automation.</p>
-              </div>
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                   <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                   </div>
+                   Executive Retrospective
+                </h3>
+                <p class="text-slate-300 text-lg leading-relaxed italic font-outfit">
+                   "The biggest challenge wasn't the hybrid runtime—it was the initial firewall friction. If I could redo the pilot, I'd insist on a pre-approved 'Platform Wide' CIDR allow-list for CH 2.0 to RTF traffic. We spent weeks debugging individual micro-segmentation rules that could have been handled as a single infrastructure trust zone."
+                </p>
+             </div>
+          </section>
 
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">3.2 DNS Ownership and Change Control</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">DNS is treated as a controlled enterprise asset:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">DNS entries are managed via defined change processes with audit trails.</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Endpoint naming and cutovers are performed according to release governance and DR procedures.</div>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">3.3 Routing Independence from DNS (Where Applicable)</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">While DNS provides environment identity, routing decisions remain governed at the ingress layer:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">DNS resolves to controlled entry points, and F5 applies policy-based steering to the correct runtime targets based on approved routing rules.</div>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <!-- Section 4 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">4</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Certificates & TLS Termination</h2>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">4.1 TLS Strategy</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">TLS is implemented to satisfy security posture, compliance requirements, and operational simplicity:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">TLS is enforced for all external-facing endpoints.</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Mutual TLS (mTLS) can be applied for sensitive internal integrations where required by policy.</div>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">4.2 Termination Options and Standard Pattern</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">A consistent TLS posture is maintained across runtime planes:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Primary termination at the enterprise ingress layer (F5) is typically preferred for centralized certificate lifecycle management and uniform policy enforcement.</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Where end-to-end encryption is required, TLS can be re-established from F5 to the runtime targets, preserving encryption across segments.</div>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">4.3 Certificate Lifecycle Management</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">Certificate issuance, rotation, and expiry governance are standardized:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Certificates follow enterprise standards for key strength, validity, and renewal cadence.</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Rotation procedures are documented and tested to avoid service disruption.</div>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">4.4 Security Controls at the Edge</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">At ingress, the architecture supports consistent application of:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">TLS policy enforcement</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Request filtering and routing controls</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Standard headers and security hardening patterns</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Optional protections aligned to enterprise security tooling and posture</div>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <!-- Section 5 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">5</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Deployment Model</h2>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">5.1 Environments & Topology</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">The platform is deployed with clear environment separation:</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div class="glass p-6">
-                    <div class="text-[10px] uppercase tracking-widest font-bold text-accent mb-2">Non-Production</div>
-                    <div class="text-slate-900 font-bold mb-1">DEV, TST, STG</div>
-                    <div class="text-slate-600 text-sm">Each with hybrid runtime topology (CloudHub 2.0 + on-prem RTF) and F5 routing.</div>
-                  </div>
-                  <div class="glass p-6 border-l-4 border-l-accent">
-                    <div class="text-[10px] uppercase tracking-widest font-bold text-accent mb-2">Production & DR</div>
-                    <div class="text-slate-900 font-bold mb-1">PRD and DR</div>
-                    <div class="text-slate-600 text-sm">Mirrored hybrid topology designed for operational resilience and recoverability.</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">5.2 Application Placement Strategy</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">Applications are placed in one of the runtime planes based on:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Dependency locality (datacenter systems vs cloud-ready systems)</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Security/compliance requirements</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Performance and latency sensitivity</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Operational constraints and runtime ownership</div>
-                  </li>
-                </ul>
-                <p class="text-slate-600 leading-relaxed mt-6 text-lg">This approach avoids a one-size-fits-all runtime and enables pragmatic modernization.</p>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">5.3 CI/CD & Release Governance</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">A standardized CI/CD process is implemented to ensure repeatability across runtime targets:</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                    <div class="mt-1 text-accent flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
-                    <div class="text-slate-600 text-sm">Single source of truth for build and packaging</div>
-                  </div>
-                  <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                    <div class="mt-1 text-accent flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
-                    <div class="text-slate-600 text-sm">Automated quality gates (tests, validation)</div>
-                  </div>
-                  <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                    <div class="mt-1 text-accent flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
-                    <div class="text-slate-600 text-sm">Environment promotion model (DEV → PRD)</div>
-                  </div>
-                  <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                    <div class="mt-1 text-accent flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
-                    <div class="text-slate-600 text-sm">Runtime-specific deployment templates</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">5.4 Configuration and Secret Management</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">Configuration is environment-specific and separated from code:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Externalized configuration and secure secret handling aligned with enterprise standards</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Clear separation of runtime config for CloudHub 2.0 vs on-prem RTF</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Change control and auditability for configuration updates</div>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">5.5 DR Readiness & Cutover Approach</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">DR is implemented as an operational capability, not just infrastructure:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Documented DR procedures for activation and validation</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Defined RTO/RPO assumptions (aligned to enterprise policy)</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Periodic exercises to validate readiness and minimize recovery uncertainty</div>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <!-- Section 6 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">6</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Observability Model</h2>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">6.1 Observability Goals</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">The observability strategy is designed to support:</p>
-                <div class="flex flex-wrap gap-3">
-                  <span class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold">Rapid detection & triage</span>
-                  <span class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold">API layer correlation</span>
-                  <span class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold">Proactive capacity mgmt</span>
-                  <span class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold">Audit-ready telemetry</span>
-                </div>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6 mb-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">6.2 Metrics & Logging</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">Metrics collection and logging cover platform health and application behavior:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg"><strong class="text-slate-900">Metrics:</strong> API KPIs (latency, error rates), runtime resource limits, and dependency metrics. CloudHub 2.0 and on-prem RTF metrics are normalized.</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg"><strong class="text-slate-900">Logging:</strong> Structured logs with consistent schema, correlation IDs natively propagated end-to-end, and routing to centralized platforms (e.g., Splunk/ELK).</div>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="border-l-2 border-accent/20 pl-6">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">6.3 Alerting & Incident Response</h3>
-                <p class="text-slate-600 leading-relaxed mb-6 text-lg">Operational processes are codified for reliability:</p>
-                <ul class="space-y-4">
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">SLO-based alert thresholds for latency/error rate spikes and saturation risks.</div>
-                  </li>
-                  <li class="flex gap-3">
-                    <div class="mt-1.5 text-slate-400 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
-                    <div class="text-slate-600 text-lg">Standardized RCA template, known-issue knowledge base, and incident triage flows with post-incident improvements tracked globally.</div>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <!-- Section 7 -->
-            <section>
-              <div class="flex items-center gap-4 mb-8 mt-4">
-                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-xl">7</div>
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tighter">Governance & Security (Cross-Cutting)</h2>
-              </div>
-              
-              <div class="glass p-8 md:p-10 border border-slate-200 bg-white/50 shadow-sm rounded-2xl isolate relative overflow-hidden">
-                <div class="absolute inset-0 bg-accent/5 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.1),transparent_50%)]"></div>
-                <ul class="space-y-6 relative z-10">
-                  <li class="flex gap-4">
-                    <div class="mt-1 text-accent flex-shrink-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    </div>
-                    <div>
-                      <strong class="text-slate-900 block mb-1">API Governance:</strong>
-                      <span class="text-slate-600 leading-relaxed text-lg block">Lifecycle rules, versioning, and policy baselines are consistently enforced across runtimes.</span>
-                    </div>
-                  </li>
-                  <li class="flex gap-4">
-                    <div class="mt-1 text-accent flex-shrink-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    </div>
-                    <div>
-                      <strong class="text-slate-900 block mb-1">Security Controls:</strong>
-                      <span class="text-slate-600 leading-relaxed text-lg block">OAuth2/TLS standards, RBAC, and policy-driven enforcement are standardized to ensure consistent posture across environments.</span>
-                    </div>
-                  </li>
-                  <li class="flex gap-4">
-                    <div class="mt-1 text-accent flex-shrink-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    </div>
-                    <div>
-                      <strong class="text-slate-900 block mb-1">Operational Controls:</strong>
-                      <span class="text-slate-600 leading-relaxed text-lg block">Release governance, change control, and auditability are embedded into platform pipelines and procedures.</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-          </div>
         </div>
 
-        <section class="pt-12 border-t border-slate-200 mt-24">
-          <div class="flex flex-col md:flex-row items-center justify-between gap-12 glass p-12 rounded-[40px] bg-slate-50">
-            <div>
-              <h3 class="text-2xl font-bold text-slate-900 mb-2">Want the deeper details?</h3>
-              <p class="text-slate-600">Download the full architecture artifacts and technical specs.</p>
-            </div>
-             <div class="flex flex-col sm:flex-row gap-4">
-               <a href="/case-studies/hybrid-mulesoft-platform-deep-dive" class="px-6 py-3 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-[10px] uppercase font-bold tracking-widest rounded-lg shadow-sm transition-all text-center">
-                 Technical Deep-Dive (Web)
-               </a>
-               <a href="/integration-hub-media-kit.pdf" download class="px-6 py-3 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-[10px] uppercase font-bold tracking-widest rounded-lg shadow-sm transition-all flex items-center justify-center gap-2">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                 Download Media Kit (PDF)
-               </a>
-               <a href={siteConfig.bookingLink} class="px-6 py-3 bg-accent text-white hover:bg-accent-muted text-[10px] uppercase font-bold tracking-widest rounded-lg transition-all shadow-sm text-center">
-                 Book Implementation Brief
-               </a>
+        <!-- Sidebar -->
+        <div class="lg:col-span-4 space-y-12">
+          
+          <!-- Personally Owned -->
+          <div class="glass p-8 rounded-3xl border-l-4 border-accent">
+            <h3 class="text-slate-900 font-bold mb-6">What I Personally Owned</h3>
+            <ul class="space-y-4">
+              {[
+                "Hybrid Platform Blueprint",
+                "F5 Ingress Policy Design",
+                "RTF on OpenShift Integration",
+                "mTLS Cross-Plane Security",
+                "Automated DR Runbooks"
+              ].map(item => (
+                <li class="flex items-start gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-accent mt-0.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span class="text-slate-600 text-sm font-semibold">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Tooling -->
+          <div>
+            <h3 class="text-sm uppercase tracking-widest font-bold text-slate-400 mb-6">Technologies</h3>
+            <div class="flex flex-wrap gap-2">
+              {["CloudHub 2.0", "RTF", "OpenShift", "F5 Big-IP", "mTLS", "Anypoint MQ", "Terraform"].map(tech => (
+                <span class="px-3 py-1.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-slate-200">{tech}</span>
+              ))}
             </div>
           </div>
-        </section>
 
+          <!-- CTA -->
+          <div class="bg-accent/5 border border-accent/10 p-8 rounded-3xl text-center">
+            <div class="w-12 h-12 bg-accent/20 rounded-2xl flex items-center justify-center text-accent mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+            <h4 class="text-slate-900 font-bold mb-2 text-sm">Technical Deep-Dive</h4>
+            <p class="text-slate-500 text-xs mb-6">Download the 40-page reference architecture PDF.</p>
+            <button class="w-full py-4 bg-accent text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-accent-muted transition-colors shadow-lg shadow-accent/20 cursor-not-allowed opacity-50">
+              Download Coming Soon
+            </button>
+          </div>
+
+        </div>
       </div>
     </div>
   </article>
-
-  <script is:inline type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ 
-      startOnLoad: true, 
-      theme: 'base',
-      themeVariables: {
-        primaryColor: '#ffffff',
-        primaryTextColor: '#1e293b',
-        primaryBorderColor: '#cbd5e1',
-        lineColor: '#94a3b8',
-        secondaryColor: '#f8fafc',
-        tertiaryColor: '#f1f5f9',
-        fontFamily: 'system-ui, sans-serif'
-      }
-    });
-  </script>
 </BaseLayout>
