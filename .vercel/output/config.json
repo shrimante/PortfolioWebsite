@@ -1,0 +1,107 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"src": "^/_server-islands/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/_image/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/contact/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/ar/case-studies/enterprise-api-strategy-governance/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/ar/case-studies/esb-to-mulesoft-migration/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/ar/case-studies/hybrid-mulesoft-platform-rtf-openshift/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/ar/diagrams/api-lifecycle-blueprint/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/ar/diagrams/hybrid-rtf/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/ar/diagrams/mulesoft-security-model/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/ar/diagrams/solace-event-topology/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/ar/work/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/ar/work/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/case-studies/enterprise-api-strategy-governance/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/case-studies/esb-to-mulesoft-migration/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/case-studies/hybrid-mulesoft-platform-deep-dive/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/case-studies/hybrid-mulesoft-platform-rtf-openshift/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/diagrams/api-lifecycle-blueprint/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/diagrams/hybrid-rtf/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/diagrams/mulesoft-security-model/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/diagrams/solace-event-topology/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/uae-integration-hub-mulesoft/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/work/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/work/?$",
+			"dest": "_render"
+		}
+	]
+}

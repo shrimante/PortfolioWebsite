@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
   const name = data.get('name');
@@ -26,12 +28,12 @@ export const POST: APIRoute = async ({ request }) => {
 
   // FOR VERCEL: You would typically use Resend or SendGrid here
   // For now, we return a success response and the frontend should also instruct user to email directly as fallback
-  
+
   return new Response(
     JSON.stringify({
       message: 'Thank you for your inquiry. Sriman will get back to you shortly.',
     }),
-    { 
+    {
       status: 200,
       headers: {
         'Content-Type': 'application/json'

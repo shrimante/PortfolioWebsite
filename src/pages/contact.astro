@@ -8,6 +8,8 @@ const contactReasons = [
   { id: 'speaking', label: 'Speaking / Workshops', icon: 'mic' },
   { id: 'other', label: 'Other Inquiry', icon: 'message-circle' }
 ];
+
+export const prerender = true;
 ---
 
 <BaseLayout title="Contact & Strategy | Sriman Tirupathy Eshwarappa">
@@ -78,10 +80,23 @@ const contactReasons = [
 
         <!-- Right: Inquiry Form -->
         <div class="lg:col-span-7">
-          <div class="glass p-12 rounded-[2.5rem] border border-slate-200 bg-white/50 relative">
+          <div class="glass p-12 rounded-[2.5rem] border border-slate-200 bg-white/50 relative overflow-hidden">
+            <div id="contact-success" class="hidden absolute inset-0 bg-white/95 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-center p-8 animate-fade-in">
+              <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <h3 class="text-3xl font-bold text-slate-900 mb-4 tracking-tighter">Inquiry Sent</h3>
+              <p class="text-slate-600 font-outfit mb-8 leading-relaxed">
+                Thank you for reaching out. Sriman will review your message and get back to you within 24–48 hours.
+              </p>
+              <button onclick="window.location.reload()" class="text-accent font-bold uppercase tracking-widest text-[10px] border-b-2 border-accent/20 hover:border-accent transition-all">
+                Send another message
+              </button>
+            </div>
+
             <h2 class="text-2xl font-bold text-slate-900 mb-8 tracking-tight">Send an Inquiry</h2>
             
-            <form action="/api/contact" method="POST" class="space-y-8">
+            <form id="contact-form" class="space-y-8">
               <!-- Reason Selection -->
               <div class="space-y-4">
                 <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 block">Reason for Contact</label>
@@ -118,8 +133,8 @@ const contactReasons = [
                 <textarea id="message" name="message" rows="5" required class="w-full p-4 bg-white border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all font-outfit resize-none" placeholder="How can I help with your integration program?"></textarea>
               </div>
 
-              <button type="submit" class="w-full py-5 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10 text-[10px] uppercase tracking-widest">
-                Send Message
+              <button type="submit" id="submit-btn" class="w-full py-5 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10 text-[10px] uppercase tracking-widest disabled:opacity-50 disabled:cursor-wait">
+                <span id="btn-text">Send Message</span>
               </button>
             </form>
           </div>
@@ -128,4 +143,53 @@ const contactReasons = [
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    const form = document.getElementById('contact-form');
+    const successState = document.getElementById('contact-success');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Loading state
+        submitBtn.disabled = true;
+        btnText.innerText = 'Sending...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            successState.classList.remove('hidden');
+            form.reset();
+          } else {
+            const data = await response.json();
+            alert(data.message || 'Something went wrong. Please try again or email directly.');
+          }
+        } catch (error) {
+          console.error('Submission error:', error);
+          alert('Network error. Please check your connection or email directly.');
+        } finally {
+          submitBtn.disabled = false;
+          btnText.innerText = 'Send Message';
+        }
+      });
+    }
+  </script>
+
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-fade-in {
+      animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
 </BaseLayout>

@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfigAr } from '../../config/site-ar';
 
 const config = siteConfigAr;
+
+export const prerender = true;
 ---
 
 <BaseLayout title={`اتصل بي | ${config.name}`}>

@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfigAr } from '../../config/site-ar';
 
 const accelerators = siteConfigAr.accelerators || [];
+
+export const prerender = true;
 ---
 
 <BaseLayout 

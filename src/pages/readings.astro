@@ -9,6 +9,8 @@ const readings = await Promise.all(
 		return { ...reading, Content };
 	})
 );
+
+export const prerender = true;
 ---
 
 <BaseLayout title="Readings | Sriman Tirupathy Eshwarappa">
