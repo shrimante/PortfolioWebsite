@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../config/site';
+import MermaidDiagram from '../../components/MermaidDiagram.astro';
 
 const title = "Technical Deep-Dive: Hybrid Integration Hub";
 const description = "A production-grade MuleSoft Integration Hub that standardizes connectivity, enables API reuse, and supports secure workloads across CloudHub 2.0 and Runtime Fabric on OpenShift.";
@@ -173,11 +174,43 @@ const diagram = `graph TB
               <p class="text-slate-600 text-lg font-outfit">A unified control plane managing distributed runtimes across elastic cloud and governed on-premise infrastructure. This dual-plane strategy ensures high availability while meeting strict data residency requirements.</p>
             </div>
             
-            <div class="bg-slate-50 rounded-[2rem] p-4 md:p-12 mb-16 shadow-inner relative z-10 group border border-slate-100 overflow-x-auto">
+            <div class="bg-slate-50 rounded-[2rem] p-4 md:p-12 mb-16 shadow-inner relative z-10 group border border-slate-100 overflow-visible">
               <div class="absolute top-4 right-6 text-[10px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-accent transition-colors">Interactive Blueprint</div>
-              <div class="mermaid flex justify-center py-8 min-w-[800px]">
-                {diagram}
-              </div>
+              
+              <MermaidDiagram diagram={diagram} id="deep-dive-diagram">
+                <div slot="callouts" class="absolute inset-0 pointer-events-none">
+                  <!-- TLS Callout -->
+                  <div class="absolute top-[20%] left-[65%] hidden md:block">
+                    <div class="flex items-center gap-2 group/callout pointer-events-auto">
+                      <div class="w-3 h-3 bg-accent rounded-full animate-ping absolute"></div>
+                      <div class="w-3 h-3 bg-accent rounded-full relative"></div>
+                      <div class="bg-white/90 backdrop-blur-sm border border-slate-200 p-2 rounded-lg shadow-sm text-[10px] font-bold text-slate-900 whitespace-nowrap opacity-0 group-hover/callout:opacity-100 transition-opacity">
+                        TLS terminates @ Ingress LB
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Traffic Split -->
+                  <div class="absolute top-[50%] left-[45%] hidden md:block">
+                    <div class="flex items-center gap-2 group/callout pointer-events-auto">
+                      <div class="w-3 h-3 bg-blue-500 rounded-full animate-ping absolute"></div>
+                      <div class="w-3 h-3 bg-blue-500 rounded-full relative"></div>
+                      <div class="bg-white/90 backdrop-blur-sm border border-slate-200 p-2 rounded-lg shadow-sm text-[10px] font-bold text-slate-900 whitespace-nowrap opacity-0 group-hover/callout:opacity-100 transition-opacity">
+                        Traffic Split: Ext vs Int
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Control Plane -->
+                  <div class="absolute top-[10%] left-[30%] hidden md:block">
+                    <div class="flex items-center gap-2 group/callout pointer-events-auto">
+                      <div class="w-3 h-3 bg-slate-900 rounded-full animate-ping absolute"></div>
+                      <div class="w-3 h-3 bg-slate-900 rounded-full relative"></div>
+                      <div class="bg-white/90 backdrop-blur-sm border border-slate-200 p-2 rounded-lg shadow-sm text-[10px] font-bold text-slate-900 whitespace-nowrap opacity-0 group-hover/callout:opacity-100 transition-opacity">
+                        Control Plane Mgmt Boundary
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </MermaidDiagram>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
@@ -402,26 +435,5 @@ const diagram = `graph TB
 
   </article>
 
-  <script is:inline type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ 
-      startOnLoad: true, 
-      theme: 'base',
-      themeVariables: {
-        fontFamily: 'Inter, system-ui, sans-serif',
-        fontSize: '14px',
-        primaryColor: '#ffffff',
-        primaryTextColor: '#1e293b',
-        primaryBorderColor: '#e2e8f0',
-        lineColor: '#64748b',
-        secondaryColor: '#f8fafc',
-        tertiaryColor: '#ffffff',
-        edgeLabelBackground: '#ffffff',
-        mainBkg: '#ffffff',
-        nodeBorder: '#cbd5e1',
-        clusterBkg: '#f8fafc',
-        clusterBorder: '#94a3b8'
-      }
-    });
-  </script>
+  </article>
 </BaseLayout>

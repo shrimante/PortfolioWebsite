@@ -1,0 +1,128 @@
+---
+interface Props {
+  diagram: string;
+  id?: string;
+  class?: string;
+}
+
+const { diagram, id = "mermaid-" + Math.random().toString(36).substring(7), class: className = "" } = Astro.props;
+---
+
+<div class={`mermaid-wrapper relative group bg-white border border-slate-200 shadow-sm rounded-2xl overflow-hidden ${className}`} id={`${id}-container`}>
+  <!-- Controls -->
+  <div class="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-20">
+    <button 
+      onclick={`copyMermaidSource('${id}')`}
+      title="Copy Mermaid Source"
+      class="p-2 bg-white/90 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors shadow-sm text-slate-600"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+    </button>
+    <button 
+      onclick={`downloadMermaidSVG('${id}')`}
+      title="Download SVG"
+      class="p-2 bg-white/90 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors shadow-sm text-slate-600"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+    </button>
+    <button 
+      onclick={`openMermaidFullsize('${id}')`}
+      title="View Full-size"
+      class="p-2 bg-accent text-white rounded-lg hover:bg-accent-muted transition-colors shadow-sm"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+    </button>
+  </div>
+
+  <!-- Source (Hidden) -->
+  <pre class="hidden mermaid-source" id={`${id}-source`}>{diagram}</pre>
+
+  <!-- Diagram Container -->
+  <div class="p-8 overflow-x-auto min-h-[300px] flex items-center justify-center bg-slate-50/50">
+    <div class="mermaid w-full flex justify-center" id={id}>
+      {diagram}
+    </div>
+  </div>
+
+  <!-- Callouts Slot -->
+  <div class="callouts-container pointer-events-none absolute inset-0 z-10">
+    <slot name="callouts" />
+  </div>
+</div>
+
+<script is:inline>
+  // Ensure we only define once
+  if (!window.mermaidInitialized) {
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.innerHTML = `
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ 
+        startOnLoad: true, 
+        theme: 'base',
+        themeVariables: {
+          primaryColor: '#ffffff',
+          primaryTextColor: '#1e293b',
+          primaryBorderColor: '#cbd5e1',
+          lineColor: '#94a3b8',
+          secondaryColor: '#f8fafc',
+          tertiaryColor: '#f1f5f9',
+          fontFamily: 'system-ui, sans-serif'
+        }
+      });
+      window.mermaidInitialized = true;
+    `;
+    document.head.appendChild(script);
+  }
+
+  window.copyMermaidSource = (id) => {
+    const source = document.getElementById(`${id}-source`).textContent;
+    navigator.clipboard.writeText(source).then(() => {
+      alert('Mermaid source copied to clipboard!');
+    });
+  };
+
+  window.downloadMermaidSVG = (id) => {
+    const svg = document.querySelector(`#${id} svg`);
+    if (!svg) return;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${id}.svg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  window.openMermaidFullsize = (id) => {
+    const svg = document.querySelector(`#${id} svg`);
+    if (!svg) return;
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 z-[100] bg-slate-900/90 flex items-center justify-center p-4 md:p-12 backdrop-blur-sm';
+    modal.innerHTML = \`
+      <div class="relative w-full h-full flex flex-col items-center justify-center">
+        <button class="absolute top-0 right-0 p-4 text-white hover:text-accent transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="bg-white p-8 rounded-3xl overflow-auto max-w-full max-h-full">
+           \${svg.outerHTML}
+        </div>
+      </div>
+    \`;
+    modal.onclick = (e) => {
+      if (e.target.closest('button') || e.target === modal) {
+        document.body.removeChild(modal);
+      }
+    };
+    document.body.appendChild(modal);
+  };
+</script>
+
+<style>
+  .mermaid-wrapper :global(svg) {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
