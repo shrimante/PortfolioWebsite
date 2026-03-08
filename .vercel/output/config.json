@@ -28,15 +28,7 @@
 			"dest": "_render"
 		},
 		{
-			"src": "^/ar/work/([^/]+?)/?$",
-			"dest": "_render"
-		},
-		{
 			"src": "^/ar/work/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/work/([^/]+?)/?$",
 			"dest": "_render"
 		},
 		{
