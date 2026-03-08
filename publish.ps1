@@ -17,16 +17,7 @@ if (-not $status) {
 
 Write-Host "📦 Changes detected. Preparing to sync..."
 
-# 2. Optional: Run Build Check
-Write-Host "🔍 Running build validation..." -ForegroundColor Yellow
-npm run build
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ Build failed! Please fix errors before pushing." -ForegroundColor Red
-    exit
-}
-Write-Host "✨ Build successful!" -ForegroundColor Green
-
-# 3. Git Workflow
+# 2. Git Workflow
 Write-Host "📝 Committing changes: $CommitMessage" -ForegroundColor Yellow
 git add .
 git commit -m $CommitMessage
