@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import MermaidDiagram from '../../components/MermaidDiagram.astro';
 import { siteConfig } from '../../config/site';
 
+export const prerender = true;
+
 const title = "Hybrid MuleSoft Platform: RTF on OpenShift";
 const teaser = "Architected a 'best-of-both-worlds' hybrid platform balancing CloudHub 2.0 for elastic scale and Runtime Fabric (RTF) on OpenShift for internal datacenter locality and compliance.";
 ---

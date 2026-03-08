@@ -7,6 +7,7 @@ const config = siteConfigAr;
 const title = "منصة MuleSoft الهجينة: تقنية RTF على OpenShift";
 const teaser = "تصف هذه البنية المرجعية وقت تشغيل MuleSoft الهجين الحقيقي المنشور عبر CloudHub 2.0 و Runtime Fabric (RTF) على OpenShift المستضاف في مركز بيانات العميل، مع توفير F5 للتوجيه المركزي والتحكم في الدخول وتوجيه حركة المرور بين مستويات وقت التشغيل. تم تصميم المنصة مع تكافؤ البيئات عبر المستويات غير الإنتاجية (DEV/TST/STG) ومرونة الإنتاج (PRD/DR).";
 
+export const prerender = true;
 const diagram = `graph TD
     Client[External Clients / Mobile / Web] --> F5[F5 Big-IP Load Balancer]
     

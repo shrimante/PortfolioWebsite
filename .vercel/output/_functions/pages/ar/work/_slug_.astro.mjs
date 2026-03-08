@@ -1,10 +1,10 @@
-import { c as createComponent, r as renderComponent, a as renderTemplate, d as createAstro, m as maybeRenderHead } from '../../../chunks/astro/server_fVXKcOoa.mjs';
+import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_BTp668lt.mjs';
 import 'piccolore';
-import { g as getCollection } from '../../../chunks/_astro_content_Dh8KftOh.mjs';
-import { $ as $$BaseLayout } from '../../../chunks/BaseLayout_DoHGDnlP.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_DeQAqPjO.mjs';
+import { $ as $$BaseLayout } from '../../../chunks/BaseLayout_CAv1gZfy.mjs';
 export { renderers } from '../../../renderers.mjs';
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://www.srimantirupathyeshwarappa.com");
 async function getStaticPaths() {
   const projects = await getCollection("projects", ({ id }) => {
     return id.startsWith("ar/");
