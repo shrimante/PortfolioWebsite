@@ -1,12 +1,10 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
-export const prerender = false;
-
 export const POST: APIRoute = async ({ request }) => {
   try {
+    const apiKey = import.meta.env.RESEND_API_KEY;
+
     const data = await request.formData();
     const name = data.get('name');
     const company = data.get('company');
@@ -28,7 +26,8 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Attempt to send email via Resend
-    if (import.meta.env.RESEND_API_KEY) {
+    if (apiKey) {
+      const resend = new Resend(apiKey);
       const { error: resendError } = await resend.emails.send({
         from: 'Contact Form <onboarding@resend.dev>',
         to: ['shrimante@gmail.com'],
