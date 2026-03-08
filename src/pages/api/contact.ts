@@ -17,21 +17,21 @@ export const POST: APIRoute = async ({ request }) => {
     // Check both Astro environment and process.env for Vercel/Node compatibility
     const apiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
 
-    // Parse form data
-    let data: FormData;
+    // Parse JSON body
+    let body: Record<string, string>;
     try {
-      data = await request.formData();
+      body = await request.json();
     } catch (e: any) {
-      console.error('[CONTACT API] Failed to parse form data:', e);
-      return new Response(JSON.stringify({ message: 'Invalid form data' }), { status: 400 });
+      console.error('[CONTACT API] Failed to parse JSON body:', e);
+      return new Response(JSON.stringify({ message: 'Invalid request body' }), { status: 400 });
     }
 
-    const name = data.get('name');
-    const company = data.get('company');
-    const email = data.get('email');
-    const location = data.get('location');
-    const message = data.get('message');
-    const reason = data.get('reason');
+    const name = body.name;
+    const company = body.company;
+    const email = body.email;
+    const location = body.location;
+    const message = body.message;
+    const reason = body.reason;
 
     console.log(`[CONTACT API] Input validation: name=${!!name}, email=${!!email}, message=${!!message}`);
 
