@@ -43,15 +43,22 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    // LOG FOR AUDIT (This will be visible in Vercel Logs even if Resend fails)
+    console.log('--- LEAD CAPTURE START ---');
+    console.log(`RECIPIENT: shrimante@gmail.com`);
+    console.log(`FROM: ${name} (${company}) <${email}>`);
+    console.log(`REASON: ${reason}`);
+    console.log(`MESSAGE: ${message}`);
+    console.log('--- LEAD CAPTURE END ---');
+
     // Attempt to send email via Resend if key is available
     if (apiKey) {
       console.log('[CONTACT API] Attempting to send email via Resend...');
       try {
-        // Dynamic import to avoid top-level ESM issues on Vercel
         const { Resend } = await import('resend');
         const resend = new Resend(apiKey);
 
-        const { error: resendError } = await resend.emails.send({
+        await resend.emails.send({
           from: 'Contact Form <onboarding@resend.dev>',
           to: ['shrimante@gmail.com'],
           replyTo: email as string,
@@ -68,18 +75,12 @@ export const POST: APIRoute = async ({ request }) => {
             <p>${message}</p>
           `,
         });
-
-        if (resendError) {
-          console.error('[RESEND ERROR]', resendError);
-          // Don't throw here, just log it so the user still gets a success response
-        } else {
-          console.log('[CONTACT API] Email sent successfully');
-        }
-      } catch (importError: any) {
-        console.error('[CONTACT API] Resend module error:', importError);
+        console.log('[CONTACT API] Resend call completed');
+      } catch (resendError: any) {
+        console.error('[CONTACT API] Resend module failed:', resendError.message);
       }
     } else {
-      console.warn('[CONTACT API] RESEND_API_KEY is missing. Skipping email send.');
+      console.warn('[CONTACT API] RESEND_API_KEY is missing. Lead logged to console only.');
     }
 
     return new Response(
@@ -88,9 +89,7 @@ export const POST: APIRoute = async ({ request }) => {
       }),
       {
         status: 200,
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Content-Type': 'application/json' }
       }
     );
   } catch (error: any) {
