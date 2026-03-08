@@ -7,7 +7,7 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://www.srimantirupathyeshwarappa.com',
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({ imageService: true }),
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ar'],
