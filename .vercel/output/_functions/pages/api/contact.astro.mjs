@@ -2,15 +2,23 @@ export { renderers } from '../../renderers.mjs';
 
 const prerender = false;
 const POST = async ({ request }) => {
+  console.log("[LEAD CAPTURE] Request received");
   try {
-    const data = await request.formData();
+    const apiKey = undefined                              ;
+    let data;
+    try {
+      data = await request.formData();
+    } catch (e) {
+      console.error("[CONTACT API] Failed to parse form data:", e);
+      return new Response(JSON.stringify({ message: "Invalid form data" }), { status: 400 });
+    }
     const name = data.get("name");
     const company = data.get("company");
     const email = data.get("email");
     const location = data.get("location");
     const message = data.get("message");
     const reason = data.get("reason");
-    console.log(`[CONTACT API] Received submission from: ${email}`);
+    console.log(`[CONTACT API] Input validation: name=${!!name}, email=${!!email}, message=${!!message}`);
     if (!name || !email || !message) {
       return new Response(
         JSON.stringify({
@@ -19,11 +27,9 @@ const POST = async ({ request }) => {
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-    console.log(`[LEAD CAPTURE] RECIPIENT: shrimante@gmail.com`);
-    console.log(`From: ${name} (${company}) <${email}>`);
-    console.log(`Reason: ${reason}`);
-    console.log(`Location: ${location}`);
-    console.log(`Message: ${message}`);
+    if (apiKey) ; else {
+      console.warn("[CONTACT API] RESEND_API_KEY is missing. Skipping email send.");
+    }
     return new Response(
       JSON.stringify({
         message: "Thank you for your inquiry. Sriman will get back to you shortly."
@@ -36,12 +42,11 @@ const POST = async ({ request }) => {
       }
     );
   } catch (error) {
-    console.error(`[CONTACT API ERROR]`, error);
+    console.error(`[CONTACT API CRITICAL ERROR]`, error);
     return new Response(
       JSON.stringify({
-        message: "Internal server error",
-        error: error.message,
-        stack: error.stack
+        message: "Something went wrong on our end.",
+        error: error.message
       }),
       {
         status: 500,
