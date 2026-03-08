@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { Resend } from 'resend';
 
 export const prerender = false;
 
@@ -13,7 +14,8 @@ export const POST: APIRoute = async ({ request }) => {
   console.log('[LEAD CAPTURE] Request received');
 
   try {
-    const apiKey = import.meta.env.RESEND_API_KEY;
+    // Check both Astro environment and process.env for Vercel/Node compatibility
+    const apiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
 
     // Parse form data
     let data: FormData;
@@ -55,10 +57,9 @@ export const POST: APIRoute = async ({ request }) => {
     if (apiKey) {
       console.log('[CONTACT API] Attempting to send email via Resend...');
       try {
-        const { Resend } = await import('resend');
         const resend = new Resend(apiKey);
 
-        await resend.emails.send({
+        const emailResult = await resend.emails.send({
           from: 'Contact Form <onboarding@resend.dev>',
           to: ['shrimante@gmail.com'],
           replyTo: email as string,
@@ -75,9 +76,14 @@ export const POST: APIRoute = async ({ request }) => {
             <p>${message}</p>
           `,
         });
-        console.log('[CONTACT API] Resend call completed');
+
+        if (emailResult.error) {
+          console.error('[CONTACT API] Resend API error:', emailResult.error);
+        } else {
+          console.log('[CONTACT API] Resend call completed successfully:', emailResult.data?.id);
+        }
       } catch (resendError: any) {
-        console.error('[CONTACT API] Resend module failed:', resendError.message);
+        console.error('[CONTACT API] Resend operation failed:', resendError.message || resendError);
       }
     } else {
       console.warn('[CONTACT API] RESEND_API_KEY is missing. Lead logged to console only.');
@@ -97,7 +103,8 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({
         message: 'Something went wrong on our end.',
-        error: error.message,
+        error: error.message || 'Internal Server Error',
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
       }),
       {
         status: 500,
