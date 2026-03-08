@@ -1,4 +1,7 @@
 import type { APIRoute } from 'astro';
+import { Resend } from 'resend';
+
+const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const prerender = false;
 
@@ -24,12 +27,38 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    // Attempt to send email via Resend
+    if (import.meta.env.RESEND_API_KEY) {
+      const { error: resendError } = await resend.emails.send({
+        from: 'Contact Form <onboarding@resend.dev>',
+        to: ['shrimante@gmail.com'],
+        replyTo: email as string,
+        subject: `New Lead: ${name} (${company})`,
+        html: `
+          <h3>New Inquiry from Portfolio</h3>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Company:</strong> ${company}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Reason:</strong> ${reason}</p>
+          <p><strong>Location:</strong> ${location}</p>
+          <hr />
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        `,
+      });
+
+      if (resendError) {
+        console.error('[RESEND ERROR]', resendError);
+        // We still log for audit but return a specialized error if sending fails
+        throw new Error('Email delivery failed');
+      }
+    } else {
+      console.warn('[CONTACT API] RESEND_API_KEY is missing. Skipping email send.');
+    }
+
     // LOG FOR AUDIT
-    console.log(`[LEAD CAPTURE] RECIPIENT: shrimante@gmail.com`);
+    console.log(`[LEAD CAPTURE SUCCESS] RECIPIENT: shrimante@gmail.com`);
     console.log(`From: ${name} (${company}) <${email}>`);
-    console.log(`Reason: ${reason}`);
-    console.log(`Location: ${location}`);
-    console.log(`Message: ${message}`);
 
     return new Response(
       JSON.stringify({
@@ -48,7 +77,6 @@ export const POST: APIRoute = async ({ request }) => {
       JSON.stringify({
         message: 'Internal server error',
         error: error.message,
-        stack: error.stack
       }),
       {
         status: 500,
