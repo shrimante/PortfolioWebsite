@@ -61,7 +61,7 @@ export const POST: APIRoute = async ({ request }) => {
 
         const emailResult = await resend.emails.send({
           from: 'Contact Form <onboarding@resend.dev>',
-          to: ['shrimante@gmail.com'],
+          to: [process.env.CONTACT_EMAIL || 'shrimante@gmail.com'],
           replyTo: email as string,
           subject: `New Lead: ${name} (${company})`,
           html: `
