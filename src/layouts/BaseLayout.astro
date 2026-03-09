@@ -128,5 +128,46 @@ const localePath = isRtl ? '/ar' : '';
 				</div>
 			</div>
 		</footer>
+
+		<script>
+			import Lenis from 'lenis';
+			import { gsap } from 'gsap';
+			import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+			gsap.registerPlugin(ScrollTrigger);
+
+			// Initialize Lenis
+			const lenis = new Lenis({
+				autoRaf: true,
+			});
+
+			lenis.on('scroll', ScrollTrigger.update);
+
+			gsap.ticker.add((time)=>{
+				lenis.raf(time * 1000);
+			});
+
+			gsap.ticker.lagSmoothing(0, 0);
+
+			// Initialize GSAP reveals on content load
+			document.addEventListener('DOMContentLoaded', () => {
+				const reveals = document.querySelectorAll('[data-gsap="reveal"]');
+				reveals.forEach((el) => {
+					gsap.fromTo(el, 
+						{ opacity: 0, y: 40 }, 
+						{ 
+							opacity: 1, 
+							y: 0, 
+							duration: 1.2, 
+							ease: "power3.out",
+							scrollTrigger: {
+								trigger: el,
+								start: "top 85%",
+							}
+						}
+					);
+				});
+			});
+		</script>
 	</body>
 </html>

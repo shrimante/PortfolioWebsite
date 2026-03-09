@@ -5,7 +5,7 @@ export const siteConfig = {
   email: "shrimante@gmail.com",
   linkedIn: "https://www.linkedin.com/in/srimaneshwar/",
   resumePath: "/Sriman_Tirupathy_Eshwarappa_Resume.pdf",
-  bookingLink: "/contact", // Redirect to internal contact page
+  bookingLink: "https://calendly.com/sriman-arch/15min",
   location: "Bangalore, India",
   timezone: "IST",
   headshot: { 
