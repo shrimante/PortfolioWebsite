@@ -174,7 +174,7 @@ export const siteConfig = {
     },
     {
       title: "Logging & Correlation Standard",
-      repo: "mulesoft-logging-standard",
+      repo: "mulesoft-logging-correlation-standard",
       description: "JSON structured logging, correlation propagation across service tiers, and out-of-the-box Splunk/ELK/Datadog compatibility.",
       impact: "Provides enterprise-grade observability and simplifies troubleshooting.",
       tags: ["Observability", "Splunk", "ELK"]
