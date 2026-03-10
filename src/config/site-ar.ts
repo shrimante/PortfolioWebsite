@@ -108,7 +108,8 @@ export const siteConfigAr = {
       repo: "mulesoft-logging-correlation-standard",
       description: "تسجيل JSON المهيكل، ونشر الارتباط عبر طبقات الخدمة، وتوافق جاهز مع Splunk/ELK/Datadog.",
       impact: "يوفر إمكانية ملاحظة على مستوى المؤسسة ويبسط استكشاف الأخطاء وإصلاحها.",
-      tags: ["إمكانية الملاحظة", "Splunk", "ELK"]
+      tags: ["إمكانية الملاحظة", "Splunk", "ELK"],
+      hasDetails: true
     }
   ]
 };

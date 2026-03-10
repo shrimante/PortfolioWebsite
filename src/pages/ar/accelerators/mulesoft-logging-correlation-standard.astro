@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+const title = "معيار التسجيل والارتباط";
+const description = "تسجيل JSON المهيكل، ونشر الارتباط عبر طبقات الخدمة، وتوافق جاهز مع Splunk/ELK/Datadog.";
+const githubRepo = "https://github.com/shrimante/mulesoft-logging-correlation-standard";
+---
+
+<BaseLayout 
+  title={`${title} | مسرعات الهندسة`}
+  description={description}
+>
+  <article class="pt-32 pb-24" dir="rtl">
+    <div class="container mx-auto px-6 max-w-4xl text-right">
+      
+      <!-- Back Link -->
+      <a href="/ar/accelerators" class="inline-flex items-center gap-2 text-slate-500 hover:text-accent transition-colors mb-12 group text-sm font-bold uppercase tracking-widest">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform rotate-180"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        العودة إلى المسرعات
+      </a>
+
+      <!-- Header -->
+      <header class="mb-16 relative">
+        <div class="absolute -right-8 -top-8 w-32 h-32 bg-accent/5 rounded-full blur-3xl -z-10"></div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 text-[10px] font-bold tracking-[0.2em] text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+          معيار إمكانية الملاحظة
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter mb-6 italic">
+          {title}
+        </h1>
+        <p class="text-xl text-slate-600 leading-relaxed mb-8">
+          مسرع Mule 4 جاهز للإنتاج لتسجيل JSON القياسي، ونشر معرف الارتباط، وإخفاء بيانات التعريف الشخصية PII.
+        </p>
+        
+        <div class="flex flex-wrap gap-4">
+          <a href={githubRepo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white hover:bg-accent text-xs uppercase font-bold tracking-widest rounded-xl transition-all shadow-xl hover:shadow-accent/20">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            عرض المستودع
+          </a>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="prose prose-slate prose-lg max-w-none">
+        
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-white/50">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4 tracking-tight italic">1. المشكلة التي يحلها هذا المسرع</h2>
+          <p class="text-slate-600 mb-4">
+            في معماريات المؤسسات الموزعة، يعد تتبع معاملة عمل واحدة عبر العشرات من الخدمات المصغرة أمرًا صعبًا. بشكل افتراضي، تكون سجلات تطبيقات Mule عبارة عن نص مستمر غير منظم، مما يجعل من الصعب على مجمعات السجلات (Splunk، ELK، Datadog) تحليل وفهرسة والتنبيه على حقول محددة. علاوة على ذلك، غالبًا ما يكتب المطورون منطق تسجيل مخصص بشكل غير متسق عبر واجهات برمجة تطبيقات مختلفة، مما يؤدي إلى رؤية تشغيلية مجزأة.
+          </p>
+        </div>
+
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-white/50">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4 tracking-tight italic">2. لماذا تحتاجه فرق MuleSoft في المؤسسات</h2>
+          <ul class="space-y-4 text-slate-600 list-none p-0">
+            <li class="flex items-start gap-3 justify-start flex-row-reverse">
+              <span class="text-right"><strong>متوسط وقت أسرع للحل (MTTR):</strong> سجلات JSON المهيكلة مع <code>correlationId</code> متسق تجعل تتبع المشكلات عبر البنية القائمة على API (النظام -> العملية -> التجربة) أمراً سهلاً.</span>
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </li>
+            <li class="flex items-start gap-3 justify-start flex-row-reverse">
+              <span class="text-right"><strong>بساطة خالية من التبعيات:</strong> يتجنب هذا المسرع العبء الإضافي للمكونات الإضافية الخارجية لتسجيل JSON من خلال استخدام DataWeave النقي ومكونات التسجيل الأصلية في Mule.</span>
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </li>
+            <li class="flex items-start gap-3 justify-start flex-row-reverse">
+              <span class="text-right"><strong>الأمان والامتثال:</strong> يضمن الإخفاء المدمج للبيانات الشخصية (PII) عدم وصول الحمولات الحساسة (رقم الضمان الاجتماعي، بطاقات الائتمان) أبدًا إلى البنية التحتية للتسجيل بنص عادي.</span>
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </li>
+            <li class="flex items-start gap-3 justify-start flex-row-reverse">
+              <span class="text-right"><strong>لوحات معلومات تشغيلية موحدة:</strong> يسمح مخطط التسجيل المتماسك لفرق المنصة بإنشاء لوحات معلومات البنية التحتية الجاهزة التي تعمل مع <em>كل</em> واجهة برمجة تطبيقات فور نشرها.</span>
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-slate-900 text-white relative overflow-hidden">
+          <div class="absolute left-0 top-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
+          <h2 class="text-2xl font-bold mb-6 tracking-tight italic relative z-10">نظرة عامة على الهندسة المعمارية</h2>
+          
+          <div class="relative z-10 space-y-6 text-slate-300">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">تصميم خالي من التبعيات</h3>
+              <p>بدلاً من إنشاء موصل SDK مخصص يعتمد على Java، يستخدم هذا المسرع مكونات Mule الأصلية. تيار <code>stdout</code> للنظام الناتج هو JSON نقي بنسبة 100٪، قابل للفهرسة فورًا بواسطة وكلاء مثل Splunk Universal Forwarder أو Filebeat أو Datadog Agent.</p>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">استراتيجية الارتباط</h3>
+              <p>يعتمد التتبع عبر واجهات برمجة التطبيقات على معرف الارتباط <code>correlationId</code>. يتم التقاطه من رؤوس الدخول (<code>x-correlation-id</code>) أو إنشاؤه على الفور، ثم نشره عبر طلبات HTTP وقوائم انتظار الرسائل (VM/JMS) لضمان تتبع غير منقطع.</p>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">محرك إخفاء البيانات الشخصية</h3>
+              <p>يتم فحص حمولات HTTP الخام بعمق بواسطة وظيفة DataWeave متكررة عند تمكين تسجيل DEBUG، واكتشاف المفاتيح الحساسة المحددة مسبقًا وحجبها قبل أن يتلقاها المسجل، مما يحافظ على الامتثال الصارم في بيئات التطوير.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-white/50">
+          <h2 class="text-2xl font-bold text-slate-900 mb-6 tracking-tight italic">نموذج الإخراج JSON</h2>
+          <p class="text-slate-600 mb-4 text-right">لاحظ كيف يظل المخطط ثابتًا، مما يضمن تجميعات حتمية.</p>
+          
+          <div class="bg-slate-900 rounded-xl p-6 overflow-x-auto text-left" dir="ltr">
+<pre><code class="text-sm text-green-400 font-mono">{"{"}
+  "timestamp": "2023-10-27T10:15:30.123Z",
+  "logLevel": "INFO",
+  "applicationName": "sample-logging-api",
+  "environment": "local",
+  "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+  "flowName": "Inbound API Listener",
+  "apiLayer": "System",
+  "loggerType": "FLOW_START",
+  "message": "API Transaction Started",
+  "businessContext": {"{"}
+    "method": "POST",
+    "path": "/api/v1/customers",
+    "clientIp": "127.0.0.1"
+  {"}"}
+{"}"}</code></pre>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer CTA -->
+      <div class="mt-16 text-center">
+        <a href={githubRepo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 text-slate-900 hover:bg-slate-200 text-sm uppercase font-bold tracking-widest rounded-xl transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          استكشف التنفيذ الكامل على GitHub
+        </a>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+const title = "Logging & Correlation Standard";
+const description = "JSON structured logging, correlation propagation across service tiers, and out-of-the-box Splunk/ELK/Datadog compatibility.";
+const githubRepo = "https://github.com/shrimante/mulesoft-logging-correlation-standard";
+---
+
+<BaseLayout 
+  title={`${title} | Engineering Accelerators`}
+  description={description}
+>
+  <article class="pt-32 pb-24">
+    <div class="container mx-auto px-6 max-w-4xl">
+      
+      <!-- Back Link -->
+      <a href="/accelerators" class="inline-flex items-center gap-2 text-slate-500 hover:text-accent transition-colors mb-12 group text-sm font-bold uppercase tracking-widest">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Accelerators
+      </a>
+
+      <!-- Header -->
+      <header class="mb-16 relative">
+        <div class="absolute -left-8 -top-8 w-32 h-32 bg-accent/5 rounded-full blur-3xl -z-10"></div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 text-[10px] font-bold tracking-[0.2em] text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+          Observability Standard
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter mb-6 italic">
+          {title}
+        </h1>
+        <p class="text-xl text-slate-600 leading-relaxed mb-8">
+          A production-ready Mule 4 accelerator for standardized JSON logging, correlation ID propagation, and PII masking.
+        </p>
+        
+        <div class="flex flex-wrap gap-4">
+          <a href={githubRepo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white hover:bg-accent text-xs uppercase font-bold tracking-widest rounded-xl transition-all shadow-xl hover:shadow-accent/20">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            View Repository
+          </a>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="prose prose-slate prose-lg max-w-none">
+        
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-white/50">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4 tracking-tight italic">1. What problem this solves</h2>
+          <p class="text-slate-600 mb-4">
+            In distributed enterprise architectures, tracking a single business transaction across dozens of microservices is challenging. Out of the box, Mule application logs are unstructured continuous text, making it difficult for log aggregators (Splunk, ELK, Datadog) to parse, index, and alert on specific fields. Furthermore, developers often write custom logging logic inconsistently across different APIs, leading to fragmented operational visibility.
+          </p>
+        </div>
+
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-white/50">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4 tracking-tight italic">2. Why enterprise MuleSoft teams need it</h2>
+          <ul class="space-y-4 text-slate-600">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span><strong>Accelerated Mean Time To Resolution (MTTR):</strong> Structured JSON logs with consistent <code>correlationId</code> make tracing issues across the API-led architecture (System -> Process -> Experience) trivial.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span><strong>Zero-Dependency Simplicity:</strong> Avoids the overhead of external JSON logger plugins by using pure DataWeave and native Mule logger components.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span><strong>Security & Compliance:</strong> Built-in PII masking ensures sensitive payloads (SSN, credit cards) never touch the logging infrastructure in plaintext.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span><strong>Standardized Operational Dashboards:</strong> A cohesive logging schema allows platform teams to build out-of-the-box infrastructure dashboards that work for <em>every</em> API immediately after deployment.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-slate-900 text-white relative overflow-hidden">
+          <div class="absolute right-0 top-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
+          <h2 class="text-2xl font-bold mb-6 tracking-tight italic relative z-10">Architecture Overview</h2>
+          
+          <div class="relative z-10 space-y-6 text-slate-300">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">Zero Dependency Design</h3>
+              <p>Instead of creating a Java-based custom SDK connector, this accelerator uses native Mule components. The resulting system <code>stdout</code> stream is 100% pure JSON, instantly indexable by agents like Splunk Universal Forwarder, Filebeat, or Datadog Agent.</p>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">Correlation Strategy</h3>
+              <p>Cross-API tracing relies on the <code>correlationId</code>. It's captured from ingress headers (<code>x-correlation-id</code>) or generated immediately, then propagated across HTTP requests and message queues (VM/JMS) ensuring an unbroken trace.</p>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">PII Masking Engine</h3>
+              <p>When DEBUG logging is enabled, a recursive DataWeave function deeply scans raw HTTP payloads, detecting and redacting predefined sensitive keys before the logger ever receives them, maintaining strict compliance in lower environments.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-white/50">
+          <h2 class="text-2xl font-bold text-slate-900 mb-6 tracking-tight italic">Sample JSON Output</h2>
+          <p class="text-slate-600 mb-4">Notice how the schema remains consistent, ensuring deterministic aggregations.</p>
+          
+          <div class="bg-slate-900 rounded-xl p-6 overflow-x-auto">
+<pre><code class="text-sm text-green-400 font-mono">{"{"}
+  "timestamp": "2023-10-27T10:15:30.123Z",
+  "logLevel": "INFO",
+  "applicationName": "sample-logging-api",
+  "environment": "local",
+  "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+  "flowName": "Inbound API Listener",
+  "apiLayer": "System",
+  "loggerType": "FLOW_START",
+  "message": "API Transaction Started",
+  "businessContext": {"{"}
+    "method": "POST",
+    "path": "/api/v1/customers",
+    "clientIp": "127.0.0.1"
+  {"}"}
+{"}"}</code></pre>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer CTA -->
+      <div class="mt-16 text-center">
+        <a href={githubRepo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 text-slate-900 hover:bg-slate-200 text-sm uppercase font-bold tracking-widest rounded-xl transition-all font-mono">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          Explore the Full Implementation on GitHub
+        </a>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>

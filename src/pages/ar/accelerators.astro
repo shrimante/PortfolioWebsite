@@ -110,15 +110,26 @@ export const prerender = true;
                   <p class="text-[11px] text-slate-600 font-medium leading-normal italic">{acc.impact}</p>
                 </div>
                 
-                <a 
-                  href={`https://github.com/shrimante/${acc.repo}`} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center justify-between w-full p-3 bg-slate-50 rounded-xl group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-sm"
-                >
-                  <span class="text-[10px] font-bold uppercase tracking-widest">عرض كود المصدر</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform rotate-180"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
+                <div class="flex flex-col gap-2">
+                  {acc.hasDetails ? (
+                    <a 
+                      href={`/ar/accelerators/${acc.repo}`} 
+                      class="inline-flex items-center justify-center gap-2 w-full p-3 bg-slate-900 text-white rounded-xl hover:bg-accent transition-all duration-300 shadow-xl hover:shadow-accent/20"
+                    >
+                      <span class="text-[10px] font-bold uppercase tracking-widest">عرض التفاصيل</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform rotate-180"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                  ) : null}
+                  <a 
+                    href={`https://github.com/shrimante/${acc.repo}`} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-between w-full p-3 bg-slate-50 rounded-xl hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-all duration-300 shadow-sm border border-slate-200"
+                  >
+                    <span class="text-[10px] font-bold uppercase tracking-widest">عرض كود المصدر</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
