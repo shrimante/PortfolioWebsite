@@ -35,18 +35,16 @@ export const prerender = true;
           </a>
         </div>
         <div class="lg:col-span-8">
-          <div class="glass p-4 rounded-[2.5rem] bg-slate-50/50">
-            <MermaidDiagram 
-              id="featured-blueprint-home"
-              diagram={`graph TD
-                Client[Traffic] --> F5[F5 Steering]
-                F5 -->|Cloud| CH[CloudHub 2.0]
-                F5 -->|DC| RTF[RTF on OpenShift]
-                RTF --> Core[(Core Systems)]
-                classDef accent stroke:#2563eb,stroke-width:2px;
-                class F5 accent;`}
-              compact={true}
-            />
+          <div class="glass p-2 md:p-4 rounded-[2.5rem] bg-slate-50/50 overflow-hidden group">
+            <div class="relative overflow-hidden rounded-[2rem]">
+              <img 
+                src="/images/hybrid-multi-plane-architecture.jpg" 
+                alt="Hybrid Multi-Plane Architecture" 
+                class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                data-gsap="reveal"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
           </div>
         </div>
       </div>
