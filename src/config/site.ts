@@ -166,11 +166,15 @@ export const siteConfig = {
       tags: ["MUnit", "Quality Gates", "Testing"]
     },
     {
-      title: "Error Handling Standard",
+      slug: "mulesoft-error-handling-standard",
+      title: "MuleSoft Error Handling Standard",
       repo: "mulesoft-error-handling-standard",
-      description: "Canonical error taxonomy, global error handler implementation, correlation ID strategy, and REST-aligned response models.",
+      description: "Reusable, standardized enterprise error handling for Mule 4 APIs.",
+      icon: "alert",
+      category: "Integration",
       impact: "Reduces MTTR and provides a consistent experience for API consumers.",
-      tags: ["Error Handling", "REST", "Reliability"]
+      tags: ["Mule 4", "Error Handling", "AOP"],
+      hasDetails: true
     },
     {
       title: "Logging & Correlation Standard",
