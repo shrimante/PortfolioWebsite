@@ -13,7 +13,11 @@ export const prerender = true;
 ---
 
 <BaseLayout title="Contact & Strategy | Sriman Tirupathy Eshwarappa">
-  <section class="pt-32 pb-24">
+  <section class="relative pt-32 pb-24 overflow-hidden">
+    <!-- Decorative background element -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full -z-10 opacity-20 pointer-events-none">
+      <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-accent/20 via-transparent to-transparent blur-[120px]"></div>
+    </div>
     <div class="container mx-auto px-6 max-w-5xl">
       
       <header class="mb-20 text-center">
@@ -63,8 +67,8 @@ export const prerender = true;
         <div class="lg:col-span-8">
           <div class="glass p-8 md:p-10 rounded-[2.5rem] border border-slate-200 bg-white/50 relative overflow-hidden">
             <div id="contact-success" class="hidden absolute inset-0 bg-white/95 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-center p-8 animate-fade-in">
-              <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <div class="w-16 h-16 bg-accent/10 text-accent rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
               </div>
               <h3 class="text-3xl font-bold text-slate-900 mb-4 tracking-tighter">Inquiry Sent</h3>
               <p class="text-slate-600 font-outfit mb-8 leading-relaxed">
@@ -126,7 +130,7 @@ export const prerender = true;
                 <textarea id="message" name="message" rows="3" required class="w-full p-3.5 bg-white border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all font-outfit resize-none text-sm" placeholder="How can I help with your integration program?"></textarea>
               </div>
 
-              <button type="submit" id="submit-btn" class="w-full py-4 bg-slate-900 text-white font-bold rounded-lg hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10 text-[10px] uppercase tracking-widest disabled:opacity-50 disabled:cursor-wait">
+              <button type="submit" id="submit-btn" class="w-full py-4 bg-accent text-white font-bold rounded-lg hover:bg-accent-muted transition-all shadow-xl shadow-accent/10 text-[10px] uppercase tracking-widest disabled:opacity-50 disabled:cursor-wait">
                 <span id="btn-text">Send Message</span>
               </button>
             </form>
