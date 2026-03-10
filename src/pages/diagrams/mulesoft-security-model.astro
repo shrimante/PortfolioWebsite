@@ -42,20 +42,77 @@ export const prerender = true;
     </div>
   </div>
 
-  <script is:inline type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ 
-      startOnLoad: true, 
-      theme: 'base',
-      themeVariables: {
-        primaryColor: '#ffffff',
-        primaryTextColor: '#1e293b',
-        primaryBorderColor: '#cbd5e1',
-        lineColor: '#94a3b8',
-        secondaryColor: '#f8fafc',
-        tertiaryColor: '#f1f5f9',
-        fontFamily: 'system-ui, sans-serif'
-      }
-    });
+  <!-- Image Zoom Overlay -->
+  <div id="zoom-overlay" class="fixed inset-0 z-[100] bg-slate-900/98 backdrop-blur-2xl hidden flex items-center justify-center cursor-zoom-out p-4 md:p-12 transition-all duration-500">
+      <div class="relative w-full h-full flex items-center justify-center">
+          <img id="zoom-image" src="" alt="Zoomed Diagram" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl border border-white/10" />
+          <button id="close-zoom" class="absolute top-4 right-4 md:top-8 md:right-8 p-3 bg-white/10 hover:bg-white/20 hover:scale-110 active:scale-90 rounded-full text-white transition-all duration-300" aria-label="Close zoom">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+          
+          <div class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full border border-white/20 text-white/70 text-[10px] font-bold uppercase tracking-widest pointer-events-none">
+            Click anywhere to close
+          </div>
+      </div>
+  </div>
+
+  <script>
+      import { gsap } from 'gsap';
+
+      document.addEventListener('DOMContentLoaded', () => {
+          const trigger = document.querySelector('[data-zoom-trigger]');
+          const overlay = document.getElementById('zoom-overlay');
+          const zoomImg = document.getElementById('zoom-image') as HTMLImageElement;
+          const closeBtn = document.getElementById('close-zoom');
+
+          if (!trigger || !overlay || !zoomImg) return;
+
+          trigger.addEventListener('click', () => {
+              const img = trigger.querySelector('img');
+              if (!img) return;
+              
+              zoomImg.src = img.src;
+              
+              overlay.classList.remove('hidden');
+              
+              // GSAP Animation for premium feel
+              gsap.fromTo(overlay, 
+                  { opacity: 0 }, 
+                  { opacity: 1, duration: 0.5, ease: "power3.out" }
+              );
+              
+              gsap.fromTo(zoomImg, 
+                  { scale: 0.9, opacity: 0, y: 20 }, 
+                  { scale: 1, opacity: 1, y: 0, duration: 0.7, ease: "expo.out", delay: 0.1 }
+              );
+              
+              document.body.style.overflow = 'hidden'; // Prevent background scroll
+          });
+
+          const closeZoom = () => {
+              gsap.to(overlay, { 
+                  opacity: 0, 
+                  duration: 0.4, 
+                  ease: "power3.inOut",
+                  onComplete: () => {
+                      overlay.classList.add('hidden');
+                      document.body.style.overflow = '';
+                  }
+              });
+          };
+
+          overlay.addEventListener('click', closeZoom);
+          closeBtn?.addEventListener('click', (e) => {
+              e.stopPropagation();
+              closeZoom();
+          });
+          
+          // Escape key to close
+          document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+                  closeZoom();
+              }
+          });
+      });
   </script>
 </BaseLayout>
