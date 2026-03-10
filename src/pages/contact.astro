@@ -78,6 +78,13 @@ export const prerender = true;
             <h2 class="text-2xl font-bold text-slate-900 mb-8 tracking-tight">Send an Inquiry</h2>
             
             <form id="contact-form" class="space-y-8">
+              <!-- Honeypot -->
+              <div style="display:none !important;">
+                <label for="fax_number">Fax Number</label>
+                <input type="text" id="fax_number" name="fax_number" tabindex="-1" autocomplete="off" />
+                <input type="hidden" id="form_load_time" name="form_load_time" />
+              </div>
+
               <!-- Reason Selection -->
               <div class="space-y-4">
                 <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 block">Reason for Contact</label>
@@ -127,9 +134,14 @@ export const prerender = true;
 
   <script is:inline>
     const form = document.getElementById('contact-form');
-    const successState = document.getElementById('contact-success');
     const submitBtn = document.getElementById('submit-btn');
     const btnText = document.getElementById('btn-text');
+    const loadTimeInput = document.getElementById('form_load_time');
+
+    // Record load time
+    if (loadTimeInput) {
+      loadTimeInput.value = Date.now().toString();
+    }
 
     if (form) {
       form.addEventListener('submit', async (e) => {

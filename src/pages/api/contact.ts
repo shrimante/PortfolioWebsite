@@ -33,6 +33,33 @@ export const POST: APIRoute = async ({ request }) => {
     const message = body.message;
     const reason = body.reason;
 
+    // SPAM PROTECTION
+    const fax_number = body.fax_number; // Honeypot field
+    const form_load_time = body.form_load_time; // Timing check
+    const submission_time = Date.now();
+    const time_delta = form_load_time ? submission_time - parseInt(form_load_time) : 0;
+
+    let isBot = false;
+    let botReason = '';
+
+    if (fax_number) {
+      isBot = true;
+      botReason = 'Honeypot filled';
+    } else if (form_load_time && time_delta < 3000) {
+      isBot = true;
+      botReason = `Fast submission (${time_delta}ms)`;
+    }
+
+    if (isBot) {
+      console.warn(`[CONTACT API] Bot detected: ${botReason}. Dropping lead silently.`);
+      return new Response(
+        JSON.stringify({
+          message: 'Thank you for your inquiry. Sriman will get back to you shortly.',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     console.log(`[CONTACT API] Input validation: name=${!!name}, email=${!!email}, message=${!!message}`);
 
     // Validate data
