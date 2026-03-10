@@ -8,12 +8,12 @@ export const siteConfigAr = {
   bookingLink: "/contact",
   location: "بنجالور، الهند",
   timezone: "توقيت الهند",
-  headshot: { 
-    enabled: true, 
-    src: "/images/headshot-bust.jpg", 
-    alt: "سريمان تيروباثي إيشوارابا" 
+  headshot: {
+    enabled: true,
+    src: "/images/headshot-bust.jpg",
+    alt: "سريمان تيروباثي إيشوارابا"
   },
-  
+
   metrics: [
     { label: "سنوات الخبرة", value: "~20" },
     { label: "واجهات برمجة التطبيقات للإنتاج", value: "120+" },
@@ -74,10 +74,10 @@ export const siteConfigAr = {
   ],
 
   keywords: [
-    "بنية المؤسسة", "استراتيجية وحوكمة واجهة برمجة التطبيقات", "هندسة المنصات", 
+    "بنية المؤسسة", "استراتيجية وحوكمة واجهة برمجة التطبيقات", "هندسة المنصات",
     "نموذج تشغيل التكامل (C4E)", "تخطيط السعة", "هندسة الموثوقية",
-    "MuleSoft Anypoint", "Runtime Fabric", "CloudHub 2.0", "API Manager", "RAML", 
-    "OAuth2", "TLS", "RBAC", "Solace", "Splunk", "ELK", "OpenShift", 
+    "MuleSoft Anypoint", "Runtime Fabric", "CloudHub 2.0", "API Manager", "RAML",
+    "OAuth2", "TLS", "RBAC", "Solace", "Splunk", "ELK", "OpenShift",
     "Kubernetes", "التعافي من الكوارث", "GitLab CI/CD"
   ],
 

@@ -2,43 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../config/site';
 export const prerender = true;
-import MermaidDiagram from '../../components/MermaidDiagram.astro';
 
 const title = "Technical Deep-Dive: Hybrid Integration Hub";
 const description = "A production-grade MuleSoft Integration Hub that standardizes connectivity, enables API reuse, and supports secure workloads across CloudHub 2.0 and Runtime Fabric on OpenShift.";
-
-const diagram = `graph TB
-    subgraph ControlPlane[Anypoint Platform Control Plane]
-        API_Manager[API Manager]
-        Exchange[Exchange]
-        Runtime_Manager[Runtime Manager]
-        Monitoring[Monitoring]
-    end
-
-    subgraph Cloud[CloudHub 2.0 - Private Space]
-        Exp_API[Experience APIs]
-        Proc_API_Cloud[Process APIs]
-        Sched[Schedulers / Events]
-        Ingress_Cloud[Managed LB + TLS]
-        Ingress_Cloud --> Exp_API
-        Exp_API --> Proc_API_Cloud
-    end
-
-    subgraph OnPrem[Runtime Fabric on OpenShift]
-        Sys_API[System APIs]
-        Internal[Internal-only Services]
-        Proxy[API Proxy / Ingress]
-        Batch[High-throughput Jobs]
-        Ingress_RTF[OpenShift Routes / Ingress]
-        Ingress_RTF --> Sys_API
-    end
-
-    ControlPlane -.->|Manage| Cloud
-    ControlPlane -.->|Manage| OnPrem
-
-    Proc_API_Cloud -->|IPsec VPN / Private Link| Sys_API
-    Sys_API -->|Direct Connect| Backends[(On-Prem Systems)]
-`;
 ---
 
 <BaseLayout title={`${title} | Sriman Tirupathy Eshwarappa`}>
@@ -175,43 +141,18 @@ const diagram = `graph TB
               <p class="text-slate-600 text-lg font-outfit">A unified control plane managing distributed runtimes across elastic cloud and governed on-premise infrastructure. This dual-plane strategy ensures high availability while meeting strict data residency requirements.</p>
             </div>
             
-            <div class="bg-slate-50 rounded-[2rem] p-4 md:p-12 mb-16 shadow-inner relative z-10 group border border-slate-100 overflow-visible">
-              <div class="absolute top-4 right-6 text-[10px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-accent transition-colors">Interactive Blueprint</div>
-              
-              <MermaidDiagram diagram={diagram} id="deep-dive-diagram">
-                <div slot="callouts" class="absolute inset-0 pointer-events-none">
-                  <!-- TLS Callout -->
-                  <div class="absolute top-[20%] left-[65%] hidden md:block">
-                    <div class="flex items-center gap-2 group/callout pointer-events-auto">
-                      <div class="w-3 h-3 bg-accent rounded-full animate-ping absolute"></div>
-                      <div class="w-3 h-3 bg-accent rounded-full relative"></div>
-                      <div class="bg-white/90 backdrop-blur-sm border border-slate-200 p-2 rounded-lg shadow-sm text-[10px] font-bold text-slate-900 whitespace-nowrap opacity-0 group-hover/callout:opacity-100 transition-opacity">
-                        TLS terminates @ Ingress LB
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Traffic Split -->
-                  <div class="absolute top-[50%] left-[45%] hidden md:block">
-                    <div class="flex items-center gap-2 group/callout pointer-events-auto">
-                      <div class="w-3 h-3 bg-blue-500 rounded-full animate-ping absolute"></div>
-                      <div class="w-3 h-3 bg-blue-500 rounded-full relative"></div>
-                      <div class="bg-white/90 backdrop-blur-sm border border-slate-200 p-2 rounded-lg shadow-sm text-[10px] font-bold text-slate-900 whitespace-nowrap opacity-0 group-hover/callout:opacity-100 transition-opacity">
-                        Traffic Split: Ext vs Int
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Control Plane -->
-                  <div class="absolute top-[10%] left-[30%] hidden md:block">
-                    <div class="flex items-center gap-2 group/callout pointer-events-auto">
-                      <div class="w-3 h-3 bg-slate-900 rounded-full animate-ping absolute"></div>
-                      <div class="w-3 h-3 bg-slate-900 rounded-full relative"></div>
-                      <div class="bg-white/90 backdrop-blur-sm border border-slate-200 p-2 rounded-lg shadow-sm text-[10px] font-bold text-slate-900 whitespace-nowrap opacity-0 group-hover/callout:opacity-100 transition-opacity">
-                        Control Plane Mgmt Boundary
-                      </div>
-                    </div>
-                  </div>
+            <div class="mb-4">
+              <div class="glass p-2 md:p-6 rounded-[2rem] bg-slate-50/50 overflow-hidden group cursor-zoom-in border border-slate-100" data-zoom-trigger>
+                <div class="relative overflow-hidden rounded-[1.5rem]">
+                  <img 
+                    src="/images/case-study-1.png" 
+                    alt="Hybrid Integration Hub Architecture" 
+                    class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                    data-gsap="reveal"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
-              </MermaidDiagram>
+              </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
@@ -436,5 +377,77 @@ const diagram = `graph TB
 
   </article>
 
-  </article>
+  <!-- Image Zoom Overlay -->
+  <div id="zoom-overlay" class="fixed inset-0 z-[100] bg-slate-900/98 backdrop-blur-2xl hidden flex items-center justify-center cursor-zoom-out p-4 md:p-12 transition-all duration-500">
+      <div class="relative w-full h-full flex items-center justify-center">
+          <img id="zoom-image" src="" alt="Zoomed Diagram" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl border border-white/10" />
+          <button id="close-zoom" class="absolute top-4 right-4 md:top-8 md:right-8 p-3 bg-white/10 hover:bg-white/20 hover:scale-110 active:scale-90 rounded-full text-white transition-all duration-300" aria-label="Close zoom">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+          
+          <div class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full border border-white/20 text-white/70 text-[10px] font-bold uppercase tracking-widest pointer-events-none">
+            Click anywhere to close
+          </div>
+      </div>
+  </div>
+
+  <script>
+      import { gsap } from 'gsap';
+
+      document.addEventListener('DOMContentLoaded', () => {
+          const trigger = document.querySelector('[data-zoom-trigger]');
+          const overlay = document.getElementById('zoom-overlay');
+          const zoomImg = document.getElementById('zoom-image') as HTMLImageElement;
+          const closeBtn = document.getElementById('close-zoom');
+
+          if (!trigger || !overlay || !zoomImg) return;
+
+          trigger.addEventListener('click', () => {
+              const img = trigger.querySelector('img');
+              if (!img) return;
+              
+              zoomImg.src = img.src;
+              
+              overlay.classList.remove('hidden');
+              
+              // GSAP Animation for premium feel
+              gsap.fromTo(overlay, 
+                  { opacity: 0 }, 
+                  { opacity: 1, duration: 0.5, ease: "power3.out" }
+              );
+              
+              gsap.fromTo(zoomImg, 
+                  { scale: 0.9, opacity: 0, y: 20 }, 
+                  { scale: 1, opacity: 1, y: 0, duration: 0.7, ease: "expo.out", delay: 0.1 }
+              );
+              
+              document.body.style.overflow = 'hidden'; // Prevent background scroll
+          });
+
+          const closeZoom = () => {
+              gsap.to(overlay, { 
+                  opacity: 0, 
+                  duration: 0.4, 
+                  ease: "power3.inOut",
+                  onComplete: () => {
+                      overlay.classList.add('hidden');
+                      document.body.style.overflow = '';
+                  }
+              });
+          };
+
+          overlay.addEventListener('click', closeZoom);
+          closeBtn?.addEventListener('click', (e) => {
+              e.stopPropagation();
+              closeZoom();
+          });
+          
+          // Escape key to close
+          document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+                  closeZoom();
+              }
+          });
+      });
+  </script>
 </BaseLayout>

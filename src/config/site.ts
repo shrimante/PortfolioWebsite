@@ -5,15 +5,15 @@ export const siteConfig = {
   email: "shrimante@gmail.com",
   linkedIn: "https://www.linkedin.com/in/srimaneshwar/",
   resumePath: "/Sriman_Tirupathy_Eshwarappa_Resume.pdf",
-  bookingLink: "https://calendly.com/sriman-arch/15min",
+  bookingLink: "/contact",
   location: "Bangalore, India",
   timezone: "IST",
-  headshot: { 
-    enabled: true, 
-    src: "/images/headshot-bust.jpg", 
-    alt: "Sriman Tirupathy Eshwarappa" 
+  headshot: {
+    enabled: true,
+    src: "/images/headshot-bust.jpg",
+    alt: "Sriman Tirupathy Eshwarappa"
   },
-  
+
   metrics: [
     { label: "Years Experience", value: "~20" },
     { label: "Production APIs", value: "120+" },
@@ -45,7 +45,7 @@ export const siteConfig = {
       icon: "layers"
     }
   ],
-  
+
   ownershipChecklist: [
     {
       category: "Build",
@@ -122,10 +122,10 @@ export const siteConfig = {
   ],
 
   keywords: [
-    "Enterprise Architecture", "API Strategy & Governance", "Platform Engineering", 
+    "Enterprise Architecture", "API Strategy & Governance", "Platform Engineering",
     "Integration Operating Model (C4E)", "Capacity Planning", "Reliability Engineering",
-    "MuleSoft Anypoint", "Runtime Fabric", "CloudHub 2.0", "API Manager", "RAML", 
-    "OAuth2", "TLS", "RBAC", "Solace", "Splunk", "ELK", "OpenShift", 
+    "MuleSoft Anypoint", "Runtime Fabric", "CloudHub 2.0", "API Manager", "RAML",
+    "OAuth2", "TLS", "RBAC", "Solace", "Splunk", "ELK", "OpenShift",
     "Kubernetes", "Disaster Recovery", "GitLab CI/CD"
   ],
 
