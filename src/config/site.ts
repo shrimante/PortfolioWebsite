@@ -264,6 +264,17 @@ export const siteConfig = {
       description: "Checklists for Definition of Ready/Done, versioning strategies, and deprecation lifecycle policies.",
       impact: "Provides executive-level control over the entire API lifecycle.",
       tags: ["Governance", "Lifecycle", "Leadership"]
+    },
+    {
+      slug: "mulesoft-observability-contract",
+      title: "Observability Contract",
+      repo: "mulesoft-observability-contract",
+      description: "Advanced two-mode JSON structured logging framework with centralized payload masking, tracing, and metric summarization.",
+      icon: "activity",
+      category: "Integration",
+      impact: "Reduces diagnosis MTTR and centralizes payload redaction logic.",
+      tags: ["Observability", "Splunk", "ELK", "DataWeave"],
+      hasDetails: true
     }
   ]
 };

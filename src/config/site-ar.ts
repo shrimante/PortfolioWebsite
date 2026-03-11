@@ -121,6 +121,17 @@ export const siteConfigAr = {
       impact: "يعمل على أتمتة دورة حياة الإصدار بنسخ يمكن التنبؤ بها بنسبة 100٪.",
       tags: ["CI/CD", "GitHub Actions", "Jenkins", "DevOps"],
       hasDetails: true
+    },
+    {
+      slug: "mulesoft-observability-contract",
+      title: "عقد إمكانية الملاحظة",
+      repo: "mulesoft-observability-contract",
+      description: "إطار عمل تسجيل منظم JSON متقدم ثنائي الوضع مع إخفاء الحمولة المركزية والتتبع وتلخيص المقاييس.",
+      icon: "activity",
+      category: "التكامل",
+      impact: "يقلل من وقت التشخيص (MTTR) ويركز منطق تنقيح الحمولة.",
+      tags: ["إمكانية الملاحظة", "Splunk", "ELK", "DataWeave"],
+      hasDetails: true
     }
   ]
 };

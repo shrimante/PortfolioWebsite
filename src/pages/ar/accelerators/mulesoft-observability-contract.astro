@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+const title = "عقد إمكانية الملاحظة";
+const description = "إطار عمل تسجيل منظم JSON متقدم ثنائي الوضع مع إخفاء الحمولة المركزية والتتبع وتلخيص المقاييس.";
+---
+
+<BaseLayout title={`${title} | سريمان تيروباثي إيشوارابا`} description={description} dir="rtl">
+  
+  <article class="pt-32 pb-24">
+    <div class="container mx-auto px-6 max-w-4xl" dir="rtl">
+      
+      <!-- Header -->
+      <header class="mb-16">
+        <a href="/ar/accelerators" class="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-widest hover:text-slate-900 transition-colors mb-8">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="rotate-180"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          العودة إلى المسرعات
+        </a>
+        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tighter italic">{title}</h1>
+        <p class="text-xl text-slate-600 leading-relaxed">
+          أكثر من مجرد مسجل مخصص، يعد هذا المكون عقدًا معماريًا صارمًا يجبر كل واجهة برمجة تطبيقات MuleSoft في المؤسسة على التحدث بنفس لهجة JSON المنظمة تمامًا. صُمم ببنية فريدة ثنائية الوضع، وهو يقلل من بصمة وقت التشغيل مع تمكين التشخيص السريع للسبب الجذري.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mt-8">
+          <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-widest border border-slate-200">Mule 4</span>
+          <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-widest border border-slate-200">إمكانية الملاحظة</span>
+          <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-widest border border-slate-200">قناع DataWeave</span>
+          <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-widest border border-slate-200">Splunk / ELK</span>
+        </div>
+      </header>
+
+      <!-- Architecture Metrics -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div class="glass p-6 rounded-2xl border border-slate-200">
+          <div class="text-3xl font-bold text-accent mb-2">~0%</div>
+          <div class="text-xs font-bold uppercase tracking-widest text-slate-500">حظر الإدخال/الإخراج</div>
+          <p class="text-sm text-slate-600 mt-2">مدفوع بواسطة Log4j2 Asynchronous Appenders.</p>
+        </div>
+        <div class="glass p-6 rounded-2xl border border-slate-200">
+          <div class="text-3xl font-bold text-accent mb-2">2 أوضاع</div>
+          <div class="text-xs font-bold uppercase tracking-widest text-slate-500">INFO مقابل DEBUG</div>
+          <p class="text-sm text-slate-600 mt-2">فصل صريح بين التوجيه البسيط والتشخيصات الكثيفة.</p>
+        </div>
+        <div class="glass p-6 rounded-2xl border border-slate-200">
+          <div class="text-3xl font-bold text-accent mb-2">100%</div>
+          <div class="text-xs font-bold uppercase tracking-widest text-slate-500">تتبع الحدث</div>
+          <p class="text-sm text-slate-600 mt-2">نشر ارتباط عالمي عبر شبكة واجهة برمجة التطبيقات بأكملها.</p>
+        </div>
+      </div>
+
+      <!-- Core Features -->
+      <div class="prose prose-slate prose-lg max-w-none prose-rtl leading-loose">
+        <h2>فلسفة إمكانية الملاحظة</h2>
+        <p>
+          التكاملات هي الجهاز العصبي للمؤسسة. ولكن عندما تكون السجلات مزعجة، غير منظمة، أو تفتقر إلى الارتباط الحاسم، تقضي فرق الدعم ساعات باهظة في البحث عبر أنظمة متباينة للعثور على السبب الجذري للانقطاع. تسمح مكونات <code>logger</code> القياسية للمطورين بتسجيل <em>أي شيء</em>، مما يؤدي إلى الفوضى.
+        </p>
+
+        <p>
+          يحل هذا المسرّع ذلك من خلال تجريد كل منطق التسجيل في مسارات فرعية دلالية لـ Mule. يخدم هذا ثلاثة أغراض:
+        </p>
+        <ul class="list-disc pr-6">
+          <li><strong>لا يوجد انحراف في التكوين:</strong> تؤدي ترقية المخطط هنا إلى ترقية التسجيل لـ 100+ تكامل في عملية البناء التالية.</li>
+          <li><strong>إخفاء عميق:</strong> يتم اقتطاع حقول PII/PCI الحساسة بشكل روتيني قبل وصولها إلى المجمّع.</li>
+          <li><strong>إزالة الكود المتكرر:</strong> يركز المطورون تمامًا على منطق الأعمال بدلاً من صياغة تخطيطات السجل.</li>
+        </ul>
+
+        <hr class="my-12 border-slate-200" />
+
+        <h2>بنية الوضعين المتعددة التفاصيل</h2>
+        <p>تعطي إطار العمل الأولوية للعنوان <strong>"تشخيص أسرع بسجلات أقل."</strong></p>
+
+        <h3>1. وضع INFO: الافتراضي الخفيف</h3>
+        <p>
+          نشط لأكثر من 99% من حجم الإنتاج. يقوم بتسجيل المراحل الرئيسية فقط مثل `FLOW_START` و `OUTBOUND_RESPONSE`. بشكل حاسم، يستبدل الحمولات بأكملها بـ <code>payloadSummary</code> خفيف الوزن.
+        </p>
+
+        <div class="bg-slate-900 rounded-2xl p-6 my-6 shadow-xl overflow-x-auto relative group" dir="ltr">
+          <div class="absolute top-4 right-4 px-2 py-1 bg-white/10 rounded text-[10px] font-bold text-white uppercase tracking-widest">INFO Output</div>
+          <pre is:raw><code class="language-json text-sm text-slate-300">{
+  "timestamp": "2026-03-12T10:15:30.123Z",
+  "level": "INFO",
+  "eventType": "OUTBOUND_RESPONSE",
+  "application": {
+    "apiName": "customer-system-api",
+    "environment": "prod"
+  },
+  "trace": { "correlationId": "8b9cad0e..." },
+  "targetMetadata": {
+    "targetSystem": "SAP ERP",
+    "httpStatus": 201
+  },
+  "payloadSummary": {
+    "type": "Object",
+    "attributeCount": 5,
+    "topLevelKeys": ["sapId", "status"]
+  }
+}</code></pre>
+        </div>
+
+        <h3>2. وضع DEBUG: تشخيصات عميقة مستهدفة</h3>
+        <p>
+          عند حدوث حادث ولا يكون ملخص الحمولة كافيًا، يمكن للمهندسين المعماريين تبديل خاصية <code>obs.debug.enabled</code> ديناميكيًا إلى <code>true</code>. يبدأ إطار العمل على الفور في تنفيذ عمليات مسح تنقيح عميقة، وتوليد لقطات <code>diagnostics.before</code> و <code>diagnostics.after</code> قوية.
+        </p>
+        
+        <div class="bg-slate-900 rounded-2xl p-6 my-6 shadow-xl overflow-x-auto relative group" dir="ltr">
+          <div class="absolute top-4 right-4 px-2 py-1 border border-accent/30 text-accent rounded text-[10px] font-bold uppercase tracking-widest bg-accent/10">DEBUG Output</div>
+          <pre is:raw><code class="language-json text-sm text-slate-300">{
+  "level": "DEBUG",
+  "eventType": "OUTBOUND_REQUEST",
+  "diagnostics": {
+    "before": {
+      "payload": {
+         "customerId": "CUST-88910",
+         "name": "Jane Doe",
+         "apiSecret": "*** REDACTED ***"
+      }
+    }
+  }
+}</code></pre>
+        </div>
+
+        <h2>الأمن المركزي: محرك التنقيح</h2>
+        <p>
+          لا يمكن ترك أمن البيانات للمطورين الفرديين الذين يبنون مئات التكاملات لـ HTTP. يتطلب عقد إمكانية الملاحظة بنية قناع مركزية لحماية PII و PHI وبيانات الاعتماد (<code>masking-rules.dwl</code>). يقوم تلقائيًا باقتطاع المصفوفات الضخمة لمنع ارتفاعات الذاكرة والكتابة فوق الحقول التي تتطابق مع قاموس الثقة الصفرية العالمي بـ <code>*** REDACTED ***</code> بغض النظر عن مكان وجودها في بنية الحمولة المتبادلة.
+        </p>
+
+        <div class="mt-16 p-8 bg-slate-50 border border-slate-200 rounded-3xl text-center">
+          <h3 class="text-xl font-bold text-slate-900 mb-4 italic">هل أنت مستعد لتوحيد مقاييس مؤسستك؟</h3>
+          <p class="text-slate-600 mb-8 max-w-lg mx-auto">
+            يمكنك حقن هذا المكون الإضافي لـ Maven القابل لإعادة الاستخدام مباشرة في مواصفات واجهة برمجة التطبيقات الخاصة بك لتحسين الرؤية التشغيلية بشكل جذري.
+          </p>
+          <a href="https://github.com/shrimante/mulesoft-observability-contract" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-xl hover:bg-accent transition-all duration-300 shadow-xl hover:shadow-accent/20 font-bold uppercase tracking-widest text-xs">
+            عرض الكود המصادر على GitHub
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </article>
+</BaseLayout>
