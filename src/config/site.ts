@@ -152,11 +152,13 @@ export const siteConfig = {
       tags: ["API-Led", "Reusable Assets", "Onboarding"]
     },
     {
+      slug: "mulesoft-cicd-pipeline-templates",
       title: "CI/CD Pipeline Templates",
-      repo: "mulesoft-cicd-templates",
-      description: "GitHub Actions and Jenkins pipelines for CloudHub 2.0 & RTF. Includes MUnit gates, environment promotion, and rollback strategies.",
-      impact: "Automates the release lifecycle with 100% predictable deployments.",
-      tags: ["GitHub Actions", "Jenkins", "DevOps"]
+      description: "Reusable GitHub Actions and Jenkins pipelines standardizing MuleSoft deployments.",
+      icon: "settings",
+      category: "Automation",
+      tags: ["CI/CD", "GitHub Actions", "Jenkins", "DevOps"],
+      hasDetails: true
     },
     {
       title: "MUnit Test Accelerator",

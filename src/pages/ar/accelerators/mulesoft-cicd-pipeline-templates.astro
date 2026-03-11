@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+const title = "قوالب خطوط أنابيب CI/CD في MuleSoft";
+const description = "قوالب Jenkins و GitHub Actions موحدة لعمليات نشر MuleSoft.";
+const githubRepo = "https://github.com/shrimante/mulesoft-cicd-pipeline-templates";
+---
+
+<BaseLayout 
+  title={`${title} | المسرعات الهندسية`}
+  description={description}
+>
+  <article class="pt-32 pb-24" dir="rtl">
+    <div class="container mx-auto px-6 max-w-4xl">
+      
+      <!-- Back Link -->
+      <a href="/ar/accelerators" class="inline-flex items-center gap-2 text-slate-500 hover:text-accent transition-colors mb-12 group text-sm font-bold uppercase tracking-widest">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform rotate-180"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        العودة إلى المسرعات
+      </a>
+
+      <!-- Header -->
+      <header class="mb-16 relative">
+        <div class="absolute -right-8 -top-8 w-32 h-32 bg-accent/5 rounded-full blur-3xl -z-10"></div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 text-[10px] font-bold tracking-[0.2em] text-accent uppercase bg-accent/5 rounded-full border border-accent/10">
+          DevOps & أتمتة
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter mb-6 italic">
+          {title}
+        </h1>
+        <p class="text-xl text-slate-600 leading-relaxed mb-8">
+          مسرع CI/CD غير مرتبط بمنصة معينة يوفر مسارات نشر محكومة لـ CloudHub 2.0 و Runtime Fabric، مع فرض بوابات جودة المؤسسة.
+        </p>
+        
+        <div class="flex flex-wrap gap-4">
+          <a href={githubRepo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white hover:bg-accent text-xs uppercase font-bold tracking-widest rounded-xl transition-all shadow-xl hover:shadow-accent/20">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            عرض المستودع
+          </a>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="prose prose-slate prose-lg max-w-none">
+        
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-white/50">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4 tracking-tight italic">1. حوكمة التسليم كرمز</h2>
+          <p class="text-slate-600 mb-4">
+            تؤدي عمليات النشر غير المتسقة إلى انحراف التكوين، وتفويت الاختبارات، وانقطاع الإنتاج. يؤسس مسرع CI/CD هذا "حوكمة التسليم كرمز" صارمة لجميع واجهات برمجة تطبيقات MuleSoft، ويدعم كلاً من GitHub Actions و Jenkins بمنطق موحد.
+          </p>
+        </div>
+
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-white/50">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4 tracking-tight italic">2. فرض حقيبة البدء الفعال</h2>
+          <p class="text-slate-600 mb-6">تم تصميم هذه القوالب بشكل فريد لحماية منصتك. فهي تتكامل مباشرة مع حقيبة أدوات البدء في MuleSoft عبر تنفيذ برنامج نصي يتحقق نشطًا من:</p>
+          <ul class="space-y-4 text-slate-600">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span><strong>فحص المراقبة:</strong> يحظر بناء التكامل المستمر (CI) إذا كان ملف POM الخاص بالمشروع يفتقد إلى <code>mulesoft-logging-correlation-standard</code>.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span><strong>فحص المرونة:</strong> يحظر بناء التكامل المستمر إذا لم يتم استيراد <code>mulesoft-error-handling-standard</code>، مما يمنع أعطال 500 غير المدارة.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span><strong>السلامة الهيكلية:</strong> يضمن أن المستودع يستخدم مجلد MUnit الأساسي وهياكل مجلد الخاصية قبل توفير عمال Maven.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-slate-900 text-white relative overflow-hidden">
+          <div class="absolute left-0 top-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
+          <h2 class="text-2xl font-bold mb-6 tracking-tight italic relative z-10">فصل وحدات CI/CD</h2>
+          
+          <div class="relative z-10 space-y-6 text-slate-300">
+            <p>يفصل التدفق البناء ذو الحالة عن عمليات النشر عديمة الحالة، وهو ما يتماشى مع مبدأ "ابنِ مرة واحدة، وانشر مرات عديدة".</p>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-mono mt-4">
+              <li class="bg-indigo-900/50 p-4 rounded border border-indigo-500/30">
+                <strong class="text-indigo-300 block mb-2" dir="ltr">Build & Test (CI)</strong>
+                يدير MUnit، ويتحقق من التبعيات، ويجمع JAR، وينشره في Nexus/تخزين الكيانات.
+              </li>
+              <li class="bg-emerald-900/50 p-4 rounded border border-emerald-500/30">
+                <strong class="text-emerald-300 block mb-2" dir="ltr">Release (CD)</strong>
+                يجلب ملف JAR ثابت، ويحقن مفاتيح البيئة، وينشر في CloudHub، ويشغل فحوصات الدخان.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="glass p-8 rounded-3xl mb-12 border border-slate-200 bg-white/50">
+          <h2 class="text-2xl font-bold text-slate-900 mb-6 tracking-tight italic" dir="ltr">Secure Maven Injection</h2>
+          <p class="text-slate-600 mb-4">لا توجد رموز قوية مشفرة. تعرض قوالب خطوط الأنابيب الحقن الديناميكي لتطبيقات الاتصال بمنصة Anypoint وعبارات مرور خزانة الخصائص الآمنة باستخدام أسرار عداء CI/CD.</p>
+          
+          <div class="bg-slate-900 rounded-xl p-6 overflow-x-auto" dir="ltr">
+<pre><code class="text-sm text-blue-300 font-mono">{"# GitHub Actions Secret Injection Pattern"}
+- name: Maven Deploy (CloudHub)
+  env:
+    ENV: {"${{ github.event.inputs.environment }}"}
+    CLIENT_ID: {"${{ secrets.ANYPOINT_CLIENT_ID }}"}
+    CLIENT_SECRET: {"${{ secrets.ANYPOINT_CLIENT_SECRET }}"}
+    MULE_KEY: {"${{ secrets.MULE_KEY }}"}
+  run: |
+    mvn deploy -DmuleDeploy \
+      -Danypoint.env=$ENV \
+      -Danypoint.clientId=$CLIENT_ID \
+      -Danypoint.clientSecret=$CLIENT_SECRET \
+      -Dmule.key=$MULE_KEY \
+      -B</code></pre>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer CTA -->
+      <div class="mt-16 text-center">
+        <a href={githubRepo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 text-slate-900 hover:bg-slate-200 text-sm uppercase font-bold tracking-widest rounded-xl transition-all font-mono">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          استكشف قوالب خطوط الأنابيب على GitHub
+        </a>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>
