@@ -166,18 +166,23 @@ export const siteConfig = {
       tags: ["MUnit", "Quality Gates", "Testing"]
     },
     {
-      title: "Error Handling Standard",
+      slug: "mulesoft-error-handling-standard",
+      title: "MuleSoft Error Handling Standard",
       repo: "mulesoft-error-handling-standard",
-      description: "Canonical error taxonomy, global error handler implementation, correlation ID strategy, and REST-aligned response models.",
+      description: "Reusable, standardized enterprise error handling for Mule 4 APIs.",
+      icon: "alert",
+      category: "Integration",
       impact: "Reduces MTTR and provides a consistent experience for API consumers.",
-      tags: ["Error Handling", "REST", "Reliability"]
+      tags: ["Mule 4", "Error Handling", "AOP"],
+      hasDetails: true
     },
     {
       title: "Logging & Correlation Standard",
-      repo: "mulesoft-logging-standard",
+      repo: "mulesoft-logging-correlation-standard",
       description: "JSON structured logging, correlation propagation across service tiers, and out-of-the-box Splunk/ELK/Datadog compatibility.",
       impact: "Provides enterprise-grade observability and simplifies troubleshooting.",
-      tags: ["Observability", "Splunk", "ELK"]
+      tags: ["Observability", "Splunk", "ELK"],
+      hasDetails: true
     },
     {
       title: "Security Baseline Accelerator",
