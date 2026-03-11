@@ -154,9 +154,11 @@ export const siteConfig = {
     {
       slug: "mulesoft-cicd-pipeline-templates",
       title: "CI/CD Pipeline Templates",
+      repo: "mulesoft-cicd-pipeline-templates",
       description: "Reusable GitHub Actions and Jenkins pipelines standardizing MuleSoft deployments.",
       icon: "settings",
       category: "Automation",
+      impact: "Automates the release lifecycle with 100% predictable deployments.",
       tags: ["CI/CD", "GitHub Actions", "Jenkins", "DevOps"],
       hasDetails: true
     },

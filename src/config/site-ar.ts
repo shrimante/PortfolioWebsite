@@ -110,6 +110,17 @@ export const siteConfigAr = {
       impact: "يوفر إمكانية ملاحظة على مستوى المؤسسة ويبسط استكشاف الأخطاء وإصلاحها.",
       tags: ["إمكانية الملاحظة", "Splunk", "ELK"],
       hasDetails: true
+    },
+    {
+      slug: "mulesoft-cicd-pipeline-templates",
+      title: "قوالب خطوط أنابيب CI/CD",
+      repo: "mulesoft-cicd-pipeline-templates",
+      description: "قوالب Jenkins و GitHub Actions موحدة لعمليات نشر MuleSoft.",
+      icon: "settings",
+      category: "الأتمتة",
+      impact: "يعمل على أتمتة دورة حياة الإصدار بنسخ يمكن التنبؤ بها بنسبة 100٪.",
+      tags: ["CI/CD", "GitHub Actions", "Jenkins", "DevOps"],
+      hasDetails: true
     }
   ]
 };
